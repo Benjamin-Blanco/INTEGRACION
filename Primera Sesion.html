@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Introducción a la Integración – Maestría en Finanzas y Gerencia Financiera</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-soft: #111827;
+      --card: #020617;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.18);
+      --text-main: #e5e7eb;
+      --text-soft: #9ca3af;
+      --border-soft: #1f2937;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1e293b 0, #020617 55%);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 1rem 2rem;
+      border-bottom: 1px solid var(--border-soft);
+      background: linear-gradient(to right, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.96));
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: .5rem 2rem;
+    }
+
+    header h1 {
+      font-size: 1.4rem;
+      margin: 0;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    header .subtitle {
+      font-size: .9rem;
+      color: var(--text-soft);
+    }
+
+    #deck {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem 2rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .slide {
+      display: none;
+      background: radial-gradient(circle at top left, #111827 0, #020617 55%);
+      border-radius: 1rem;
+      border: 1px solid var(--border-soft);
+      padding: 1.75rem 2rem;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
+      min-height: 420px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide.active {
+      display: block;
+      animation: fadeIn .35s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .slide h2 {
+      margin-top: 0;
+      margin-bottom: .8rem;
+      font-size: 1.35rem;
+      border-bottom: 1px solid rgba(55, 65, 81, 0.85);
+      padding-bottom: .35rem;
+    }
+
+    .slide h3 {
+      margin-top: 1.25rem;
+      margin-bottom: .4rem;
+      font-size: 1.05rem;
+    }
+
+    .slide p {
+      line-height: 1.6;
+      font-size: .96rem;
+      margin: .35rem 0;
+    }
+
+    .slide ul, .slide ol {
+      margin: .3rem 0 .6rem 1.2rem;
+      padding-left: .6rem;
+      font-size: .95rem;
+    }
+
+    .slide li {
+      margin-bottom: .25rem;
+    }
+
+    .tagline {
+      font-size: .9rem;
+      color: var(--accent);
+      margin-bottom: .4rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+
+    .meta {
+      font-size: .85rem;
+      color: var(--text-soft);
+    }
+
+    .two-columns {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+
+    .card {
+      border-radius: .85rem;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.85));
+      padding: 1rem 1.2rem;
+      font-size: .9rem;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: .5rem 0 1rem;
+      font-size: .9rem;
+    }
+
+    th, td {
+      border: 1px solid rgba(55, 65, 81, 0.95);
+      padding: .4rem .55rem;
+      text-align: left;
+    }
+
+    th {
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    caption {
+      text-align: left;
+      font-size: .85rem;
+      color: var(--text-soft);
+      margin-bottom: .35rem;
+    }
+
+    .note {
+      font-size: .82rem;
+      color: var(--text-soft);
+      margin-top: .4rem;
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: .75rem;
+      display: block;
+    }
+
+    iframe {
+      width: 100%;
+      min-height: 260px;
+      border-radius: .75rem;
+      border: 1px solid rgba(55, 65, 81, 0.8);
+      background: #020617;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    #nav {
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: .75rem;
+      align-items: center;
+    }
+
+    button.nav-btn {
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      background: radial-gradient(circle at top, var(--accent-soft), #020617);
+      color: var(--text-main);
+      padding: .45rem 1.2rem;
+      font-size: .9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      transition: transform .08s ease-out, box-shadow .08s ease-out, background .08s ease-out;
+    }
+
+    button.nav-btn[disabled] {
+      opacity: .35;
+      cursor: default;
+      border-color: rgba(55, 65, 81, 0.9);
+      background: #020617;
+    }
+
+    button.nav-btn:not([disabled]):hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 25px rgba(15, 23, 42, 0.7);
+    }
+
+    #slide-indicator {
+      font-size: .85rem;
+      color: var(--text-soft);
+    }
+
+    #progress {
+      position: relative;
+      flex: 1;
+      min-width: 120px;
+      height: .35rem;
+      border-radius: 999px;
+      background: #020617;
+      overflow: hidden;
+      border: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    #progress-bar {
+      position: absolute;
+      inset: 0;
+      width: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #22d3ee, #38bdf8, #0ea5e9);
+      transition: width .2s ease-out;
+    }
+
+    @media (max-width: 900px) {
+      #deck {
+        padding: 1rem;
+      }
+      .slide {
+        padding: 1.2rem 1.2rem 1.5rem;
+        border-radius: .9rem;
+      }
+      .two-columns {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Introducción a la Integración</h1>
+  <div class="subtitle">
+    Maestría en Finanzas y Gerencia Financiera – Versión XI (Gestión 2024–2026) · 17 al 28 de noviembre de 2025
+  </div>
+  <div class="subtitle">
+    Docente: M.Sc. Benjamín Juan Carlos Blanco Ferri
+  </div>
+</header>
+
+<main id="deck">
+  <!-- 01 – Portada -->
+  <section class="slide active" data-slide="1">
+    <div class="tagline">Módulo</div>
+    <h2>Presentación general del módulo</h2>
+    <p>
+      Este módulo desarrolla la capacidad de comprender y analizar los procesos de integración económica, con énfasis
+      en la Comunidad Andina y su vínculo con las finanzas y la gerencia financiera.
+    </p>
+    <p>
+      La lógica del curso es doble: por un lado, entender <strong>por qué</strong> surgen y se profundizan los procesos de
+      integración; por otro, analizar <strong>cómo</strong> influyen en la estrategia empresarial, la competitividad y las
+      decisiones financieras en un entorno global crecientemente multipolar.
+    </p>
+    <div class="card">
+      <h3>Resultados esperados al finalizar el módulo</h3>
+      <ul>
+        <li>Comprender las distintas formas de integración económica y sus efectos cuantificables.</li>
+        <li>Analizar el ordenamiento jurídico andino y su impacto en empresas e inversionistas.</li>
+        <li>Relacionar la integración regional con decisiones financieras y gestión de riesgos.</li>
+        <li>Identificar oportunidades de emprendimiento y expansión intrarregional.</li>
+      </ul>
+      <p class="note">
+        Este HTML funciona como “presentación viva”: úsalo en clase con los botones de navegación o con las teclas
+        ← y → para avanzar y retroceder.
+      </p>
+    </div>
+  </section>
+
+  <!-- 02 – Competencia general -->
+  <section class="slide" data-slide="2">
+    <div class="tagline">Competencia general</div>
+    <h2>Competencia general del módulo</h2>
+    <p>
+      El módulo busca desarrollar en los maestrantes la capacidad de <strong>comprender y analizar</strong> los procesos de
+      integración económica, especialmente entre los países miembros de la Comunidad Andina.
+    </p>
+    <p>
+      Al finalizar, los participantes serán capaces de:
+    </p>
+    <ul>
+      <li>
+        Evaluar los <strong>compromisos asumidos</strong> por los países andinos en materia de integración económica.
+      </li>
+      <li>
+        Analizar los <strong>beneficios económicos, sociales, políticos, jurídicos y culturales</strong> derivados de estos procesos.
+      </li>
+      <li>
+        Entender por qué se generan los procesos de integración y su importancia en un mundo en transición hacia
+        la <strong>multipolaridad</strong>.
+      </li>
+      <li>
+        Aplicar este conocimiento en la <strong>gestión estratégica</strong> y la <strong>gerencia financiera</strong> de empresas y proyectos.
+      </li>
+      <li>
+        Identificar y aprovechar <strong>oportunidades emprendedoras</strong> creadas por la integración regional.
+      </li>
+    </ul>
+  </section>
+
+  <!-- 03 – Competencias específicas -->
+  <section class="slide" data-slide="3">
+    <div class="tagline">Competencias específicas</div>
+    <h2>Competencias específicas a desarrollar</h2>
+    <ol>
+      <li>
+        <strong>Análisis de procesos de integración económica:</strong>
+        Identificar y evaluar los principales procesos de integración económica en la región andina, comprendiendo su
+        evolución histórica, sus objetivos y su funcionamiento.
+      </li>
+      <li>
+        <strong>Evaluación de compromisos y beneficios:</strong>
+        Analizar los compromisos asumidos por los países miembros de la Comunidad Andina y los beneficios
+        económicos, sociales y políticos resultantes.
+      </li>
+      <li>
+        <strong>Comprensión de la dinámica multipolar:</strong>
+        Entender por qué surgen los procesos de integración económica y su relevancia en un contexto global cada vez
+        más multipolar, identificando oportunidades y riesgos para los agentes económicos.
+      </li>
+      <li>
+        <strong>Aplicación en gestión estratégica y financiera:</strong>
+        Aplicar el conocimiento sobre integración económica en la formulación y ejecución de estrategias
+        empresariales y financieras, maximizando ventajas competitivas derivadas de la integración regional.
+      </li>
+      <li>
+        <strong>Fomento del emprendimiento regional:</strong>
+        Promover y gestionar iniciativas emprendedoras que aprovechen oportunidades creadas por la integración
+        económica, fomentando la cooperación entre países y la creación de redes de negocios transfronterizas.
+      </li>
+    </ol>
+  </section>
+
+  <!-- 04 – Metodología y evaluación -->
+  <section class="slide" data-slide="4">
+    <div class="tagline">Metodología y evaluación</div>
+    <h2>Metodología de trabajo y criterios de evaluación</h2>
+    <div class="two-columns">
+      <div>
+        <h3>Metodología de docencia</h3>
+        <ul>
+          <li>Exposición dialogada apoyada en este material HTML interactivo.</li>
+          <li>Análisis de casos y datos reales de comercio e integración regional.</li>
+          <li>Discusión guiada sobre impactos económicos y financieros de la integración.</li>
+          <li>Vínculo explícito entre marcos jurídicos y decisiones empresariales.</li>
+        </ul>
+        <h3>Evaluación en el módulo</h3>
+        <ul>
+          <li><strong>Aprobación mínima:</strong> 70 %.</li>
+          <li><strong>Asistencia mínima:</strong> 70 %.</li>
+          <li>
+            <strong>Instrumentos:</strong> resolución de cuestionarios que abarcan lo avanzado en la sesión,
+            además de participación activa en clase.
+          </li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Rol de los cuestionarios</h3>
+        <p>
+          Los cuestionarios no son solo una verificación de memoria. Se utilizan para:
+        </p>
+        <ul>
+          <li>Contrastar la comprensión conceptual sobre integración y derecho comunitario.</li>
+          <li>Verificar la capacidad de aplicar los conceptos a situaciones financieras concretas.</li>
+          <li>Detectar brechas de aprendizaje para profundizar en los temas clave.</li>
+        </ul>
+        <p class="note">
+          El enlace al primer cuestionario se encuentra en la última diapositiva de esta presentación.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 – Estructura de contenidos del módulo -->
+  <section class="slide" data-slide="5">
+    <div class="tagline">Contenidos</div>
+    <h2>Estructura general de contenidos del módulo</h2>
+    <div class="two-columns">
+      <div>
+        <h3>Bloque 1 — Fundamentos</h3>
+        <ul>
+          <li>Introducción a la docencia y al enfoque del módulo.</li>
+          <li>Conceptos de globalización e integración económica.</li>
+          <li>Nociones de Derecho Comunitario y Derecho de la Integración.</li>
+          <li>Precondiciones y objetivos de los procesos de integración.</li>
+        </ul>
+        <h3>Bloque 2 — Arquitectura jurídica andina</h3>
+        <ul>
+          <li>Ordenamiento Jurídico Andino: normas originarias y derivadas.</li>
+          <li>Características generales del Derecho Comunitario Andino.</li>
+          <li>Órganos e instituciones con funciones normativas en la Comunidad Andina.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Bloque 3 — Tipos de integración económica</h3>
+        <ul>
+          <li>Zona o área de libre comercio.</li>
+          <li>Unión aduanera.</li>
+          <li>Mercado común.</li>
+          <li>Unión económica y monetaria.</li>
+          <li>Integración económica total y posibles dimensiones políticas.</li>
+        </ul>
+        <h3>Bloque 4 — Procesos latinoamericanos y finanzas</h3>
+        <ul>
+          <li>Asociación Latinoamericana de Integración (ALADI).</li>
+          <li>MERCOSUR.</li>
+          <li>Alianza del Pacífico.</li>
+        </ul>
+        <p class="note">
+          En esta sesión introductoria solo trabajaremos los conceptos básicos, sin entrar todavía a instituciones
+          específicas ni a regímenes sectoriales avanzados.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 – Globalización, integración y comercio -->
+  <section class="slide" data-slide="6">
+    <div class="tagline">Contexto global</div>
+    <h2>Globalización, comercio e integración financiera</h2>
+    <div class="two-columns">
+      <div>
+        <p>
+          La globalización económica se manifiesta en:
+        </p>
+        <ul>
+          <li>Mayor apertura comercial (exportaciones + importaciones) como porcentaje del PIB.</li>
+          <li>Creciente integración de los mercados financieros y de capitales.</li>
+          <li>Redes de producción y cadenas globales de valor.</li>
+        </ul>
+        <p>
+          En este entorno, la integración regional se convierte en una <strong>estrategia defensiva y ofensiva</strong>:
+        </p>
+        <ul>
+          <li>Defensiva, porque reduce vulnerabilidades frente a shocks externos.</li>
+          <li>Ofensiva, porque amplía mercados y atrae inversión hacia la región.</li>
+        </ul>
+        <p class="note">
+          Pregunta para el debate: ¿cómo cambia el perfil de riesgo-país cuando un Estado se integra a un bloque
+          con reglas claras y previsibles?
+        </p>
+      </div>
+      <div class="card">
+        <h3>Gráfico: comercio mundial como % del PIB</h3>
+        <p>
+          El siguiente recurso muestra cómo la participación del comercio en el PIB mundial ha crecido
+          estructuralmente desde 1960:
+        </p>
+        <iframe
+          src="https://ourworldindata.org/grapher/trade-as-share-of-gdp?tab=chart&stackMode=absolute&region=World"
+          title="Trade as a share of GDP – Our World in Data"
+          loading="lazy"
+        ></iframe>
+        <p class="note">
+          Fuente: Our World in Data, a partir de datos del Banco Mundial y estadísticas nacionales.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 – Globalización y volatilidad -->
+  <section class="slide" data-slide="7">
+    <div class="tagline">Riesgos globales</div>
+    <h2>Globalización, volatilidad y necesidad de reglas comunes</h2>
+    <div class="two-columns">
+      <div>
+        <p>
+          La mayor apertura económica también implica <strong>más exposición a crisis externas</strong>:
+        </p>
+        <ul>
+          <li>Choques de precios de materias primas.</li>
+          <li>Crisis financieras internacionales.</li>
+          <li>Interrupciones en cadenas de suministro.</li>
+        </ul>
+        <p>
+          Frente a este contexto, la integración regional y el derecho comunitario:
+        </p>
+        <ul>
+          <li>Crean <strong>reglas estables</strong> para el comercio y la inversión.</li>
+          <li>Facilitan respuestas coordinadas de política económica.</li>
+          <li>Ofrecen cierta <strong>previsibilidad regulatoria</strong> a empresas y ciudadanos.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Riesgos macro y coordinación regional</h3>
+        <p>
+          La apertura financiera sin coordinación regional puede amplificar la volatilidad. La integración acompañada de
+          normas comunes ayuda a gestionar estos riesgos, especialmente para economías pequeñas y abiertas como las
+          andinas.
+        </p>
+        <p class="note">
+          Esta reflexión permite vincular integración y estabilidad macrofinanciera sin entrar todavía en esquemas
+          avanzados que se verán más adelante en el programa.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 – Integración como fenómeno pluridimensional -->
+  <section class="slide" data-slide="8">
+    <div class="tagline">Definiciones clave</div>
+    <h2>La integración como fenómeno pluridimensional</h2>
+    <p>
+      Ekmekdjian sostuvo que, en su origen, <strong>la integración es un fenómeno de carácter pluridimensional,
+      plurifacético y globalizante, típico del siglo XX</strong>, que incide no solo en lo económico, sino también en lo
+      social, lo político, lo jurídico y lo cultural.
+    </p>
+    <p>
+      Esto significa que la integración:
+    </p>
+    <ul>
+      <li>No se limita a bajar aranceles: <strong>reorganiza relaciones</strong> entre Estados y entre ciudadanos.</li>
+      <li>Configura un <strong>espacio común</strong> donde se comparten reglas, políticas y, en algunos casos, instituciones.</li>
+      <li>
+        Puede generar <strong>obligaciones y derechos</strong> en múltiples ámbitos: económicos, sociales, políticos, jurídicos y
+        culturales.
+      </li>
+    </ul>
+    <p class="note">
+      Esta idea es central para responder si la integración genera solo compromisos económicos o también obligaciones
+      en otras dimensiones.
+    </p>
+  </section>
+
+  <!-- 09 – Obligaciones para Estados y ciudadanos -->
+  <section class="slide" data-slide="9">
+    <div class="tagline">Obligaciones y derechos</div>
+    <h2>Integración: obligaciones de los Estados y de los ciudadanos</h2>
+    <div class="two-columns">
+      <div>
+        <p>
+          Cuando dos o más Estados deciden integrarse, asumen <strong>obligaciones recíprocas</strong> que pueden incluir:
+        </p>
+        <ul>
+          <li>Eliminar o reducir barreras al comercio intra-bloque.</li>
+          <li>Ajustar normas internas para compatibilizarlas con acuerdos regionales.</li>
+          <li>Respetar decisiones de órganos comunes (por ejemplo, tribunales comunitarios).</li>
+          <li>Coordinar políticas públicas en ámbitos acordados.</li>
+        </ul>
+        <p>
+          Pero la integración también puede generar <strong>derechos y deberes para los ciudadanos</strong>:
+        </p>
+        <ul>
+          <li>Derecho a circular, residir o trabajar bajo condiciones especiales dentro del bloque.</li>
+          <li>Derecho a no ser discriminado por nacionalidad en determinados ámbitos.</li>
+          <li>Obligación de cumplir normas comunitarias directamente aplicables.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Idea fuerza</h3>
+        <p>
+          La integración entre dos o más naciones <strong>puede generar obligaciones en múltiples ámbitos</strong>, incluyendo
+          los sociales, políticos, jurídicos, culturales y, por supuesto, los económicos y comerciales.
+        </p>
+        <p class="note">
+          No se trata de simples recomendaciones voluntarias: en procesos comunitarios consolidados, muchas normas
+          son obligatorias tanto para los Estados como para los ciudadanos.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 – Interés nacional y beneficio común -->
+  <section class="slide" data-slide="10">
+    <div class="tagline">Intereses nacionales</div>
+    <h2>Interés nacional vs. beneficio común en la integración</h2>
+    <p>
+      En todo proceso de integración aparece una tensión inevitable entre el <strong>interés nacional</strong> de cada país y el
+      <strong>interés común</strong> del bloque.
+    </p>
+    <ul>
+      <li>
+        Los Estados no renuncian a sus intereses nacionales, pero pueden <strong>ajustar o posponer</strong> algunos de ellos
+        para alcanzar un beneficio compartido mayor.
+      </li>
+      <li>
+        Esto puede implicar aceptar reglas comunes que, en el corto plazo, exijan cambios internos o concesiones
+        sectoriales.
+      </li>
+      <li>
+        A cambio, se obtiene un <strong>mercado ampliado</strong>, mayor atracción de inversiones y más capacidad de
+        negociación externa.
+      </li>
+    </ul>
+    <div class="card">
+      <h3>Clave para el cuestionario</h3>
+      <p>
+        En un proceso de integración <strong>sí puede suceder</strong> que un país posponga o ajuste ciertos intereses
+        nacionales en función de un beneficio común. Esa es precisamente la lógica de la integración y del derecho
+        comunitario.
+      </p>
+    </div>
+  </section>
+
+  <!-- 11 – Concepto de derecho comunitario -->
+  <section class="slide" data-slide="11">
+    <div class="tagline">Marco jurídico</div>
+    <h2>Concepto y sentido del Derecho Comunitario</h2>
+    <p>
+      El <strong>Derecho Comunitario</strong> es el conjunto de normas y principios que rigen un proceso de integración
+      regional entre dos o más Estados.
+    </p>
+    <p>
+      Algunos autores destacan que se trata de un derecho marcado por la <strong>solidaridad</strong> entre los miembros:
+    </p>
+    <ul>
+      <li>
+        Presupone el establecimiento de un <strong>interés común</strong> entre los Estados miembros.
+      </li>
+      <li>
+        Apuesta por llevar ese interés común a la práctica mediante un proceso de integración con reglas e
+        instituciones propias.
+      </li>
+      <li>
+        Supone la búsqueda de la <strong>satisfacción de ese interés común por encima de los intereses puramente
+        nacionales</strong>.
+      </li>
+    </ul>
+  </section>
+
+  <!-- 12 – Derecho de la integración y ordenamiento especial -->
+  <section class="slide" data-slide="12">
+    <div class="tagline">Ordenamiento especial</div>
+    <h2>Derecho de la integración y su génesis</h2>
+    <p>
+      El <strong>derecho de la integración</strong> implica la construcción de un <strong>ordenamiento jurídico especial</strong>, que
+      transforma la relación entre los Estados miembros y también entre estos y los ciudadanos del espacio integrado.
+    </p>
+    <p>
+      Su génesis se encuentra en el <strong>derecho internacional</strong> y, más específicamente, en el <strong>derecho de los
+      tratados</strong>, ya que:
+    </p>
+    <ul>
+      <li>
+        El proceso de integración regional nace de un <strong>tratado constitutivo</strong>.
+      </li>
+      <li>
+        Este tratado fija principios, objetivos, instituciones y mecanismos de decisión.
+      </li>
+      <li>
+        A partir de allí se desarrolla un cuerpo normativo propio que se proyecta hacia los ordenamientos internos.
+      </li>
+    </ul>
+    <p class="note">
+      En esta sesión no entraremos todavía a analizar casos concretos ni procedimientos detallados: nos quedamos en
+      la arquitectura general.
+    </p>
+  </section>
+
+  <!-- 13 – Fuentes del derecho de la integración -->
+  <section class="slide" data-slide="13">
+    <div class="tagline">Fuentes normativas</div>
+    <h2>Fuentes del Derecho de la Integración</h2>
+    <div class="two-columns">
+      <div>
+        <p>Las fuentes del Derecho de la Integración se dividen en dos categorías principales:</p>
+        <h3>1. Derecho originario</h3>
+        <ul>
+          <li>
+            Tratados que dan origen al proceso de integración.
+          </li>
+          <li>
+            Protocolos adicionales, complementarios o modificatorios de dichos tratados.
+          </li>
+          <li>
+            En el derecho originario se encuentran:
+            <ul>
+              <li>Los compromisos fundamentales.</li>
+              <li>Los principios estructurales.</li>
+              <li>Los objetivos del sistema de integración.</li>
+            </ul>
+          </li>
+        </ul>
+        <h3>2. Derecho derivado</h3>
+        <ul>
+          <li>
+            Normas emanadas de los órganos decisorios creados por el derecho originario.
+          </li>
+          <li>
+            Sus condiciones de vigencia y jerarquía están definidas en el propio derecho originario.
+          </li>
+        </ul>
+      </div>
+      <div class="card">
+        <p>
+          En conjunto, las normas de derecho originario y derivado conforman un <strong>nuevo ordenamiento
+          jurídico</strong>, que se amplía y transforma a medida que el proceso de integración avanza, por acción de los
+          órganos supranacionales o intergubernamentales.
+        </p>
+        <p class="note">
+          Este carácter dinámico del derecho de la integración lo diferencia de un mero tratado clásico de
+          cooperación: aquí existe vocación de <strong>construir un espacio común</strong> con reglas en permanente evolución.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14 – Supranacionalidad y primacía -->
+  <section class="slide" data-slide="14">
+    <div class="tagline">Naturaleza jurídica</div>
+    <h2>Supranacionalidad, primacía y aplicabilidad directa</h2>
+    <p>
+      El Derecho Comunitario se diferencia del Derecho Internacional clásico en su <strong>naturaleza jurídica</strong>:
+    </p>
+    <ul>
+      <li>
+        Está compuesto por normas <strong>supranacionales</strong>, creadas por órganos comunes, que pueden aplicarse
+        directamente a los individuos y a los operadores económicos.
+      </li>
+      <li>
+        Esas normas, en los ámbitos definidos, tienen <strong>carácter obligatorio</strong> y pueden <strong>prevalecer sobre normas
+        nacionales</strong> incompatibles.
+      </li>
+      <li>
+        No siempre requieren un proceso legislativo interno para producir efectos: en muchos casos son
+        <strong>directamente aplicables</strong>.
+      </li>
+    </ul>
+    <div class="card">
+      <h3>Clave para el cuestionario</h3>
+      <p>
+        El Derecho Comunitario no son simples recomendaciones ni tratados que cada país aplica a gusto: son
+        <strong>normas supranacionales obligatorias</strong> que, en ámbitos determinados, prevalecen sobre las nacionales.
+      </p>
+    </div>
+  </section>
+
+  <!-- 15 – ¿Cuándo es comunitario un proceso de integración? -->
+  <section class="slide" data-slide="15">
+    <div class="tagline">Calidad comunitaria</div>
+    <h2>¿Cuándo un proceso de integración es “comunitario”?</h2>
+    <p>
+      No todo acuerdo entre países constituye un proceso <strong>comunitario</strong>. Para hablar de integración comunitaria
+      se requiere, al menos, que:
+    </p>
+    <ul>
+      <li>
+        Exista un <strong>tratado constitutivo</strong> que establezca órganos comunes de decisión.
+      </li>
+      <li>
+        Alguno de estos órganos tenga <strong>capacidad de generar normas obligatorias</strong> para los Estados y, en ciertos
+        casos, para los ciudadanos.
+      </li>
+      <li>
+        Esas normas configuren un <strong>derecho comunitario</strong> con autonomía relativa frente a los ordenamientos
+        nacionales.
+      </li>
+    </ul>
+    <div class="card">
+      <h3>Respuesta implícita</h3>
+      <p>
+        Un proceso de integración puede considerarse comunitario <strong>cuando existe un órgano supranacional
+        con capacidad de generar normas comunitarias obligatorias</strong>, no simplemente porque haya reuniones
+        políticas o acuerdos voluntarios.
+      </p>
+    </div>
+  </section>
+
+  <!-- 16 – Clasificación de los tipos de integración -->
+  <section class="slide" data-slide="16">
+    <div class="tagline">Economía de la integración</div>
+    <h2>Clasificación de los procesos de integración económica</h2>
+    <p>
+      Desde el punto de vista económico, los procesos de integración internacional suelen clasificarse de acuerdo con
+      la <strong>profundidad</strong> de la integración:
+    </p>
+    <table>
+      <caption>Etapas típicas de la integración económica</caption>
+      <thead>
+        <tr>
+          <th>Etapa</th>
+          <th>Características económicas clave</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Zona o área de libre comercio</td>
+          <td>
+            Eliminación (total o parcial) de aranceles entre los miembros; cada país mantiene su propia política
+            arancelaria frente a terceros.
+          </td>
+        </tr>
+        <tr>
+          <td>Unión aduanera</td>
+          <td>
+            Libre comercio intrabloque + <strong>arancel externo común</strong> frente a países no miembros.
+          </td>
+        </tr>
+        <tr>
+          <td>Mercado común</td>
+          <td>
+            Unión aduanera + libre movilidad de <strong>bienes, servicios, capitales y personas</strong> dentro del bloque.
+          </td>
+        </tr>
+        <tr>
+          <td>Unión económica y monetaria</td>
+          <td>
+            Mercado común + coordinación (o unificación) de políticas macroeconómicas; posible moneda única.
+          </td>
+        </tr>
+        <tr>
+          <td>Comunidad económica / integración total</td>
+          <td>
+            Integración económica profunda acompañada, en algunos casos, de elementos de <strong>unión política</strong>.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="note">
+      En finanzas, la profundidad de la integración se refleja en elementos como: convergencia de tasas de interés,
+      mayor integración de los mercados de capital, reducción de primas de riesgo y aumento de la inversión
+      intrarregional.
+    </p>
+  </section>
+
+  <!-- 18 – Ordenamiento jurídico andino (data-slide 18 se mantiene) -->
+  <section class="slide" data-slide="18">
+    <div class="tagline">Comunidad Andina</div>
+    <h2>Ordenamiento Jurídico Andino: ideas básicas</h2>
+    <div class="two-columns">
+      <div>
+        <h3>Componentes principales</h3>
+        <ul>
+          <li><strong>Normas originarias:</strong> Acuerdo de Cartagena y sus protocolos.</li>
+          <li>
+            <strong>Normas derivadas:</strong> Decisiones, resoluciones y otros actos de los órganos comunitarios.
+          </li>
+          <li>
+            <strong>Características generales:</strong> primacía en ámbitos determinados, vocación de aplicabilidad directa,
+            interpretación uniforme por el Tribunal de Justicia de la Comunidad Andina.
+          </li>
+        </ul>
+        <p>
+          Este ordenamiento se aplica a <strong>todos los Estados miembros</strong>: Bolivia, Colombia, Ecuador y Perú.
+          Por tanto, <strong>Bolivia y Ecuador sí forman parte de un proceso de integración comunitario</strong>.
+        </p>
+      </div>
+      <div>
+        <h3>Mapa de la Comunidad Andina</h3>
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Comunidad_andina.svg/500px-Comunidad_andina.svg.png"
+          alt="Mapa de la Comunidad Andina"
+        >
+        <p class="note">
+          Esto es clave para responder si las normas internas de Bolivia y Ecuador están completamente por encima de
+          las normas de integración: en materia comunitaria, existe un ordenamiento andino que también debe cumplirse.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 19 – Ciudadanía andina y obligaciones -->
+  <section class="slide" data-slide="19">
+    <div class="tagline">Ciudadanía andina</div>
+    <h2>Derechos y obligaciones de los ciudadanos andinos</h2>
+    <p>
+      El ordenamiento jurídico andino no solo regula el comercio y las inversiones: también reconoce derechos
+      específicos a los <strong>ciudadanos andinos</strong>, entre ellos:
+    </p>
+    <ul>
+      <li>Facilidades para la circulación de personas en la subregión.</li>
+      <li>Regímenes especiales en materia de residencia y trabajo.</li>
+      <li>Cooperación en educación, ciencia y cultura.</li>
+      <li>Protección frente a medidas nacionales incompatibles con el ordenamiento comunitario.</li>
+    </ul>
+    <p class="note">
+      De nuevo, vemos que la integración genera <strong>obligaciones y derechos</strong> más allá de lo puramente económico:
+      abarca también dimensiones sociales, políticas, jurídicas y culturales.
+    </p>
+  </section>
+
+  <!-- 20 – Beneficios de la integración: Unión Europea -->
+  <section class="slide" data-slide="20">
+    <div class="tagline">Evidencia empírica</div>
+    <h2>Beneficios de la integración: el caso de la Unión Europea</h2>
+    <div class="two-columns">
+      <div>
+        <p>
+          Estudios de la Comisión Europea y de centros de investigación han estimado que:
+        </p>
+        <ul>
+          <li>
+            El <strong>PIB de la Unión Europea</strong> es aproximadamente un <strong>8–9 % más alto</strong> gracias al Mercado
+            Único.
+          </li>
+          <li>
+            En algunos nuevos Estados miembros se ha observado un aumento cercano al <strong>12 % del PIB per cápita</strong>
+            en la primera década tras su adhesión.
+          </li>
+          <li>
+            La integración profunda (más allá de la simple reducción arancelaria) se asocia con un
+            <strong>10 % adicional</strong> de ingresos per cápita.
+          </li>
+        </ul>
+        <p class="note">
+          Estos efectos macroeconómicos se traducen en mayor comercio intrarregional, más inversión extranjera
+          directa, convergencia entre regiones y un papel regulatorio global de la UE.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Para el debate en finanzas</h3>
+        <ul>
+          <li>¿Cómo impacta un mercado único en el costo de capital de las empresas?</li>
+          <li>¿Qué significa para los bancos y fondos de inversión operar en un espacio regulatorio unificado?</li>
+          <li>¿Qué enseñanzas son relevantes para procesos como la Comunidad Andina o ALADI?</li>
+        </ul>
+        <p class="note">
+          La experiencia europea sirve como referencia para entender cómo la integración puede traducirse en
+          beneficios económicos medibles, sin entrar todavía a cuestiones más complejas que se abordarán en otras
+          sesiones.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 21 – Comercio intracomunitario CAN -->
+  <section class="slide" data-slide="21">
+    <div class="tagline">Comercio intrarregional</div>
+    <h2>Evolución del comercio intracomunitario en la Comunidad Andina</h2>
+    <p>
+      La evidencia disponible indica un <strong>crecimiento exponencial</strong> del comercio intracomunitario atribuible al
+      Acuerdo de Cartagena y a la consolidación del mercado andino:
+    </p>
+    <table>
+      <caption>Exportaciones intracomunitarias de la Comunidad Andina (valores de referencia)</caption>
+      <thead>
+        <tr>
+          <th>Año</th>
+          <th>Exportaciones intracomunitarias (US$ millones)</th>
+          <th>Comentario</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1969</td>
+          <td>52,7</td>
+          <td>Año de creación de la CAN, comercio intracomunitario muy reducido.</td>
+        </tr>
+        <tr>
+          <td>2024</td>
+          <td>9.152</td>
+          <td>Las exportaciones intracomunitarias se multiplican y se consolidan en la canasta exportadora andina.</td>
+        </tr>
+      </tbody>
+    </table>
+    <ul>
+      <li>
+        En 2024, el <strong>82,9 %</strong> de las exportaciones intracomunitarias corresponde a <strong>manufacturas</strong>.
+      </li>
+      <li>
+        Durante la pandemia de 2020, el comercio intracomunitario <strong>cayó menos</strong> que las exportaciones globales
+        de los países andinos, mostrando resiliencia del mercado subregional.
+      </li>
+    </ul>
+    <p class="note">
+      Pregunta guía: ¿qué tipo de empresas (por tamaño, sector y perfil exportador) se benefician más de este patrón
+      de comercio intracomunitario?
+    </p>
+  </section>
+
+  <!-- 22 – Manufacturas, pymes y finanzas -->
+  <section class="slide" data-slide="22">
+    <div class="tagline">Estructura productiva</div>
+    <h2>Manufacturas andinas, pymes y financiamiento</h2>
+    <div class="two-columns">
+      <div>
+        <p>
+          Que el 82,9 % de las exportaciones intracomunitarias sean manufacturas implica:
+        </p>
+        <ul>
+          <li>
+            Mayor participación de <strong>pymes industriales</strong> y de servicios asociados (logística, tecnología, etc.).
+          </li>
+          <li>
+            Necesidad de <strong>crédito especializado</strong> para capital de trabajo y expansión regional.
+          </li>
+          <li>
+            Mayor relevancia de instrumentos de <strong>financiación del comercio</strong> (cartas de crédito, factoring,
+            seguros de crédito, etc.).
+          </li>
+        </ul>
+        <p>
+          Desde la gerencia financiera, la integración abre espacio para:
+        </p>
+        <ul>
+          <li>Diversificación de mercados dentro de la CAN.</li>
+          <li>Economías de escala en producción y distribución.</li>
+          <li>Uso estratégico de preferencias y reglas de origen andinas.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Recurso incrustado: Comunidad Andina</h3>
+        <iframe
+          src="https://www.comunidadandina.org/que-es-la-can/"
+          title="¿Qué es la Comunidad Andina?"
+          loading="lazy"
+        ></iframe>
+        <p class="note">
+          Esta página ofrece una visión general de la CAN, útil para complementar la discusión de esta clase sin
+          adelantar temas más avanzados que se verán en sesiones posteriores.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 23 – Comparación UE – CAN (intuitiva) -->
+  <section class="slide" data-slide="23">
+    <div class="tagline">Comparaciones útiles</div>
+    <h2>Comparación intuitiva: Unión Europea y Comunidad Andina</h2>
+    <table>
+      <caption>Algunas diferencias y similitudes (visión introductoria)</caption>
+      <thead>
+        <tr>
+          <th>Dimensión</th>
+          <th>Unión Europea</th>
+          <th>Comunidad Andina</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Tipo de integración</td>
+          <td>Unión económica con mercado único; parte con moneda común (euro).</td>
+          <td>Proceso comunitario con mercado ampliado y normas comunes sectoriales.</td>
+        </tr>
+        <tr>
+          <td>Grado de supranacionalidad</td>
+          <td>Alto, con órganos que ejercen competencias exclusivas en varios ámbitos.</td>
+          <td>Importante en áreas específicas, en especial en comercio intracomunitario.</td>
+        </tr>
+        <tr>
+          <td>Impacto medido en PIB</td>
+          <td>Aumento estimado de 8–9 % del PIB gracias al mercado único.</td>
+          <td>Crecimiento significativo del comercio intracomunitario y de las manufacturas.</td>
+        </tr>
+        <tr>
+          <td>Implicaciones financieras</td>
+          <td>Mercado financiero profundo y regulado; integración bancaria y de capitales.</td>
+          <td>Mayor previsibilidad para inversiones intrarregionales; aún en consolidación.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="note">
+      Esta comparación solo busca situar la CAN en el mapa de la integración. El análisis detallado de cada proceso
+      se desarrollará más adelante en el programa.
+    </p>
+  </section>
+
+  <!-- 24 – Integración y gerencia financiera -->
+  <section class="slide" data-slide="24">
+    <div class="tagline">Gestión financiera</div>
+    <h2>Integración económica y gerencia financiera: ideas clave</h2>
+    <p>
+      Para una empresa o institución financiera que opera en países andinos, la integración implica:
+    </p>
+    <ul>
+      <li>
+        <strong>Nuevos mercados:</strong> acceso preferencial a consumidores y proveedores de la región.
+      </li>
+      <li>
+        <strong>Cambio en el mapa regulatorio:</strong> coexistencia de normas nacionales y normas comunitarias.
+      </li>
+      <li>
+        <strong>Gestión de riesgos:</strong> necesidad de monitorear decisiones comunitarias que afectan costos, precios,
+        competencia y acceso a financiamiento.
+      </li>
+      <li>
+        <strong>Planeación financiera regional:</strong> decisiones de inversión y financiación considerando todo el espacio
+        integrado, no solo el mercado doméstico.
+      </li>
+    </ul>
+    <p class="note">
+      La comprensión del derecho comunitario y de los niveles de integración no es un lujo académico; es un insumo
+      estratégico para la toma de decisiones financieras.
+    </p>
+  </section>
+
+  <!-- 25 – Mini caso para discusión -->
+  <section class="slide" data-slide="25">
+    <div class="tagline">Caso de aplicación</div>
+    <h2>Mini caso: empresa andina que se expande regionalmente</h2>
+    <div class="two-columns">
+      <div>
+        <p>
+          Imagina una empresa mediana productora de bienes manufacturados en uno de los países de la Comunidad
+          Andina (por ejemplo, productos de consumo masivo o insumos industriales).
+        </p>
+        <p>La empresa decide aprovechar la integración andina para:</p>
+        <ul>
+          <li>Exportar a los otros países miembros sin aranceles intra-CAN.</li>
+          <li>Abrir una planta de ensamblaje en un segundo país andino.</li>
+          <li>Emitir deuda o buscar crédito en un tercer país de la región.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Preguntas para la discusión</h3>
+        <ol>
+          <li>
+            ¿Qué normas comunitarias y nacionales debería considerar la empresa al diseñar su estrategia?
+          </li>
+          <li>
+            ¿En qué medida la empresa depende de la estabilidad de las reglas de integración?
+          </li>
+          <li>
+            ¿Qué riesgos financieros se reducen y cuáles pueden surgir con la integración?
+          </li>
+        </ol>
+        <p class="note">
+          Responder estas preguntas exige comprender qué es integración, qué es derecho comunitario y cuándo un
+          proceso puede considerarse comunitario.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 27 – Cuestionario (data-slide 27 se mantiene) -->
+  <section class="slide" data-slide="27">
+    <div class="tagline">Evaluación</div>
+    <h2>Cuestionario 01 – Introducción a la integración</h2>
+    <p>
+      Para consolidar lo trabajado en esta primera parte, completa el siguiente cuestionario en línea. Asegúrate de
+      hacerlo <strong>después</strong> de revisar todas las diapositivas y de participar en la discusión en clase.
+    </p>
+    <p>
+      <strong>Enlace al Cuestionario 01:</strong><br>
+      <a href="https://forms.gle/37yaAHVuxQSYNMiz5" target="_blank" rel="noopener">
+        https://forms.gle/37yaAHVuxQSYNMiz5
+      </a>
+    </p>
+    <p class="note">
+      El cuestionario forma parte de la evaluación del módulo. Responde con criterio analítico, no solo memorístico.
+    </p>
+  </section>
+
+  <!-- Navegación -->
+  <section id="nav">
+    <div class="nav-buttons">
+      <button id="prevBtn" class="nav-btn" disabled>&larr; Atrás</button>
+      <button id="nextBtn" class="nav-btn">Siguiente &rarr;</button>
+    </div>
+    <div id="progress">
+      <div id="progress-bar"></div>
+    </div>
+    <div id="slide-indicator">Diapositiva 1 de 25</div>
+  </section>
+</main>
+
+<script>
+  (function () {
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const indicator = document.getElementById('slide-indicator');
+    const progressBar = document.getElementById('progress-bar');
+
+    let current = 0;
+
+    function showSlide(index) {
+      if (index < 0 || index >= slides.length) return;
+      slides[current].classList.remove('active');
+      current = index;
+      slides[current].classList.add('active');
+
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === slides.length - 1;
+
+      indicator.textContent = 'Diapositiva ' + (current + 1) + ' de ' + slides.length;
+      const progress = ((current + 1) / slides.length) * 100;
+      progressBar.style.width = progress + '%';
+    }
+
+    prevBtn.addEventListener('click', () => showSlide(current - 1));
+    nextBtn.addEventListener('click', () => showSlide(current + 1));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') {
+        if (!nextBtn.disabled) showSlide(current + 1);
+      } else if (e.key === 'ArrowLeft') {
+        if (!prevBtn.disabled) showSlide(current - 1);
+      }
+    });
+
+    // Inicializar
+    showSlide(0);
+  })();
+</script>
+</body>
+</html>
