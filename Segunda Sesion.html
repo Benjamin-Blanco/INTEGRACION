@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Introducción a la Integración – Clase 2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-soft: #111827;
+      --card: #020617;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.18);
+      --text-main: #e5e7eb;
+      --text-soft: #9ca3af;
+      --border-soft: #1f2937;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1e293b 0, #020617 55%);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 1rem 2rem;
+      border-bottom: 1px solid var(--border-soft);
+      background: linear-gradient(to right, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.96));
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: .5rem 2rem;
+    }
+
+    header h1 {
+      font-size: 1.4rem;
+      margin: 0;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    header .subtitle {
+      font-size: .9rem;
+      color: var(--text-soft);
+    }
+
+    #deck {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem 2rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .slide {
+      display: none;
+      background: radial-gradient(circle at top left, #111827 0, #020617 55%);
+      border-radius: 1rem;
+      border: 1px solid var(--border-soft);
+      padding: 1.75rem 2rem;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
+      min-height: 420px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide.active {
+      display: block;
+      animation: fadeIn .35s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .slide h2 {
+      margin-top: 0;
+      margin-bottom: .8rem;
+      font-size: 1.35rem;
+      border-bottom: 1px solid rgba(55, 65, 81, 0.85);
+      padding-bottom: .35rem;
+    }
+
+    .slide h3 {
+      margin-top: 1.25rem;
+      margin-bottom: .4rem;
+      font-size: 1.05rem;
+    }
+
+    .slide p {
+      line-height: 1.6;
+      font-size: .96rem;
+      margin: .35rem 0;
+    }
+
+    .slide ul, .slide ol {
+      margin: .3rem 0 .6rem 1.2rem;
+      padding-left: .6rem;
+      font-size: .95rem;
+    }
+
+    .slide li { margin-bottom: .25rem; }
+
+    .tagline {
+      font-size: .9rem;
+      color: var(--accent);
+      margin-bottom: .4rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+
+    .meta { font-size: .85rem; color: var(--text-soft); }
+
+    .two-columns {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+
+    .card {
+      border-radius: .85rem;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.85));
+      padding: 1rem 1.2rem;
+      font-size: .9rem;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: .5rem 0 1rem;
+      font-size: .9rem;
+    }
+
+    th, td {
+      border: 1px solid rgba(55, 65, 81, 0.95);
+      padding: .4rem .55rem;
+      text-align: left;
+    }
+
+    th { background: rgba(15, 23, 42, 0.9); }
+
+    caption {
+      text-align: left;
+      font-size: .85rem;
+      color: var(--text-soft);
+      margin-bottom: .35rem;
+    }
+
+    .note {
+      font-size: .82rem;
+      color: var(--text-soft);
+      margin-top: .4rem;
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: .75rem;
+      display: block;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover { text-decoration: underline; }
+
+    #nav {
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: .75rem;
+      align-items: center;
+    }
+
+    button.nav-btn {
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      background: radial-gradient(circle at top, var(--accent-soft), #020617);
+      color: var(--text-main);
+      padding: .45rem 1.2rem;
+      font-size: .9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      transition: transform .08s ease-out, box-shadow .08s ease-out, background .08s ease-out;
+    }
+
+    button.nav-btn[disabled] {
+      opacity: .35;
+      cursor: default;
+      border-color: rgba(55, 65, 81, 0.9);
+      background: #020617;
+    }
+
+    button.nav-btn:not([disabled]):hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 25px rgba(15, 23, 42, 0.7);
+    }
+
+    #slide-indicator {
+      font-size: .85rem;
+      color: var(--text-soft);
+    }
+
+    #progress {
+      position: relative;
+      flex: 1;
+      min-width: 120px;
+      height: .35rem;
+      border-radius: 999px;
+      background: #020617;
+      overflow: hidden;
+      border: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    #progress-bar {
+      position: absolute;
+      inset: 0;
+      width: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #22d3ee, #38bdf8, #0ea5e9);
+      transition: width .2s ease-out;
+    }
+
+    @media (max-width: 900px) {
+      #deck { padding: 1rem; }
+      .slide {
+        padding: 1.2rem 1.2rem 1.5rem;
+        border-radius: .9rem;
+      }
+      .two-columns {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Introducción a la Integración – Clase 2</h1>
+  <div class="subtitle">
+    Maestría en Finanzas y Gerencia Financiera – Versión XI (Gestión 2024–2026) · 17 al 28 de noviembre de 2025
+  </div>
+  <div class="subtitle">
+    Docente: M.Sc. Benjamín Juan Carlos Blanco Ferri
+  </div>
+</header>
+
+<main id="deck">
+  <!-- 01 – Portada clase 2 -->
+  <section class="slide active">
+    <div class="tagline">Clase 2</div>
+    <h2>Globalización, dificultades y supranacionalidad</h2>
+    <p>
+      En esta segunda clase avanzamos desde la definición general de globalización e integración hacia tres ideas
+      centrales:
+    </p>
+    <ul>
+      <li>Las <strong>consecuencias negativas de la globalización</strong> y los desafíos que plantea.</li>
+      <li>Las <strong>precondiciones</strong> que condicionan el éxito de la integración regional.</li>
+      <li>La diferencia entre <strong>intergubernamentalidad</strong> y <strong>supranacionalidad</strong> en el derecho comunitario.</li>
+    </ul>
+    <p class="note">
+      Al finalizar deberías poder responder con claridad quién manda en un proceso de integración, qué se cede, qué
+      se gana y por qué eso importa para la soberanía y para las finanzas.
+    </p>
+  </section>
+
+  <!-- 02 – Globalización: definición general -->
+  <section class="slide">
+    <div class="tagline">Globalización</div>
+    <h2>¿Qué entendemos por globalización?</h2>
+    <p>
+      La globalización es un proceso <strong>económico, tecnológico, político, social y cultural a escala mundial</strong> que
+      consiste en la creciente comunicación e interdependencia entre los distintos países, uniendo sus mercados a
+      través de transformaciones sociales y políticas que les dan un carácter global.
+    </p>
+    <p>
+      Suele describirse como un proceso <strong>dinámico</strong> producido principalmente por la sociedad, que:
+    </p>
+    <ul>
+      <li>Abre sus puertas a la revolución informática y tecnológica.</li>
+      <li>Profundiza la liberalización de los flujos económicos y financieros.</li>
+      <li>Incide en la cultura política, el ordenamiento jurídico y las relaciones internacionales.</li>
+    </ul>
+    <div class="card">
+      <h3>Globalización y finanzas</h3>
+      <p>
+        Para la gerencia financiera, la globalización implica operar en mercados interconectados, con cadenas de
+        valor extendidas y flujos de capital extremadamente móviles. El potencial de retorno es mayor, pero también lo
+        es la exposición a shocks externos.
+      </p>
+    </div>
+  </section>
+
+  <!-- 03 – Características, beneficios y dificultades -->
+  <section class="slide">
+    <div class="tagline">Globalización</div>
+    <h2>Características, beneficios y dificultades</h2>
+    <div class="two-columns">
+      <div>
+        <h3>A. Características</h3>
+        <ul>
+          <li>Involucra a <strong>todas las actividades humanas</strong>: derecho, economía, cultura, etc.</li>
+          <li>Abarca a <strong>personas, Estados, empresas</strong> y otros actores no estatales.</li>
+          <li>
+            Se debe en gran medida al progreso técnico, tecnológico, computacional y del transporte, que reduce costos
+            y tiempos.
+          </li>
+        </ul>
+        <h3>B. Beneficios</h3>
+        <ul>
+          <li>Crecimiento de la economía mundial.</li>
+          <li>Desarrollo acelerado del comercio, la ciencia y la tecnología.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>C. Dificultades (lista base)</h3>
+        <ul>
+          <li>Incremento de la <strong>brecha entre países más ricos y más pobres</strong>.</li>
+          <li><strong>Distribución poco equitativa</strong> del progreso económico.</li>
+          <li><strong>Desnacionalización</strong> de empresas de países grandes y pequeños.</li>
+          <li><strong>Pérdida progresiva de identidad cultural</strong>.</li>
+          <li>Otros riesgos: cambio climático, precarización laboral, “uberización” de la economía, etc.</li>
+        </ul>
+        <p class="note">
+          Todas estas dificultades serán importantes para responder la pregunta sobre las consecuencias negativas de
+          la globalización.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 – Dificultades: desigualdad y deslocalización -->
+  <section class="slide">
+    <div class="tagline">Dificultades</div>
+    <h2>Desigualdad económica y deslocalización productiva</h2>
+    <div class="two-columns">
+      <div>
+        <h3>Desigualdad económica</h3>
+        <p>
+          La globalización ha beneficiado de forma desproporcionada a grandes corporaciones y a países desarrollados,
+          mientras muchas economías en desarrollo han quedado rezagadas.
+        </p>
+        <p>
+          Esto ha provocado un aumento de la <strong>desigualdad tanto entre países como dentro de ellos</strong>. En países como
+          India o Brasil, el crecimiento económico acelerado no siempre se ha distribuido de forma equitativa, ampliando
+          la brecha entre ricos y pobres.
+        </p>
+        <h3>Deslocalización y desempleo</h3>
+        <p>
+          Para reducir costos, numerosas empresas trasladan sus plantas de producción a países con mano de obra
+          más barata. Esto genera pérdidas de empleo en industrias manufactureras de países desarrollados.
+        </p>
+        <p class="note">
+          Ejemplo emblemático: el declive económico y el desempleo en la industria automotriz de Detroit (EE.UU.) tras
+          la deslocalización de plantas hacia otras regiones.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Mapa visual: desigualdad global aproximada</h3>
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/2019_Gini_Index_World_Map.svg/640px-2019_Gini_Index_World_Map.svg.png"
+          alt="Mapa aproximado de desigualdad de ingreso (índice de Gini)"
+        >
+        <p class="note">
+          La desigualdad (medida, por ejemplo, por el índice de Gini) muestra que el crecimiento global no se traduce
+          automáticamente en bienestar equitativo.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 – Dificultades: cultura, ambiente y evasión fiscal -->
+  <section class="slide">
+    <div class="tagline">Dificultades</div>
+    <h2>Cultura, ambiente y evasión fiscal</h2>
+    <div class="two-columns">
+      <div>
+        <h3>Erosión de culturas locales</h3>
+        <p>
+          La difusión masiva de culturas dominantes, en especial la cultura occidental a través de medios globales,
+          provoca la erosión de culturas locales. Tradiciones y lenguas están en riesgo en diversas regiones.
+        </p>
+        <h3>Degradación ambiental</h3>
+        <p>
+          La explotación intensiva de recursos naturales, impulsada por la demanda global, acelera la degradación
+          ambiental. La tala masiva de bosques tropicales en el Amazonas para producir soja y carne es un ejemplo
+          claro de cómo la globalización puede impactar negativamente la biodiversidad y el clima.
+        </p>
+      </div>
+      <div>
+        <h3>Evasión fiscal y paraísos fiscales</h3>
+        <p>
+          Grandes corporaciones aprovechan vacíos legales y estructuras societarias complejas para trasladar sus
+          beneficios a <strong>paraísos fiscales</strong>, reduciendo impuestos en los países donde realmente operan.
+        </p>
+        <p class="note">
+          Casos mediáticos como el de Apple han puesto en evidencia cómo las estrategias de planificación fiscal
+          agresiva pueden limitar la capacidad de los Estados para financiar servicios públicos, aun cuando la empresa
+          se beneficie de la infraestructura y los mercados de esos países.
+        </p>
+        <p class="note">
+          Todos estos fenómenos —desigualdad, deslocalización, pérdida cultural, daño ambiental y evasión fiscal—
+          configuran el conjunto de <strong>consecuencias negativas de la globalización</strong>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 – De la globalización a la integración -->
+  <section class="slide">
+    <div class="tagline">Globalización e integración</div>
+    <h2>De la globalización a la integración regional</h2>
+    <p>
+      La globalización crea oportunidades, pero también vulnerabilidades. Frente a esto, la <strong>integración regional</strong>
+      aparece como una respuesta estratégica:
+    </p>
+    <ul>
+      <li>Permite que países medianos y pequeños se articulen para <strong>negociar mejor</strong> en el sistema mundial.</li>
+      <li>Crea mercados internos ampliados que reducen la dependencia de shocks externos.</li>
+      <li>Facilita políticas comunes frente a problemas ambientales, sociales y fiscales.</li>
+    </ul>
+    <div class="card">
+      <h3>Pregunta guía</h3>
+      <p>
+        Si la globalización, sin reglas, puede profundizar desigualdades y debilitar capacidades nacionales,
+        ¿<strong>cómo puede la integración regional ayudar a revertir o al menos mitigar esas tendencias</strong>?
+      </p>
+    </div>
+  </section>
+
+  <!-- 07 – Ejemplos de integración superando dificultades -->
+  <section class="slide">
+    <div class="tagline">Integración y soluciones</div>
+    <h2>Cómo la integración puede mitigar las dificultades de la globalización</h2>
+    <div class="two-columns">
+      <div>
+        <h3>Fortalecimiento de la posición negociadora</h3>
+        <p>
+          Cuando los países negocian juntos como bloque (por ejemplo, la Unión Europea en la OMC), adquieren un
+          <strong>poder de negociación</strong> mucho mayor que si lo hicieran de forma individual.
+        </p>
+        <p>
+          Esto les permite conseguir mejores condiciones en acuerdos comerciales, financieros y tecnológicos.
+        </p>
+        <h3>Creación de mercados internos sólidos</h3>
+        <p>
+          La eliminación de barreras al comercio intrarregional —como en la Comunidad Andina— crea un mercado más
+          amplio y estable, reduciendo la dependencia de mercados extra-regionales.
+        </p>
+      </div>
+      <div>
+        <h3>Desarrollo más equitativo</h3>
+        <p>
+          Programas y fondos regionales pueden orientar recursos hacia regiones menos desarrolladas, reduciendo
+          disparidades internas. La experiencia de fondos de cohesión en la UE es ilustrativa.
+        </p>
+        <h3>Protección cultural y cooperación ambiental</h3>
+        <p>
+          Procesos como la CAN promueven la diversidad cultural y la protección de recursos compartidos mediante
+          políticas comunes y proyectos coordinados.
+        </p>
+        <p class="note">
+          Aquí aparece una idea clave del cuestionario: <strong>la integración puede fortalecer la posición negociadora de los
+          países miembros cuando negocian en conjunto como bloque regional</strong>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 – Definiciones clásicas de integración -->
+  <section class="slide">
+    <div class="tagline">Conceptos de integración</div>
+    <h2>Definiciones clásicas de integración</h2>
+    <p>
+      Algunas definiciones de referencia:
+    </p>
+    <ul>
+      <li>
+        <strong>Bela Balassa:</strong> La integración es el acuerdo entre dos o más Estados que suprimen
+        discriminaciones entre unidades económicas nacionales.
+      </li>
+      <li>
+        <strong>Ramón Tamames:</strong> Desde el punto de vista económico, la integración es un <strong>proceso</strong>.
+      </li>
+    </ul>
+    <p>
+      Una definición integradora podría ser:
+    </p>
+    <p>
+      <strong>La integración es un proceso en el que dos o más países coordinan y armonizan sus políticas, normas y
+      actividades en ámbitos económicos, políticos, sociales y culturales, eliminando barreras y, en algunos casos,
+      trasladando competencias a instituciones comunes, con el objetivo de alcanzar objetivos compartidos y mejorar
+      el bienestar de sus ciudadanos.</strong>
+    </p>
+  </section>
+
+  <!-- 09 – Dimensiones de la integración -->
+  <section class="slide">
+    <div class="tagline">Dimensiones</div>
+    <h2>Dimensiones económicas, políticas y sociales de la integración</h2>
+    <div class="two-columns">
+      <div>
+        <h3>1. Cooperación económica</h3>
+        <ul>
+          <li>Reducción o eliminación de barreras arancelarias y no arancelarias.</li>
+          <li>Promoción del comercio y la inversión intrarregional.</li>
+          <li>Coordinación de políticas económicas y fiscales.</li>
+        </ul>
+        <h3>Etapas típicas</h3>
+        <ul>
+          <li>Zona de libre comercio.</li>
+          <li>Unión aduanera.</li>
+          <li>Mercado común.</li>
+          <li>Unión económica.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>2. Cooperación política</h3>
+        <ul>
+          <li>Mecanismos conjuntos de toma de decisiones.</li>
+          <li>Coordinación de políticas exteriores y de seguridad.</li>
+          <li>Resolución pacífica de conflictos entre los países miembros.</li>
+        </ul>
+        <h3>3. Cooperación social y cultural</h3>
+        <ul>
+          <li>Movilidad y intercambio de personas (estudiantes, trabajadores, profesionales).</li>
+          <li>Protección de la diversidad cultural.</li>
+          <li>Cooperación en educación, salud y medio ambiente.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="note">
+      Estas dimensiones muestran que la integración es también pluridimensional, igual que la globalización, pero con
+      <strong>reglas y objetivos explícitos</strong>.
+    </p>
+  </section>
+
+  <!-- 10 – Zollverein -->
+  <section class="slide">
+    <div class="tagline">Historia</div>
+    <h2>Zollverein: un antecedente histórico de integración</h2>
+    <div class="two-columns">
+      <div>
+        <p>
+          El <strong>Zollverein</strong> fue una unión aduanera entre diversos Estados alemanes, creada en 1834, que suprimió
+          aranceles entre los miembros de la Confederación Germánica (salvo Austria).
+        </p>
+        <p>
+          Su objetivo era unificar tarifas aduaneras y favorecer un espacio económico integrado, anticipando la futura
+          unificación política alemana.
+        </p>
+        <p class="note">
+          Aunque no era supranacional en sentido moderno, ilustra cómo la integración económica puede preceder y
+          facilitar la integración política.
+        </p>
+      </div>
+      <div>
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Zollverein_in_1834.png/480px-Zollverein_in_1834.png"
+          alt="Mapa aproximado del Zollverein en 1834"
+        >
+        <p class="note">
+          El Zollverein funcionó hasta 1871, cuando el Imperio alemán unificado asumió competencias comerciales.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 – Precondiciones para la integración -->
+  <section class="slide">
+    <div class="tagline">Precondiciones</div>
+    <h2>Factores que condicionan la integración regional</h2>
+    <p>
+      La integración regional no nace en el vacío. Page (2000) distingue varias <strong>precondiciones</strong>:
+    </p>
+    <ul>
+      <li>
+        <strong>Geografía:</strong> la proximidad y la facilidad de comunicaciones son importantes, aunque no siempre
+        están dadas (incluso entre vecinos sudamericanos).
+      </li>
+      <li>
+        <strong>Población:</strong> el tamaño demográfico influye, aunque las diferencias de tamaño no impiden el éxito de la
+        integración.
+      </li>
+      <li>
+        <strong>Tamaño de la economía y renta per cápita:</strong> las divergencias son normales, pero deben gestionarse.
+      </li>
+      <li>
+        <strong>Congruencia política:</strong> compatibilidad mínima de proyectos políticos y de modelos de desarrollo.
+      </li>
+      <li>
+        <strong>Pasado u origen común / sentido de comunidad:</strong> quizá el factor más importante, como en CARICOM.
+      </li>
+    </ul>
+    <p class="note">
+      Esta lista es clave para la pregunta del cuestionario sobre los factores que condicionan la integración: todas
+      estas precondiciones cuentan.
+    </p>
+  </section>
+
+  <!-- 12 – Objetivos de la integración -->
+  <section class="slide">
+    <div class="tagline">Objetivos</div>
+    <h2>Objetivos amplios de la integración regional</h2>
+    <p>
+      Hoy se acepta que <strong>“la integración es una cuestión política”</strong> (Banco Mundial, 2000). Entre los objetivos
+      políticos más amplios se encuentran (Page 2000, Banco Mundial 2000, Bouzas 1999):
+    </p>
+    <ul>
+      <li><strong>Seguridad intra y extra regional.</strong></li>
+      <li>
+        <strong>Adquisición de poder de negociación</strong> en el sistema mundial/multilateral.
+      </li>
+      <li>
+        <strong>Consolidación de reformas internas</strong>: “lock-in” de políticas mediante compromisos internacionales que
+        dificultan retrocesos.
+      </li>
+    </ul>
+    <p class="note">
+      La integración regional puede ser un éxito en términos de “contenido efectivo” —normas, instituciones,
+      programas— sin necesariamente ser un éxito en términos de estos objetivos más amplios de desarrollo y
+      legitimidad.
+    </p>
+  </section>
+
+  <!-- 13 – Reflexión crítica sobre integración -->
+  <section class="slide">
+    <div class="tagline">Reflexión</div>
+    <h2>Integración: instrumento y no fin en sí mismo</h2>
+    <p>
+      Ramón Torrent recuerda que la integración regional ha sido utilizada, en muchos casos, como <strong>instrumento de
+      influencia</strong> por los países más poderosos, tanto en acuerdos Norte–Sur como Sur–Sur.
+    </p>
+    <p>
+      También advierte que:
+    </p>
+    <ul>
+      <li>
+        La integración regional es solo un <strong>medio</strong>, no un fin. Puede profundizarse institucionalmente sin producir
+        los resultados económicos y sociales esperados.
+      </li>
+      <li>
+        La Unión Europea en los años 90, con la unión monetaria, muestra un caso de éxito en integración
+        institucional, pero con resultados económicos y de legitimidad ciudadana más discutibles.
+      </li>
+    </ul>
+    <p class="note">
+      Esta reflexión es relevante cuando discutimos <strong>supranacionalidad</strong>: no se trata solo de ceder competencias,
+      sino de para qué y con qué resultados.
+    </p>
+  </section>
+
+  <!-- 14 – Clasificación amplia / restringida -->
+  <section class="slide">
+    <div class="tagline">Conceptos</div>
+    <h2>Concepto amplio y restringido de integración</h2>
+    <div class="two-columns">
+      <div>
+        <h3>1. Concepto amplio de integración</h3>
+        <p>
+          Proceso mediante el cual un grupo de Estados se asocian para alcanzar un nivel superior de desarrollo y
+          bienestar, <strong>conservando su individualidad</strong>.
+        </p>
+        <p>
+          Aquí caben tanto esquemas de cooperación como mecanismos más profundos, siempre que apunten a objetivos
+          comunes.
+        </p>
+      </div>
+      <div>
+        <h3>2. Concepto restringido de integración (Cerexhe)</h3>
+        <p>
+          La expresión “integración” en derecho se aplica sólo a procesos en los que se <strong>atribuyen competencias a
+          órganos que pueden adoptar resoluciones vinculantes por mayoría</strong>.
+        </p>
+        <p class="note">
+          En este concepto restringido aparecen ya las bases de la <strong>supranacionalidad</strong>: órganos comunes con
+          poder efectivo, decisiones por mayoría, normas vinculantes para los Estados y los ciudadanos.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15 – Supranacionalidad: definición base -->
+  <section class="slide">
+    <div class="tagline">Supranacionalidad</div>
+    <h2>¿Qué es la supranacionalidad?</h2>
+    <p>
+      El Derecho Comunitario más avanzado tiene rasgos de <strong>supranacionalidad</strong>. Esto significa que:
+    </p>
+    <ul>
+      <li>
+        Los Estados <strong>atribuyen competencias</strong> a órganos comunes.
+      </li>
+      <li>
+        Esos órganos pueden adoptar <strong>resoluciones vinculantes por mayorías</strong>, y no sólo por unanimidad.
+      </li>
+      <li>
+        Las normas así creadas pueden tener <strong>aplicabilidad directa</strong> y <strong>primacía</strong> sobre el derecho nacional
+        en los ámbitos de competencia transferida.
+      </li>
+    </ul>
+    <div class="card">
+      <h3>Clave para el cuestionario</h3>
+      <p>
+        En el contexto del derecho comunitario, la supranacionalidad <strong>no es</strong> una unión monetaria en sí misma ni un
+        ejército común. Es, sobre todo, <strong>la atribución de competencias a órganos comunes con adopción de
+        resoluciones vinculantes por mayoría</strong>.
+      </p>
+    </div>
+  </section>
+
+  <!-- 16 – Técnicas de un tratado de integración -->
+  <section class="slide">
+    <div class="tagline">Técnicas jurídicas</div>
+    <h2>Técnicas utilizadas por un tratado de integración</h2>
+    <p>
+      Un tratado de integración puede utilizar, al menos, dos grandes técnicas:
+    </p>
+    <ul>
+      <li>
+        <strong>Introducir normas directamente en el tratado</strong>, que los Estados están obligados a cumplir.
+      </li>
+      <li>
+        <strong>Crear mecanismos u órganos capaces de producir derecho</strong> con posterioridad (como la Comunidad
+        Europea o la Comunidad Andina), dotados de personalidad jurídica y competencias propias.
+      </li>
+    </ul>
+    <p class="note">
+      Esta segunda técnica es la que abre el camino a la supranacionalidad: los Estados crean órganos que, dentro de
+      su ámbito, pueden producir derecho vinculante para ellos y para los ciudadanos.
+    </p>
+  </section>
+
+  <!-- 17 – Intergubernamentalidad -->
+  <section class="slide">
+    <div class="tagline">Intergubernamentalidad</div>
+    <h2>¿Qué es la intergubernamentalidad?</h2>
+    <div class="two-columns">
+      <div>
+        <p>
+          La <strong>intergubernamentalidad</strong> refiere a un mecanismo institucional simple, en el que los órganos creados
+          están integrados por <strong>representantes directos de los gobiernos</strong> de los Estados miembros.
+        </p>
+        <ul>
+          <li>Dependen de la voluntad de sus gobiernos y responden a sus mandatos e instrucciones.</li>
+          <li>
+            La toma de decisiones suele requerir <strong>unanimidad</strong>, o al menos un alto consenso.
+          </li>
+          <li>
+            Las normas emanadas de estos órganos suelen necesitar un <strong>proceso de incorporación</strong> al derecho interno
+            para ser aplicables.
+          </li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Clave para el cuestionario</h3>
+        <p>
+          Una característica central de la intergubernamentalidad es la <strong>dependencia de los representantes de los
+          gobiernos de los Estados miembros</strong>. No son órganos autónomos: su margen de maniobra está limitado por las
+          instrucciones nacionales.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 18 – Supranacionalidad según Bobbio y Catalano -->
+  <section class="slide">
+    <div class="tagline">Supranacionalidad</div>
+    <h2>Supranacionalidad: poder efectivo y autonomía</h2>
+    <div class="two-columns">
+      <div>
+        <h3>Elementos (Bobbio, 2014)</h3>
+        <ul>
+          <li>
+            Reconocimiento por parte de un grupo de Estados de un conjunto de <strong>intereses y valores comunes</strong>.
+          </li>
+          <li>
+            Creación de un <strong>poder efectivo</strong> al servicio de esos intereses.
+          </li>
+          <li>
+            La eficacia se comprueba cuando las decisiones de sus órganos <strong>comprometen a Estados y ciudadanos</strong>
+            y deben ser respetadas.
+          </li>
+          <li>
+            <strong>Autonomía</strong> de ese poder respecto del de los Estados participantes.
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h3>Visión de Catalano</h3>
+        <p>
+          Nicolás Catalano subraya que una característica esencial de los tratados de integración supranacional es
+          confiar la ejecución y aplicación de las disposiciones a <strong>órganos comunes e independientes</strong>, capaces de:
+        </p>
+        <ul>
+          <li>Ejecutar y aplicar normas.</li>
+          <li>Producir derecho (poder normativo).</li>
+          <li>Ejercer jurisdicción.</li>
+          <li>Tener iniciativa y control político.</li>
+        </ul>
+        <p class="note">
+          Aquí aparece otra clave del cuestionario: un “poder efectivo” en una organización supranacional es aquel que
+          puede tomar <strong>decisiones vinculantes para los Estados y sus ciudadanos</strong>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 19 – Traslado de competencias -->
+  <section class="slide">
+    <div class="tagline">Competencias</div>
+    <h2>Traslado de competencias y soporte constitucional</h2>
+    <p>
+      La integración supranacional requiere como presupuesto el <strong>traslado de ciertas competencias</strong> del orden
+      nacional a órganos supranacionales.
+    </p>
+    <p>
+      Palomares (2008) destaca que:
+    </p>
+    <ul>
+      <li>
+        Para que un Estado pueda ceder competencias, es necesario un <strong>soporte constitucional</strong>.
+      </li>
+      <li>
+        La “cláusula general de competencia” debe permitir que, en ejercicio de la soberanía, se deleguen competencias
+        a instituciones supranacionales.
+      </li>
+      <li>
+        Las competencias de los órganos estatales se convierten en <strong>funciones residuales y subsidiarias</strong> en esos
+        ámbitos.
+      </li>
+    </ul>
+    <div class="card">
+      <h3>Clave para el cuestionario</h3>
+      <p>
+        El traslado de competencias <strong>no es una renuncia total a la soberanía</strong>, sino la <strong>transferencia de ciertas
+        competencias nacionales a órganos supranacionales</strong> en ámbitos definidos.
+      </p>
+    </div>
+  </section>
+
+  <!-- 20 – Exigencias jurídicas internas -->
+  <section class="slide">
+    <div class="tagline">Exigencias jurídicas</div>
+    <h2>Exigencias jurídicas de la supranacionalidad</h2>
+    <p>
+      Un proceso de integración supranacional plantea exigencias jurídicas que impactan en las constituciones
+      nacionales. Brewer (2003) menciona, entre otras, las siguientes:
+    </p>
+    <ul>
+      <li>
+        Que los <strong>órganos comunitarios supranacionales</strong> puedan tomar decisiones obligatorias para los Estados
+        miembros.
+      </li>
+      <li>
+        Que las decisiones de esos órganos se adopten <strong>en ejercicio de competencias transferidas</strong> por los Estados,
+        mediante la correspondiente reforma o interpretación constitucional.
+      </li>
+      <li>
+        Que las decisiones sean <strong>directa e inmediatamente aplicables</strong> a los Estados miembros, órganos públicos y
+        ciudadanos.
+      </li>
+      <li>
+        Que el derecho comunitario supranacional tenga <strong>primacía</strong> en el derecho interno y sea controlado por un
+        <strong>tribunal de justicia supranacional</strong> en cuanto a su conformidad con los tratados de integración.
+      </li>
+    </ul>
+    <p class="note">
+      La constitución de cada país, para permitir un proceso supranacional robusto, debe prever todas estas
+      dimensiones: órganos supranacionales con poder, aplicabilidad directa y primacía del derecho comunitario.
+    </p>
+  </section>
+
+  <!-- 21 – Soberanía vs supranacionalidad -->
+  <section class="slide">
+    <div class="tagline">Soberanía</div>
+    <h2>Soberanía y supranacionalidad: ¿se pierde el control?</h2>
+    <p>
+      Perotti (2007) sostiene que la transmisión de facultades en un esquema de integración:
+    </p>
+    <ul>
+      <li>No implica una “partición” de la soberanía, que sigue residiendo en el Estado.</li>
+      <li>
+        Supone que la Nación define, mediante el tratado constitutivo, <strong>el alcance de las competencias cedidas</strong>.
+      </li>
+      <li>
+        El Estado conserva la facultad de <strong>recuperar las competencias</strong> mediante la denuncia del tratado y salida del
+        proceso.
+      </li>
+    </ul>
+    <p>
+      Pescatore (1974) agrega que la creación de un sistema de integración produce una <strong>reordenación de las
+      funciones fundamentales del Estado</strong>, pero no anula su soberanía: el Estado limita voluntariamente el alcance de
+      su poder a cambio de las ventajas de la integración.
+    </p>
+    <p class="note">
+      Esta discusión es crucial para entender que la supranacionalidad no es “entrega” irrestricta de soberanía, sino
+      una forma de ejercerla de manera compartida y condicionada.
+    </p>
+  </section>
+
+  <!-- 22 – Intergubernamental vs supranacional: ejemplos -->
+  <section class="slide">
+    <div class="tagline">Modelos</div>
+    <h2>“Intergubernamental” o “supranacional”</h2>
+    <p>
+      En la práctica, los procesos de integración pueden acercarse más a un modelo intergubernamental o
+      supranacional:
+    </p>
+    <table>
+      <caption>Ejemplos típicos por tipo de organización (visión doctrinal)</caption>
+      <thead>
+        <tr>
+          <th>Tipo</th>
+          <th>Ejemplos destacados</th>
+          <th>Rasgos clave</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intergubernamental</td>
+          <td>MERCOSUR (en buena parte de su funcionamiento), ALADI, OMC, muchos Acuerdos de Complementación Económica, Alianza del Pacífico.</td>
+          <td>Decisiones dominadas por los gobiernos; órganos dependientes de mandatos nacionales; incorporación interna necesaria.</td>
+        </tr>
+        <tr>
+          <td>Supranacional</td>
+          <td>Unión Europea, Comunidad Andina (en varias áreas).</td>
+          <td>Órganos autónomos con poder normativo; decisiones vinculantes por mayoría; primacía y aplicabilidad directa de normas comunitarias.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="note">
+      Bajo la definición tradicional de “intergubernamental vs. supranacional”, <strong>la Unión Europea y la Comunidad
+      Andina se ubican en la categoría supranacional</strong>, sobre todo en los ámbitos donde existe derecho comunitario
+      robusto.
+    </p>
+  </section>
+
+  <!-- 23 – Tabla comparativa intergubernamental / supranacional -->
+  <section class="slide">
+    <div class="tagline">Comparación</div>
+    <h2>Intergubernamentalidad vs supranacionalidad</h2>
+    <table>
+      <caption>Diferencias clave para el análisis y el cuestionario</caption>
+      <thead>
+        <tr>
+          <th>Elemento</th>
+          <th>Intergubernamentalidad</th>
+          <th>Supranacionalidad</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Órganos</td>
+          <td>Integrados por representantes de gobiernos; dependen de sus instrucciones.</td>
+          <td>Órganos comunes con autonomía funcional y cierta independencia.</td>
+        </tr>
+        <tr>
+          <td>Toma de decisiones</td>
+          <td>Predominio de la unanimidad o consenso.</td>
+          <td>Posibilidad de decisiones por mayoría con efecto vinculante.</td>
+        </tr>
+        <tr>
+          <td>Normas</td>
+          <td>Requieren incorporación al derecho interno para ser aplicables.</td>
+          <td>Pueden ser directamente aplicables y con primacía sobre el derecho interno.</td>
+        </tr>
+        <tr>
+          <td>Competencias</td>
+          <td>No hay verdadero traslado; los Estados conservan el control directo.</td>
+          <td>Se trasladan ciertas competencias a los órganos comunitarios.</td>
+        </tr>
+        <tr>
+          <td>Poder efectivo</td>
+          <td>Limitado a la voluntad de los Estados en cada momento.</td>
+          <td>Capacidad de tomar decisiones vinculantes para Estados y ciudadanos.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="note">
+      Esta tabla resume los elementos necesarios para responder las preguntas sobre supranacionalidad, intergubernamentalidad, traslado de competencias y poder efectivo.
+    </p>
+  </section>
+
+  <!-- 24 – Cuestionario 02 -->
+  <section class="slide">
+    <div class="tagline">Evaluación</div>
+    <h2>Cuestionario 02 – Globalización, precondiciones y supranacionalidad</h2>
+    <p>
+      Para consolidar lo trabajado en esta segunda clase, completa el siguiente cuestionario en línea. Asegúrate de
+      haber revisado todas las diapositivas y participado en la discusión.
+    </p>
+    <p>
+      <strong>Enlace al Cuestionario 02:</strong><br>
+      <a href="https://forms.gle/zaFPdiFnbqLxibHw6" target="_blank" rel="noopener">
+        https://forms.gle/zaFPdiFnbqLxibHw6
+      </a>
+    </p>
+    <p class="note">
+      El cuestionario incluye preguntas sobre: consecuencias negativas de la globalización, precondiciones de la
+      integración, diferencia entre intergubernamentalidad y supranacionalidad, traslado de competencias y requisitos
+      constitucionales de un proceso supranacional.
+    </p>
+  </section>
+
+  <!-- Navegación -->
+  <section id="nav">
+    <div class="nav-buttons">
+      <button id="prevBtn" class="nav-btn" disabled>&larr; Atrás</button>
+      <button id="nextBtn" class="nav-btn">Siguiente &rarr;</button>
+    </div>
+    <div id="progress">
+      <div id="progress-bar"></div>
+    </div>
+    <div id="slide-indicator">Diapositiva 1 de 24</div>
+  </section>
+</main>
+
+<script>
+  (function () {
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const indicator = document.getElementById('slide-indicator');
+    const progressBar = document.getElementById('progress-bar');
+
+    let current = 0;
+
+    function showSlide(index) {
+      if (index < 0 || index >= slides.length) return;
+      slides[current].classList.remove('active');
+      current = index;
+      slides[current].classList.add('active');
+
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === slides.length - 1;
+
+      indicator.textContent = 'Diapositiva ' + (current + 1) + ' de ' + slides.length;
+      const progress = ((current + 1) / slides.length) * 100;
+      progressBar.style.width = progress + '%';
+    }
+
+    prevBtn.addEventListener('click', () => showSlide(current - 1));
+    nextBtn.addEventListener('click', () => showSlide(current + 1));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') {
+        if (!nextBtn.disabled) showSlide(current + 1);
+      } else if (e.key === 'ArrowLeft') {
+        if (!prevBtn.disabled) showSlide(current - 1);
+      }
+    });
+
+    // Inicializar
+    showSlide(0);
+  })();
+</script>
+</body>
+</html>
