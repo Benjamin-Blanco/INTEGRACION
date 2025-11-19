@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Introducción a la Integración – Clasificación y Zona Euro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-soft: #0b1220;
+      --card: #020617;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.16);
+      --accent-strong: #06b6d4;
+      --text-main: #e5e7eb;
+      --text-soft: #9ca3af;
+      --border-soft: #1f2937;
+      --danger: #fb7185;
+      --success: #4ade80;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #020617 0, #020617 55%, #000 100%);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 1rem 2rem 0.85rem;
+      border-bottom: 1px solid var(--border-soft);
+      background: radial-gradient(circle at 0% 0%, #1e293b 0, #020617 55%);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: .5rem 2rem;
+    }
+
+    header h1 {
+      font-size: 1.45rem;
+      margin: 0;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    header .subtitle {
+      font-size: .88rem;
+      color: var(--text-soft);
+    }
+
+    #deck {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem 2rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .slide {
+      display: none;
+      background: radial-gradient(circle at top left, #020617 0, #020617 40%, #020617 100%);
+      border-radius: 1rem;
+      border: 1px solid var(--border-soft);
+      padding: 1.75rem 2rem;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+      min-height: 430px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: -30%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.12) 0, transparent 50%),
+        radial-gradient(circle at 100% 100%, rgba(56, 189, 248, 0.05) 0, transparent 55%);
+      opacity: .7;
+      pointer-events: none;
+    }
+
+    .slide > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .slide.active {
+      display: block;
+      animation: fadeIn .35s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .slide h2 {
+      margin-top: 0;
+      margin-bottom: .7rem;
+      font-size: 1.35rem;
+      border-bottom: 1px solid rgba(55, 65, 81, 0.75);
+      padding-bottom: .35rem;
+    }
+
+    .slide h3 {
+      margin-top: 1.1rem;
+      margin-bottom: .35rem;
+      font-size: 1.02rem;
+    }
+
+    .slide p {
+      line-height: 1.6;
+      font-size: .95rem;
+      margin: .25rem 0;
+    }
+
+    .slide ul, .slide ol {
+      margin: .3rem 0 .7rem 1.1rem;
+      padding-left: .2rem;
+      font-size: .94rem;
+    }
+
+    .slide li { margin-bottom: .2rem; }
+
+    .tagline {
+      font-size: .86rem;
+      color: var(--accent-strong);
+      margin-bottom: .3rem;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+    }
+
+    .note {
+      font-size: .83rem;
+      color: var(--text-soft);
+      margin-top: .35rem;
+    }
+
+    .two-columns {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: 1.4rem;
+      align-items: flex-start;
+    }
+
+    .card {
+      border-radius: .9rem;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: linear-gradient(140deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.85));
+      padding: 1rem 1.2rem;
+      font-size: .9rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      border-radius: 999px;
+      padding: .15rem .7rem;
+      font-size: .78rem;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-soft);
+      margin-bottom: .35rem;
+    }
+
+    .pill span {
+      font-weight: 600;
+      color: var(--accent-strong);
+      font-size: .8rem;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: .1rem .5rem;
+      border-radius: .55rem;
+      font-size: .75rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+    }
+
+    .badge-danger {
+      background: rgba(248, 113, 113, 0.12);
+      color: #fb7185;
+      border-color: rgba(248, 113, 113, 0.4);
+    }
+
+    .badge-success {
+      background: rgba(74, 222, 128, 0.12);
+      color: #4ade80;
+      border-color: rgba(74, 222, 128, 0.4);
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: .75rem;
+      display: block;
+    }
+
+    figure {
+      margin: .4rem 0;
+    }
+
+    figure figcaption {
+      font-size: .8rem;
+      color: var(--text-soft);
+      margin-top: .25rem;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: .4rem 0 .8rem;
+      font-size: .9rem;
+    }
+
+    th, td {
+      border: 1px solid rgba(55, 65, 81, 0.95);
+      padding: .35rem .5rem;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th { background: rgba(15, 23, 42, 0.96); }
+
+    caption {
+      text-align: left;
+      font-size: .83rem;
+      color: var(--text-soft);
+      margin-bottom: .3rem;
+    }
+
+    .inline-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: .5rem;
+    }
+
+    #nav {
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: .75rem;
+      align-items: center;
+    }
+
+    button.nav-btn {
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      background: radial-gradient(circle at top, var(--accent-soft), #020617);
+      color: var(--text-main);
+      padding: .42rem 1.15rem;
+      font-size: .88rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      transition: transform .08s ease-out, box-shadow .08s ease-out, background .08s ease-out, opacity .08s ease-out;
+    }
+
+    button.nav-btn[disabled] {
+      opacity: .32;
+      cursor: default;
+      border-color: rgba(55, 65, 81, 0.9);
+      background: #020617;
+    }
+
+    button.nav-btn:not([disabled]):hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 25px rgba(15, 23, 42, 0.9);
+    }
+
+    #slide-indicator {
+      font-size: .83rem;
+      color: var(--text-soft);
+      min-width: 130px;
+      text-align: right;
+    }
+
+    #progress {
+      position: relative;
+      flex: 1;
+      min-width: 120px;
+      height: .35rem;
+      border-radius: 999px;
+      background: #020617;
+      overflow: hidden;
+      border: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    #progress-bar {
+      position: absolute;
+      inset: 0;
+      width: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #22d3ee, #38bdf8, #0ea5e9);
+      transition: width .2s ease-out;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 900px) {
+      #deck { padding: 1rem; }
+      .slide {
+        padding: 1.2rem 1.1rem 1.4rem;
+        border-radius: .9rem;
+        min-height: 0;
+      }
+      .two-columns {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      header {
+        padding: .85rem 1.1rem .7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Clasificación de la integración económica y Zona Euro</h1>
+  <div class="subtitle">
+    Introducción a la Integración · Maestría en Finanzas y Gerencia Financiera – Versión XI
+  </div>
+  <div class="subtitle">
+    Docente: M.Sc. Benjamín Juan Carlos Blanco Ferri
+  </div>
+</header>
+
+<main id="deck">
+  <!-- 01 – Portada y objetivos -->
+  <section class="slide active">
+    <div class="tagline">Clase 3</div>
+    <h2>Clasificación de los procesos de integración económica y ordenamiento andino</h2>
+    <p class="pill"><span>Objetivo general</span> Comprender los grados de integración económica y sus implicancias para las finanzas y la política económica.</p>
+    <div class="two-columns">
+      <div>
+        <h3>Lo que trabajaremos en esta sesión</h3>
+        <ul>
+          <li>Clasificación clásica de los tipos de integración económica (Balassa).</li>
+          <li>Características y ejemplos de:
+            <ul>
+              <li>Zona o área de libre comercio.</li>
+              <li>Unión aduanera.</li>
+              <li>Mercado común.</li>
+              <li>Unión económica y monetaria (Zona Euro).</li>
+              <li>Unión política.</li>
+            </ul>
+          </li>
+          <li>Casos prácticos: Unión Europea, MERCOSUR, acuerdos regionales.</li>
+          <li>Elementos de gobernanza: Schengen, reglas fiscales, respuesta a crisis (COVID-19).</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Vínculo con el módulo</h3>
+        <p>
+          Estos grados de integración no son teoría abstracta: definen 
+          <strong>riesgos, oportunidades y restricciones</strong> para las finanzas públicas y privadas:
+        </p>
+        <ul>
+          <li>Movilidad de capitales y tipo de cambio.</li>
+          <li>Coordinación de políticas fiscales y monetarias.</li>
+          <li>Profundidad de los mercados financieros regionales.</li>
+        </ul>
+        <p class="note">
+          Más adelante, otra parte del módulo abordará el <strong>Ordenamiento Jurídico Andino</strong>  
+          (normas originarias, derivadas y derechos de los ciudadanos andinos).
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 – Balassa y grados de integración -->
+  <section class="slide">
+    <div class="tagline">Marco teórico</div>
+    <h2>Clasificación clásica de la integración económica (Balassa)</h2>
+    <p>
+      Tradicionalmente, la literatura —siguiendo a <strong>Bela Balassa</strong>— distingue 
+      varios <strong>grados de integración económica</strong> según la intensidad del proceso. 
+      Cada etapa añade nuevas obligaciones y profundiza la cesión de competencias.
+    </p>
+    <table>
+      <caption>Grados de integración económica según la intensidad del proceso</caption>
+      <thead>
+        <tr>
+          <th>Grado</th>
+          <th>Descripción sintética</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1. Zona o área de libre comercio</td>
+          <td>Eliminación de barreras al comercio de bienes entre los miembros.</td>
+        </tr>
+        <tr>
+          <td>2. Unión aduanera</td>
+          <td>Zona de libre comercio + arancel externo común frente a terceros.</td>
+        </tr>
+        <tr>
+          <td>3. Mercado común</td>
+          <td>Unión aduanera + libre circulación de factores (personas, capitales, servicios).</td>
+        </tr>
+        <tr>
+          <td>4. Unión económica (y monetaria)</td>
+          <td>Mercado común + coordinación/armonización de políticas económicas y, en su versión avanzada, moneda común.</td>
+        </tr>
+        <tr>
+          <td>5. Integración económica total / Unión política</td>
+          <td>Alta integración económica + estructura política común y cesión amplia de competencias.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="note">
+      La lógica es acumulativa: un estadio superior contiene los elementos del anterior y añade nuevas dimensiones.
+    </p>
+  </section>
+
+  <!-- 03 – Zona de libre comercio: concepto -->
+  <section class="slide">
+    <div class="tagline">Grado 1</div>
+    <h2>Zona o área de libre comercio: concepto básico</h2>
+    <div class="two-columns">
+      <div>
+        <p>
+          Una <strong>zona o área de libre comercio</strong> es un acuerdo por el cual dos o más países 
+          <strong>eliminan las barreras arancelarias y no arancelarias</strong> al comercio de bienes (y, a veces, 
+          de ciertos servicios) entre ellos.
+        </p>
+        <h3>Rasgos principales</h3>
+        <ul>
+          <li>No se aplican aranceles entre los miembros a los bienes originarios de la zona.</li>
+          <li>Cada país <strong>mantiene su propia política arancelaria</strong> frente a terceros.</li>
+          <li>Se requieren mecanismos para evitar desvíos de comercio vía países con aranceles más bajos.</li>
+        </ul>
+        <p>
+          Ejemplo típico: acuerdos de libre comercio bilaterales o regionales sin arancel externo común.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Implicancias para las finanzas y las empresas</h3>
+        <ul>
+          <li>Reducción de costos de importación y exportación entre los miembros.</li>
+          <li>Mayor competencia en el mercado interno: presión sobre precios y márgenes.</li>
+          <li>Reasignación sectorial: sectores competitivos se expanden; otros pueden contraerse.</li>
+          <li>Impacto fiscal: caída de algunos ingresos arancelarios compensada (o no) por mayor actividad económica.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 – Zona de libre comercio: reglas de origen -->
+  <section class="slide">
+    <div class="tagline">Grado 1</div>
+    <h2>Zona de libre comercio y reglas de origen</h2>
+    <div class="two-columns">
+      <div>
+        <p>
+          El principal problema de una zona de libre comercio es que, al no existir un arancel externo común,
+          los bienes pueden intentar ingresar al área por el país con aranceles más bajos y luego circular 
+          libremente. Para evitarlo, se establecen las <strong>reglas de origen</strong>.
+        </p>
+        <h3>¿Qué son las reglas de origen?</h3>
+        <ul>
+          <li>Criterios para determinar si un producto es <strong>originario</strong> de los países miembros.</li>
+          <li>Condicionan el acceso preferencial (arancel cero o reducido).</li>
+          <li>Se basan en:
+            <ul>
+              <li>Cambio de clasificación arancelaria.</li>
+              <li>Contenido regional mínimo.</li>
+              <li>Procesos productivos específicos.</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Ejemplo aplicado</h3>
+        <p>
+          Una empresa ensambla electrodomésticos usando componentes importados de terceros países:
+        </p>
+        <ul>
+          <li>Si el valor agregado regional supera cierto porcentaje, el producto puede ser considerado originario.</li>
+          <li>Si no cumple el requisito, paga el arancel NMF vigente, aunque la empresa esté en la zona.</li>
+        </ul>
+        <p class="note">
+          Para la gerencia financiera esto es clave: impacta en el <strong>costo efectivo de importación</strong> 
+          y en la rentabilidad de distintas estructuras de abastecimiento.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 – ZLC: beneficios para empresas -->
+  <section class="slide">
+    <div class="tagline">Grado 1</div>
+    <h2>Zona de libre comercio: beneficios para las empresas</h2>
+    <p>
+      Una Zona o Área de Libre Comercio crea un entorno con menos fricciones para el comercio. 
+      Desde la perspectiva de gestión empresarial y financiera, destacan varios beneficios:
+    </p>
+    <ul>
+      <li><strong>Acceso preferencial a mercados:</strong> facilita exportar e importar dentro de la zona.</li>
+      <li><strong>Reducción de costos:</strong> la eliminación de aranceles y ciertas trabas administrativas
+          reduce el costo unitario de los productos.</li>
+      <li><strong>Mejora de la cadena de suministro:</strong> es más fácil diseñar cadenas regionales de producción,
+          integrando insumos de distintos países miembros.</li>
+      <li><strong>Fomento a la inversión:</strong> la certidumbre y el acceso ampliado incentivan inversión 
+          directa (nacional y extranjera).</li>
+      <li><strong>Diversificación de mercados:</strong> las empresas reducen su dependencia de la demanda interna
+          de un solo país.</li>
+    </ul>
+    <p class="note">
+      La zona de libre comercio no garantiza éxito automático: es una <strong>plataforma</strong>.  
+      La diferencia la hacen la competitividad, la logística y las decisiones financieras.
+    </p>
+  </section>
+
+  <!-- 06 – ZLC: riesgos para empresas -->
+  <section class="slide">
+    <div class="tagline">Grado 1</div>
+    <h2>Zona de libre comercio: riesgos y desafíos para las empresas</h2>
+    <p>
+      Junto con los beneficios, una zona de libre comercio genera desafíos que deben ser gestionados:
+    </p>
+    <ul>
+      <li><strong>Competencia intensificada:</strong> entran productos de otros miembros con precios más bajos
+          o mayor escala.</li>
+      <li><strong>Impacto sobre la producción local:</strong> sectores menos competitivos pueden perder
+          participación, empleo o desaparecer.</li>
+      <li><strong>Desigualdades regionales:</strong> los beneficios se concentran en empresas grandes o zonas
+          con mejor infraestructura.</li>
+      <li><strong>Dependencia de políticas externas:</strong> cambios en las políticas comerciales de socios
+          pueden afectar condiciones de acceso.</li>
+    </ul>
+    <p class="note">
+      Desde la gerencia financiera, esto exige análisis de <strong>riesgo-país, riesgo sectorial, 
+      sensibilidad de márgenes</strong> y decisiones sobre inversión, deuda y diversificación.
+    </p>
+  </section>
+
+  <!-- 07 – Unión aduanera: concepto -->
+  <section class="slide">
+    <div class="tagline">Grado 2</div>
+    <h2>Unión aduanera: un paso más allá</h2>
+    <div class="two-columns">
+      <div>
+        <p>
+          En una <strong>unión aduanera</strong>, los países van más lejos que en una zona de libre comercio:
+        </p>
+        <ul>
+          <li>Eliminan los aranceles internos al comercio de bienes originarios.</li>
+          <li><strong>Adoptan un arancel externo común</strong> (AEC) frente a terceros países.</li>
+        </ul>
+        <p>
+          Esto exige un mayor nivel de coordinación y puede modificar estructuras productivas 
+          y de protección sectorial en cada país miembro.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Implicancias adicionales</h3>
+        <ul>
+          <li>Las decisiones sobre política comercial externa pasan a ser comunes.</li>
+          <li>Se fortalecen las instituciones regionales que definen el AEC.</li>
+          <li>Las empresas del bloque enfrentan <strong>condiciones homogéneas</strong> frente a terceros.</li>
+        </ul>
+        <p class="note">
+          Pregunta a tener en mente: ¿Bolivia pertenece hoy a alguna unión aduanera formalmente consolidada?
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 – Unión aduanera: ejemplos y mapa -->
+  <section class="slide">
+    <div class="tagline">Grado 2</div>
+    <h2>Uniones aduaneras en el mundo: ejemplos</h2>
+    <div class="two-columns">
+      <div>
+        <h3>Ejemplos de uniones aduaneras</h3>
+        <ul>
+          <li><strong>Unión Europea</strong> (UE): unión aduanera y, además, mercado común y UEM.</li>
+          <li><strong>MERCOSUR</strong>: unión aduanera con grados de flexibilidad y excepciones.</li>
+          <li><strong>SACU</strong> (Unión Aduanera de África Meridional).</li>
+          <li><strong>Algunas estructuras en CARICOM y CEDEAO/ECOWAS</strong> con componentes de unión aduanera.</li>
+        </ul>
+        <p class="note">
+          En la práctica, muchas uniones aduaneras presentan listas de excepciones, regímenes especiales y 
+          tratamientos diferenciales.
+        </p>
+      </div>
+      <div class="card">
+        <figure>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Trade_blocs.svg/640px-Trade_blocs.svg.png"
+               alt="Mapa aproximado de principales bloques comerciales">
+          <figcaption>
+            Mapa aproximado de algunos bloques comerciales regionales  
+            (representación esquemática, solo a efectos ilustrativos).
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 – Mercado común -->
+  <section class="slide">
+    <div class="tagline">Grado 3</div>
+    <h2>Mercado común: integración de bienes y factores</h2>
+    <p>
+      Un <strong>mercado común</strong> es una etapa más avanzada que la unión aduanera.  
+      Además del libre comercio de bienes y del arancel externo común, incorpora la <strong>libre circulación de factores</strong>:
+    </p>
+    <ul>
+      <li><strong>Mercancías:</strong> sin barreras internas.</li>
+      <li><strong>Personas:</strong> movilidad de trabajadores y empresarios.</li>
+      <li><strong>Servicios:</strong> provisión transfronteriza sin discriminaciones injustificadas.</li>
+      <li><strong>Capitales:</strong> circulación de inversiones y flujos financieros dentro del bloque.</li>
+    </ul>
+    <p>
+      En la práctica, un mercado común requiere cambios profundos en:
+    </p>
+    <ul>
+      <li>Normativa migratoria y laboral.</li>
+      <li>Regulación financiera y de servicios.</li>
+      <li>Reconocimiento mutuo de títulos profesionales y estándares.</li>
+    </ul>
+    <p class="note">
+      Pregunta disparadora: ¿Bolivia forma parte de algún mercado común plenamente operativo?
+    </p>
+  </section>
+
+  <!-- 10 – Mercado común e implicancias financieras -->
+  <section class="slide">
+    <div class="tagline">Grado 3</div>
+    <h2>Mercado común: ¿qué cambia para las finanzas?</h2>
+    <div class="two-columns">
+      <div>
+        <h3>Para el sector público</h3>
+        <ul>
+          <li>Mayor presión para coordinar <strong>políticas laborales y fiscales</strong>.</li>
+          <li>Necesidad de mecanismos de <strong>compensación o convergencia</strong> entre regiones.</li>
+          <li>Mayor exposición a shocks de empleo y capitales en otras economías del bloque.</li>
+        </ul>
+        <h3>Para empresas y bancos</h3>
+        <ul>
+          <li>Posibilidad de establecer filiales y operaciones en otros países del bloque con menos fricciones.</li>
+          <li>Mayor competencia de bancos y aseguradoras regionales.</li>
+          <li>Oportunidades para <strong>portafolios regionales</strong> y diversificación de riesgo.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Ejemplo de referencia</h3>
+        <p>
+          La Unión Europea avanza desde los años 80 hacia un mercado interior donde se eliminan 
+          restricciones a la libre circulación de bienes, personas, servicios y capitales, 
+          apoyado en normas comunes y en decisiones del Tribunal de Justicia.
+        </p>
+        <p class="note">
+          Desde la óptica de un gerente financiero, esto abre la puerta a <strong>estrategias de financiación,
+          inversión y cobertura a escala regional</strong>, pero también a una exposición mayor a la 
+          regulación común y a los ciclos del bloque.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 – Unión económica y monetaria: concepto -->
+  <section class="slide">
+    <div class="tagline">Grado 4</div>
+    <h2>Unión económica y monetaria: coordinación profunda</h2>
+    <p>
+      La <strong>unión económica</strong> supone un grado más avanzado en el proceso de integración:
+    </p>
+    <ul>
+      <li>Parte de un <strong>mercado común</strong> ya establecido.</li>
+      <li>Añade <strong>armonización o coordinación estrecha</strong> de las políticas económicas nacionales:
+        <ul>
+          <li>política fiscal,</li>
+          <li>política monetaria (si no hay moneda común, al menos coordinación),</li>
+          <li>políticas de estabilidad macroeconómica.</li>
+        </ul>
+      </li>
+    </ul>
+    <p>
+      La <strong>unión monetaria</strong> es una posible fase avanzada:
+    </p>
+    <ul>
+      <li>Adopción de una <strong>moneda común</strong>.</li>
+      <li>Creación de una <strong>autoridad monetaria central</strong> (banco central regional).</li>
+      <li>Desaparición del riesgo cambiario intra-bloque, pero pérdida de la política monetaria nacional.</li>
+    </ul>
+  </section>
+
+  <!-- 12 – Tratado de Maastricht y fases de la UEM -->
+  <section class="slide">
+    <div class="tagline">Zona Euro</div>
+    <h2>Tratado de la Unión Europea y fases de la UEM</h2>
+    <p>
+      El <strong>Tratado de la Unión Europea</strong>, adoptado en Maastricht (1991, en vigor desde 1993),
+      estableció el camino hacia la <strong>Unión Económica y Monetaria (UEM)</strong> en tres fases:
+    </p>
+    <ol>
+      <li>
+        <strong>Fase 1 (1990–1993):</strong> establecimiento de la libre circulación de capitales 
+        entre los Estados miembros.
+      </li>
+      <li>
+        <strong>Fase 2 (1994–1998):</strong> convergencia de políticas económicas y refuerzo de la cooperación
+        entre bancos centrales nacionales. Se crea el <strong>Instituto Monetario Europeo</strong>.
+      </li>
+      <li>
+        <strong>Fase 3 (desde 1999):</strong> política monetaria común (Eurosistema) y 
+        <strong>introducción del euro</strong>, con billetes y monedas en circulación desde 2002.
+      </li>
+    </ol>
+    <p>
+      El acceso a la UEM exigió cumplir <strong>criterios de convergencia</strong> (inflación, déficit, deuda, tipo de interés y tipo de cambio) 
+      y aceptar normas presupuestarias vinculantes (Pacto de Estabilidad y Crecimiento).
+    </p>
+  </section>
+
+  <!-- 13 – Zona Euro: mapa y datos -->
+  <section class="slide">
+    <div class="tagline">Zona Euro</div>
+    <h2>Zona del Euro: alcance económico</h2>
+    <div class="two-columns">
+      <div>
+        <h3>Dimensión de la zona euro</h3>
+        <ul>
+          <li>Agrupa a la mayoría de los Estados miembros de la Unión Europea.</li>
+          <li>Su PIB se sitúa en torno a los <strong>16–18 billones de dólares</strong>, dependiendo del año y del tipo de cambio,
+              lo que la ubica entre las principales economías agregadas del mundo. </li>
+          <li>Representa alrededor de <strong>15 % del PIB mundial</strong> si se considera la UE en su conjunto. </li>
+        </ul>
+        <p class="note">
+          Para las finanzas globales, la zona euro es un actor central: 
+          <strong>tipo de interés del BCE, deuda soberana en euros, regulación bancaria</strong>, etc.
+        </p>
+      </div>
+      <div class="card">
+        <figure>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Eurozone_%28orthographic_projection%29.svg/640px-Eurozone_%28orthographic_projection%29.svg.png"
+               alt="Mapa aproximado de la zona del euro">
+          <figcaption>
+            Mapa aproximado de los países que han adoptado el euro como moneda (representación esquemática).
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14 – Euro y gerencia financiera -->
+  <section class="slide">
+    <div class="tagline">Zona Euro</div>
+    <h2>Zona Euro: efectos para empresas y políticas públicas</h2>
+    <div class="two-columns">
+      <div>
+        <h3>Para las empresas</h3>
+        <ul>
+          <li>Desaparece el <strong>riesgo cambiario intra-zona</strong> (euro–euro).</li>
+          <li>Mayor profundidad de los mercados de capitales en euros.</li>
+          <li>Comparabilidad de precios y salarios dentro de la zona.</li>
+        </ul>
+        <h3>Para los gobiernos</h3>
+        <ul>
+          <li>Pérdida de la política monetaria nacional: el tipo de interés lo fija el BCE.</li>
+          <li>Restricciones fiscales (déficit y deuda) para preservar la estabilidad de la moneda.</li>
+          <li>Necesidad de mecanismos de coordinación y, en crisis, 
+              de instrumentos de <strong>rescate o estabilización</strong>.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Lectura financiera</h3>
+        <p>
+          La integración monetaria simplifica la gestión cambiaria, 
+          pero exige una <strong>gestión más sofisticada del riesgo macroeconómico</strong>:
+        </p>
+        <ul>
+          <li>Capacidad de absorber shocks asimétricos sin devaluar.</li>
+          <li>Uso de políticas fiscales, reformas estructurales y sistemas financieros robustos.</li>
+          <li>Relevancia del análisis de <strong>spreads de deuda soberana</strong> dentro del bloque.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15 – COVID-19 y cláusula de salvaguardia -->
+  <section class="slide">
+    <div class="tagline">Crisis y reglas fiscales</div>
+    <h2>COVID-19 y reglas fiscales en la Unión Europea</h2>
+    <p>
+      La crisis económica provocada por la <strong>COVID-19</strong> tensionó las finanzas públicas europeas.
+      Para permitir una respuesta más amplia, la UE activó la <strong>cláusula general de salvaguardia</strong> 
+      del Pacto de Estabilidad y Crecimiento:
+    </p>
+    <ul>
+      <li>Se permitió superar temporalmente el límite del <strong>60 % de deuda/PIB</strong> sin sanciones automáticas.</li>
+      <li>Se flexibilizaron las exigencias de reducción de déficit para financiar paquetes de apoyo.</li>
+      <li>Se complementó con instrumentos extraordinarios (por ejemplo, fondos de recuperación).</li>
+    </ul>
+    <p class="note">
+      Ejemplo de cómo un esquema de integración avanzada combina <strong>reglas</strong> con 
+      <strong>mecanismos de flexibilidad</strong> para enfrentar shocks excepcionales.
+    </p>
+  </section>
+
+  <!-- 16 – Unión política -->
+  <section class="slide">
+    <div class="tagline">Grado 5</div>
+    <h2>Unión política: el nivel más alto</h2>
+    <p>
+      La <strong>unión política</strong> es el grado más profundo de integración:
+    </p>
+    <ul>
+      <li>Integra no solo la economía, sino también <strong>sistemas políticos y jurídicos</strong>.</li>
+      <li>Establece un <strong>gobierno común</strong> con competencias amplias sobre los Estados miembros.</li>
+      <li>Comparte políticas exteriores, de defensa y de seguridad en un marco supranacional.</li>
+    </ul>
+    <p>
+      En este nivel, se acercan modelos como:
+    </p>
+    <ul>
+      <li><strong>Confederación:</strong> asociación de Estados soberanos que delegan algunas competencias,
+          conservando una elevada autonomía.</li>
+      <li><strong>Federación:</strong> unión de Estados con un gobierno central fuerte y 
+          autonomías regionales limitadas por una constitución común.</li>
+    </ul>
+    <p class="note">
+      La Unión Europea avanza en algunas dimensiones hacia una forma parcial de unión política, 
+      pero sigue siendo un proceso en construcción.
+    </p>
+  </section>
+
+  <!-- 17 – Schengen: concepto -->
+  <section class="slide">
+    <div class="tagline">Libertad de circulación</div>
+    <h2>Acuerdo de Schengen: fronteras internas y externas</h2>
+    <p>
+      El <strong>Acuerdo o Tratado de Schengen</strong> es un tratado internacional por el cual varios países europeos
+      suprimieron los <strong>controles en sus fronteras interiores</strong> y trasladaron esos controles a la <strong>frontera exterior común</strong>.
+    </p>
+    <ul>
+      <li>Elimina controles sistemáticos entre países Schengen (salvo situaciones excepcionales).</li>
+      <li>Requiere cooperación policial, judicial y migratoria reforzada.</li>
+      <li>Supone un alto nivel de confianza mutua y estándares comunes.</li>
+    </ul>
+    <p class="note">
+      Aunque no es un grado de integración económica en sí, Schengen ilustra el nivel de 
+      <strong>integración funcional</strong> que algunos bloques pueden alcanzar en movilidad de personas.
+    </p>
+  </section>
+
+  <!-- 18 – Schengen: mapa -->
+  <section class="slide">
+    <div class="tagline">Libertad de circulación</div>
+    <h2>Espacio Schengen: representación visual</h2>
+    <div class="two-columns">
+      <div>
+        <p>
+          El espacio Schengen incluye países de la UE y algunos Estados asociados que han eliminado controles 
+          en sus fronteras interiores. La gestión de la frontera exterior exige:
+        </p>
+        <ul>
+          <li>Controles coordinados frente a terceros países.</li>
+          <li>Políticas de visados coherentes.</li>
+          <li>Intercambio de información sobre seguridad y migración.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <figure>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Schengen_Area.svg/640px-Schengen_Area.svg.png"
+               alt="Mapa aproximado del espacio Schengen">
+          <figcaption>
+            Mapa aproximado del espacio Schengen, sus miembros y algunos Estados asociados 
+            (representación esquemática, solo referencial).
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 19 – Resumen comparativo de grados de integración -->
+  <section class="slide">
+    <div class="tagline">Síntesis</div>
+    <h2>Comparación de los grados de integración económica</h2>
+    <table>
+      <caption>De la cooperación comercial a la unión política</caption>
+      <thead>
+        <tr>
+          <th>Grado</th>
+          <th>Comercio de bienes</th>
+          <th>Arancel externo</th>
+          <th>Factores (personas, capitales, servicios)</th>
+          <th>Política económica y monetaria</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Zona de libre comercio</td>
+          <td>Sin aranceles internos a bienes originarios</td>
+          <td>Cada país mantiene el suyo</td>
+          <td>Restricciones importantes</td>
+          <td>Autónoma en cada país</td>
+        </tr>
+        <tr>
+          <td>Unión aduanera</td>
+          <td>Libre comercio intra-bloque</td>
+          <td>Arancel externo común</td>
+          <td>Restricciones importantes</td>
+          <td>Autónoma, pero condicionada por la política comercial común</td>
+        </tr>
+        <tr>
+          <td>Mercado común</td>
+          <td>Libre comercio</td>
+          <td>Arancel externo común</td>
+          <td>Libre circulación de factores</td>
+          <td>Coordinación creciente</td>
+        </tr>
+        <tr>
+          <td>Unión económica y monetaria</td>
+          <td>Libre comercio</td>
+          <td>Arancel externo común</td>
+          <td>Libre circulación de factores</td>
+          <td>Coordinación fuerte; posible moneda común y banco central regional</td>
+        </tr>
+        <tr>
+          <td>Unión política</td>
+          <td colspan="4">
+            Integración económica plena + instituciones políticas y jurídicas comunes, 
+            con reparto estructural de competencias y posible constitución compartida.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="note">
+      Esta tabla sintetiza el “escalón” que representa cada grado y ayuda a situar los ejemplos concretos 
+      (UE, MERCOSUR, CAN, etc.) en el mapa de la integración.
+    </p>
+  </section>
+
+  <!-- 20 – Enfoque desde la maestría en finanzas -->
+  <section class="slide">
+    <div class="tagline">Perspectiva financiera</div>
+    <h2>¿Por qué importa esta clasificación para las finanzas?</h2>
+    <div class="two-columns">
+      <div>
+        <h3>Variables clave que cambian con el grado de integración</h3>
+        <ul>
+          <li>Riesgo cambiario y volatilidad de monedas.</li>
+          <li>Movilidad de capitales y profundidad de los mercados.</li>
+          <li>Reglas fiscales y limitaciones al déficit y deuda.</li>
+          <li>Posibilidad de financiamiento regional (bancos regionales, mercados de bonos).</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Lectura práctica</h3>
+        <p>
+          En cada nivel de integración, la gerencia financiera debe preguntarse:
+        </p>
+        <ul>
+          <li>¿Cómo cambia mi estructura de costos y de ingresos?</li>
+          <li>¿Qué riesgos macro y regulatorios aparecen o desaparecen?</li>
+          <li>¿Qué instrumentos de financiamiento e inversión se vuelven accesibles?</li>
+        </ul>
+        <p class="note">
+          La integración no es solo un fenómeno jurídico: es un <strong>cambio de contexto</strong> 
+          para la toma de decisiones financieras públicas y privadas.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 21 – Cierre e invitación a reflexión -->
+  <section class="slide">
+    <div class="tagline">Cierre</div>
+    <h2>Del mapa teórico a los casos reales</h2>
+    <p>
+      Hemos revisado los grados de integración económica y algunos ejemplos emblemáticos 
+      (Unión Europea, Zona Euro, Schengen, uniones aduaneras). El desafío ahora es:
+    </p>
+    <ul>
+      <li>Ubicar a <strong>América Latina</strong> y a <strong>Bolivia</strong> en este mapa de integración.</li>
+      <li>Analizar qué grado de integración es deseable en cada caso.</li>
+      <li>Identificar riesgos y oportunidades para las finanzas públicas y para el sector privado.</li>
+    </ul>
+    <p class="note">
+      En las siguientes partes del módulo, se profundizará en el <strong>Ordenamiento Jurídico Andino</strong> 
+      y en las implicancias específicas de la integración subregional para nuestra región.
+    </p>
+  </section>
+
+  <!-- 22 – Cuestionario -->
+  <section class="slide">
+    <div class="tagline">Evaluación</div>
+    <h2>Cuestionario 03 – Integración económica</h2>
+    <p>
+      Para consolidar los contenidos de esta sesión, completa el siguiente cuestionario en línea.
+    </p>
+    <p>
+      <strong>Enlace al Cuestionario 03:</strong><br>
+      <a href="https://forms.gle/veUGqBSTR59rKBvh6" target="_blank" rel="noopener">
+        https://forms.gle/veUGqBSTR59rKBvh6
+      </a>
+    </p>
+    <p class="note">
+      Asegúrate de haber revisado todas las diapositivas y de tener claras las diferencias entre los grados de integración,
+      así como sus implicancias económicas y financieras.
+    </p>
+  </section>
+
+  <!-- Navegación -->
+  <section id="nav">
+    <div class="nav-buttons">
+      <button id="prevBtn" class="nav-btn" disabled>&larr; Atrás</button>
+      <button id="nextBtn" class="nav-btn">Siguiente &rarr;</button>
+    </div>
+    <div id="progress">
+      <div id="progress-bar"></div>
+    </div>
+    <div id="slide-indicator">Diapositiva 1 de 22</div>
+  </section>
+</main>
+
+<script>
+  (function () {
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const indicator = document.getElementById('slide-indicator');
+    const progressBar = document.getElementById('progress-bar');
+
+    let current = 0;
+
+    function showSlide(index) {
+      if (index < 0 || index >= slides.length) return;
+      slides[current].classList.remove('active');
+      current = index;
+      slides[current].classList.add('active');
+
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === slides.length - 1;
+
+      indicator.textContent = 'Diapositiva ' + (current + 1) + ' de ' + slides.length;
+      const progress = ((current + 1) / slides.length) * 100;
+      progressBar.style.width = progress + '%';
+    }
+
+    prevBtn.addEventListener('click', () => showSlide(current - 1));
+    nextBtn.addEventListener('click', () => showSlide(current + 1));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+        if (!nextBtn.disabled) showSlide(current + 1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        if (!prevBtn.disabled) showSlide(current - 1);
+      }
+    });
+
+    showSlide(0);
+  })();
+</script>
+</body>
+</html>
