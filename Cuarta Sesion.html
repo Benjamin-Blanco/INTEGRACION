@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cuarta sesión – Comunidad Andina (CAN)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #020617;
+      --card: #ffffff;
+      --accent: #0f766e;
+      --accent-soft: #ccfbf1;
+      --text: #111827;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1f2937 0, #020617 50%, #000 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 10px 20px;
+      color: #f9fafb;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+      background: linear-gradient(120deg, #020617, #111827);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+
+    header p {
+      margin: 0;
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+
+    .slide-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      padding: 16px 8px 70px;
+    }
+
+    .slide-wrapper {
+      width: 100%;
+      max-width: 1120px;
+    }
+
+    .slide {
+      display: none;
+      background: var(--card);
+      border-radius: 18px;
+      padding: 22px 26px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(15, 23, 42, 0.18);
+      min-height: 420px;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    .slide-title {
+      margin: 0 0 8px;
+      font-size: 1.4rem;
+      color: var(--accent);
+    }
+
+    .slide-subtitle {
+      margin: 0 0 12px;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    p {
+      font-size: 0.96rem;
+      margin: 4px 0 10px;
+    }
+
+    ul, ol {
+      font-size: 0.96rem;
+      padding-left: 20px;
+      margin: 4px 0 8px;
+    }
+
+    li { margin-bottom: 4px; }
+
+    .two-columns {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.9fr);
+      gap: 16px 22px;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 800px) {
+      .two-columns { grid-template-columns: 1fr; }
+    }
+
+    .box {
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      background: #f9fafb;
+      font-size: 0.9rem;
+    }
+
+    .box-title {
+      font-weight: 600;
+      font-size: 0.84rem;
+      color: #374151;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.76rem;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #065f46;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+
+    .highlight {
+      border-left: 3px solid #f97316;
+      background: #fff7ed;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      margin-top: 10px;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+      margin-top: 6px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 0.86rem;
+      background: #ffffff;
+    }
+
+    th, td {
+      border: 1px solid #e5e7eb;
+      padding: 5px 7px;
+      text-align: left;
+    }
+
+    th {
+      background: #ecfeff;
+      font-weight: 600;
+    }
+
+    caption {
+      caption-side: top;
+      text-align: left;
+      font-weight: 600;
+      margin-bottom: 4px;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    a {
+      color: #0369a1;
+      text-decoration: none;
+    }
+
+    a:hover { text-decoration: underline; }
+
+    .nav-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 8px 12px;
+      background: rgba(3, 7, 18, 0.96);
+      border-top: 1px solid rgba(148, 163, 184, 0.4);
+      display: flex;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .nav-inner {
+      width: 100%;
+      max-width: 1120px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: #e5e7eb;
+      font-size: 0.88rem;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .nav-button {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.85);
+      padding: 7px 16px;
+      font-size: 0.86rem;
+      background: rgba(15, 23, 42, 0.92);
+      color: #f9fafb;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-button:hover {
+      background: #0f766e;
+      border-color: #a7f3d0;
+    }
+
+    .nav-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: baseline;
+      justify-content: flex-end;
+    }
+
+    .nav-info span { opacity: 0.92; }
+
+    .nav-title { font-weight: 500; }
+
+    .nav-shortcut {
+      font-size: 0.78rem;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div>
+        <h1>Cuarta sesión · Comunidad Andina (CAN)</h1>
+        <p>Objetivos, Sistema Andino de Integración, supranacionalidad y órganos decisorios.</p>
+      </div>
+      <p>Usa las flechas ← → o los botones para avanzar y retroceder.</p>
+    </div>
+  </header>
+
+  <div class="slide-container">
+    <div class="slide-wrapper" id="slides">
+
+      <!-- 1. Objetivos CAN -->
+      <section class="slide active" data-title="Objetivos de la Comunidad Andina">
+        <h2 class="slide-title">Objetivos de la Comunidad Andina</h2>
+        <p class="slide-subtitle">Qué busca la CAN y por qué existe este esquema de integración.</p>
+
+        <div class="two-columns">
+          <div>
+            <span class="badge">Finalidad general</span>
+            <ul>
+              <li>Impulsar el crecimiento económico y la generación de empleo productivo en los Países Miembros.</li>
+              <li>Promover el desarrollo integral, equilibrado y autónomo de Bolivia, Colombia, Ecuador y Perú.</li>
+              <li>Consolidar un mercado ampliado que fortalezca la posición de la CAN en la economía internacional.</li>
+              <li>Contribuir a una integración sudamericana y latinoamericana más amplia.</li>
+            </ul>
+            <p class="muted">
+              Página oficial sobre la Comunidad Andina:
+              <a href="https://www.comunidadandina.org/quienes-somos/"
+                 target="_blank" rel="noopener">
+                La Comunidad Andina – Quiénes somos
+              </a>
+            </p>
+          </div>
+          <div class="box">
+            <div class="box-title">Material para mostrar</div>
+            <p class="muted">
+              Folleto “Somos CAN”:
+              <a href="https://www.comunidadandina.org/StaticFiles/20168194153Folleto_SomosCAN.pdf"
+                 target="_blank" rel="noopener">
+                Descargar PDF
+              </a>
+            </p>
+            <p class="muted">
+              Brochure “Somos Comunidad Andina”:
+              <a href="https://www.comunidadandina.org/StaticFiles/2018720125527BROCHURE%20CAN.pdf"
+                 target="_blank" rel="noopener">
+                Descargar PDF
+              </a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Origen y países fundadores -->
+      <section class="slide" data-title="Origen y países fundadores">
+        <h2 class="slide-title">Origen y países fundadores</h2>
+        <p class="slide-subtitle">Cómo nace el proceso andino de integración.</p>
+
+        <div class="two-columns">
+          <div>
+            <span class="badge">Acuerdo de Cartagena (1969)</span>
+            <p>
+              El proceso andino de integración se inicia con el <strong>Acuerdo de Cartagena</strong>,
+              suscrito el <strong>26 de mayo de 1969</strong>.
+            </p>
+            <p>
+              <strong>Número original de países:</strong> la integración andina nace
+              con <strong>5 países</strong>:
+            </p>
+            <ul>
+              <li>Bolivia</li>
+              <li>Chile</li>
+              <li>Colombia</li>
+              <li>Ecuador</li>
+              <li>Perú</li>
+            </ul>
+          </div>
+          <div class="box">
+            <div class="box-title">Evolución de la membresía</div>
+            <ul>
+              <li><strong>Venezuela</strong> se adhiere posteriormente (1973) y se mantiene hasta 2006.</li>
+              <li><strong>Chile</strong> fue miembro desde 1969 hasta 1976; luego se retira del Acuerdo de Cartagena.</li>
+              <li>Actualmente la CAN está integrada por: Bolivia, Colombia, Ecuador y Perú.</li>
+            </ul>
+            <p class="muted">
+              Esta secuencia permite entender:
+              <br>• La integración nace con 5 países.
+              <br>• Venezuela no es país fundador, pero sí fue Estado miembro.
+              <br>• Chile perteneció efectivamente a la Comunidad Andina (entonces Pacto Andino).
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Nombre oficial de la CAN -->
+      <section class="slide" data-title="Nombre oficial: Comunidad Andina">
+        <h2 class="slide-title">Nombre oficial: Comunidad Andina</h2>
+        <p class="slide-subtitle">De “Pacto Andino” a Comunidad Andina.</p>
+
+        <div class="two-columns">
+          <div>
+            <span class="badge">Denominaciones</span>
+            <ul>
+              <li><strong>Pacto Andino</strong>: denominación original del proceso andino de integración.</li>
+              <li><strong>Comunidad Andina</strong> (CAN): nombre oficial actual de la organización.</li>
+            </ul>
+            <p>
+              En algunos documentos y medios se utilizó la expresión
+              <strong>“Comunidad Andina de Naciones”</strong>, pero la denominación oficial vigente es
+              simplemente <strong>Comunidad Andina</strong> o CAN.
+            </p>
+          </div>
+          <div class="box">
+            <div class="box-title">Idea clave</div>
+            <p>
+              Hoy, cuando hablamos de la CAN, nos referimos a la
+              <strong>Comunidad Andina</strong>. “Pacto Andino” y “Comunidad Andina de Naciones”
+              quedan como nombres históricos o informales.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. CAN en cifras -->
+      <section class="slide" data-title="La Comunidad Andina en cifras">
+        <h2 class="slide-title">La Comunidad Andina en cifras</h2>
+        <p class="slide-subtitle">Dimensión del mercado andino y peso económico reciente.</p>
+
+        <div class="two-columns">
+          <div>
+            <span class="badge">Población y territorio</span>
+            <ul>
+              <li><strong>Países Miembros:</strong> Bolivia, Colombia, Ecuador y Perú.</li>
+              <li>Más de <strong>110 millones de habitantes</strong> en conjunto.</li>
+              <li>Alrededor de 4 millones de km² de territorio andino.</li>
+            </ul>
+
+            <span class="badge">Exportaciones recientes</span>
+            <ul>
+              <li>Crecimiento anual del comercio andino 2014–2023.</li>
+              <li>Diferencia entre comercio intra y extracomunitario de bienes.</li>
+            </ul>
+          </div>
+          <div class="box">
+            <div class="box-title">Estadísticas oficiales</div>
+            <p class="muted">
+              Informe “Estadísticas de comercio intra y extracomunitario de bienes 2014–2023”:
+              <a href="https://www.comunidadandina.org/DocOficialesFiles/DEstadisticos/SGDE1004COMERCIOEXTERIOR2014_2023.pdf"
+                 target="_blank" rel="noopener">
+                Abrir informe (PDF)
+              </a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Ciudadanos andinos -->
+      <section class="slide" data-title="Ciudadanos andinos">
+        <h2 class="slide-title">Ciudadanos andinos</h2>
+        <p class="slide-subtitle">Quiénes se benefician directamente del proceso de integración.</p>
+
+        <div class="two-columns">
+          <div>
+            <p>
+              La CAN reúne a más de <strong>cien millones de ciudadanos</strong>, reconocidos como
+              <strong>ciudadanos andinos</strong>, con derechos específicos en materia de trabajo,
+              movilidad, seguridad social y otros ámbitos.
+            </p>
+
+            <div class="table-wrapper">
+              <table>
+                <caption>Población aproximada por país (referencial)</caption>
+                <thead>
+                  <tr>
+                    <th>País</th>
+                    <th>Participación aproximada</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Bolivia</td><td>≈ 10%</td></tr>
+                  <tr><td>Colombia</td><td>≈ 45%</td></tr>
+                  <tr><td>Ecuador</td><td>≈ 16%</td></tr>
+                  <tr><td>Perú</td><td>≈ 29%</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="box">
+            <div class="box-title">Derechos del ciudadano andino</div>
+            <ul>
+              <li>Trato no discriminatorio por nacionalidad en el territorio andino.</li>
+              <li>Asistencia ante catástrofes y protección consular.</li>
+              <li>Beneficios en migración, trabajo y seguridad social, según la normativa andina.</li>
+            </ul>
+            <p class="muted">
+              Cartilla oficial:
+              <a href="https://www.comunidadandina.org/StaticFiles/2011225165851derechos_CAN.pdf"
+                 target="_blank" rel="noopener">
+                “Derechos del Ciudadano Andino” (PDF)
+              </a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. Sistema Andino de Integración -->
+      <section class="slide" data-title="Sistema Andino de Integración (SAI)">
+        <h2 class="slide-title">Sistema Andino de Integración (SAI)</h2>
+        <p class="slide-subtitle">La arquitectura institucional que sostiene a la CAN.</p>
+
+        <div class="two-columns">
+          <div>
+            <p>
+              El <strong>SAI</strong> articula órganos e instituciones de la Comunidad Andina para
+              coordinar políticas y profundizar la integración andina, con proyección hacia
+              Sudamérica y Latinoamérica.
+            </p>
+            <span class="badge">Órganos principales</span>
+            <ul>
+              <li>Consejo Presidencial Andino.</li>
+              <li>Consejo Andino de Ministros de Relaciones Exteriores.</li>
+              <li>Comisión de la Comunidad Andina.</li>
+              <li>Secretaría General de la Comunidad Andina.</li>
+              <li>Tribunal de Justicia de la Comunidad Andina.</li>
+              <li>Parlamento Andino y órganos consultivos.</li>
+            </ul>
+          </div>
+          <div class="box">
+            <div class="box-title">Más detalle del SAI</div>
+            <p class="muted">
+              Página oficial:
+              <a href="https://www.comunidadandina.org/quienes-somos/sistema-andino-de-integracion-sai/"
+                 target="_blank" rel="noopener">
+                Sistema Andino de Integración (SAI)
+              </a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. Presidencia pro tempore -->
+      <section class="slide" data-title="Presidencia pro tempore de la CAN">
+        <h2 class="slide-title">Presidencia pro tempore de la Comunidad Andina</h2>
+        <p class="slide-subtitle">Cómo se determina la presidencia del Sistema Andino de Integración.</p>
+
+        <div class="two-columns">
+          <div>
+            <span class="badge">Regla básica</span>
+            <p>
+              La <strong>presidencia pro tempore</strong> de la Comunidad Andina es ejercida sucesivamente
+              por cada uno de los Estados miembros, <strong>en orden alfabético</strong>, por el período
+              de <strong>un año</strong>.
+            </p>
+            <ul>
+              <li>Orden actual: Bolivia, Colombia, Ecuador y Perú.</li>
+              <li>La presidencia se rota de manera periódica siguiendo ese orden.</li>
+            </ul>
+          </div>
+          <div class="box">
+            <div class="box-title">Idea clave</div>
+            <p>
+              La presidencia del sistema andino no se elige por votación calificada ni por sorteo:
+              <strong>rota anualmente en orden alfabético</strong> entre los Países Miembros.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. Supranacionalidad -->
+      <section class="slide" data-title="Supranacionalidad en la CAN">
+        <h2 class="slide-title">Supranacionalidad en la CAN</h2>
+        <p class="slide-subtitle">Cómo se ubica el derecho andino frente a las normas internas.</p>
+
+        <p>
+          El sistema andino se apoya en un <strong>ordenamiento jurídico comunitario</strong> con rasgos
+          supranacionales: la norma andina es de <strong>aplicación directa</strong> y tiene
+          <strong>primacía sobre el derecho interno incompatible</strong> de los Países Miembros.
+        </p>
+
+        <ul>
+          <li>Los Estados no pueden invocar su legislación interna para dejar de cumplir una norma andina.</li>
+          <li>El Tribunal de Justicia de la CAN asegura la interpretación uniforme del derecho andino.</li>
+        </ul>
+      </section>
+
+      <!-- 9. Relación con otros ordenamientos -->
+      <section class="slide" data-title="Relación con otros ordenamientos">
+        <h2 class="slide-title">Relación con otros ordenamientos</h2>
+        <p class="slide-subtitle">Norma andina, derecho interno y compromisos externos.</p>
+
+        <p>
+          En el ámbito de las <strong>relaciones entre los Países Miembros</strong>, el punto de partida
+          del sistema es claro:
+        </p>
+        <ul>
+          <li>En caso de conflicto, <strong>la norma comunitaria andina prima</strong> frente al derecho interno incompatible.</li>
+          <li>
+            Los Estados deben armonizar sus compromisos externos (por ejemplo, en la OMC y otros foros)
+            con el cumplimiento del <strong>derecho andino</strong>.
+          </li>
+        </ul>
+
+        <div class="highlight">
+          Mensaje central: en la relación jurídica entre Bolivia, Colombia, Ecuador y Perú,
+          <strong>la norma andina tiene primacía</strong> dentro del sistema de integración.
+        </div>
+      </section>
+
+      <!-- 10. Ejes de la integración -->
+      <section class="slide" data-title="Ejes de la integración andina">
+        <h2 class="slide-title">Ejes de la integración andina</h2>
+        <p class="slide-subtitle">Principales líneas de trabajo del proceso andino.</p>
+
+        <ul>
+          <li><strong>Integración social</strong>: políticas para personas, derechos y cohesión social.</li>
+          <li><strong>Integración comercial</strong>: acceso a mercados, origen, normas técnicas y MSF.</li>
+          <li><strong>Convergencia regional</strong>: articulación con otros procesos de integración.</li>
+          <li><strong>Integración física y energética</strong>: transporte, logística, telecomunicaciones, energía.</li>
+        </ul>
+
+        <p class="muted">
+          Portal principal:
+          <a href="https://www.comunidadandina.org/"
+             target="_blank" rel="noopener">
+            comunidadandina.org
+          </a>
+        </p>
+      </section>
+
+      <!-- 11. Ámbitos de acción I -->
+      <section class="slide" data-title="Ámbitos de acción (I)">
+        <h2 class="slide-title">Ámbitos de acción de la CAN (I)</h2>
+        <p class="slide-subtitle">Acceso a mercados y facilitación del comercio.</p>
+
+        <span class="badge">Integración comercial</span>
+        <ul>
+          <li>Gravámenes y restricciones a las importaciones entre Países Miembros.</li>
+          <li>Normas de <strong>origen</strong> de las mercancías andinas.</li>
+          <li>Facilitación del comercio y tránsito aduanero comunitario.</li>
+          <li>Medidas sanitarias y fitosanitarias (MSF).</li>
+          <li>Obstáculos técnicos al comercio, calidad e inocuidad.</li>
+        </ul>
+
+        <p class="muted">
+          Temas de comercio (DG-COM):
+          <a href="https://www.comunidadandina.org/temas/dg-com/"
+             target="_blank" rel="noopener">
+            Dirección General de Comercio – CAN
+          </a>
+        </p>
+      </section>
+
+      <!-- 12. Ámbitos de acción II -->
+      <section class="slide" data-title="Ámbitos de acción (II)">
+        <h2 class="slide-title">Ámbitos de acción de la CAN (II)</h2>
+        <p class="slide-subtitle">Integración física, productiva y de servicios.</p>
+
+        <span class="badge">Integración física y productiva</span>
+        <ul>
+          <li>Transporte de pasajeros y mercancías en la subregión.</li>
+          <li>Complementariedad productiva y competitividad empresarial andina.</li>
+          <li>Servicios e inversiones intracomunitarias con marcos armonizados.</li>
+        </ul>
+
+        <p class="muted">
+          Integración física y servicios (DG-TIS):
+          <a href="https://www.comunidadandina.org/temas/dg-tis/"
+             target="_blank" rel="noopener">
+            Dirección General de Transformación Productiva, Integración Física y Servicios
+          </a>
+        </p>
+      </section>
+
+      <!-- 13. Ámbitos de acción III -->
+      <section class="slide" data-title="Ámbitos de acción (III)">
+        <h2 class="slide-title">Ámbitos de acción de la CAN (III)</h2>
+        <p class="slide-subtitle">Integración social, cooperación y seguridad.</p>
+
+        <span class="badge">Dimensión social y de seguridad</span>
+        <ul>
+          <li>Migración y movilidad humana.</li>
+          <li>Seguridad social y reconocimiento de aportes entre países.</li>
+          <li>Educación, cultura y cooperación técnica.</li>
+          <li>Prevención de desastres y lucha contra actividades ilícitas.</li>
+        </ul>
+
+        <p class="muted">
+          Desarrollo social (DG-DEC):
+          <a href="https://www.comunidadandina.org/temas/dg-dec/"
+             target="_blank" rel="noopener">
+            Dirección General de Desarrollo Social, Cooperación y Propiedad Intelectual
+          </a>
+        </p>
+      </section>
+
+      <!-- 14. 54 años integración I -->
+      <section class="slide" data-title="54 años de integración (I)">
+        <h2 class="slide-title">54 años de integración de la CAN (I)</h2>
+        <p class="slide-subtitle">Zona de libre comercio y consolidación del mercado andino.</p>
+
+        <div class="two-columns">
+          <div>
+            <span class="badge">Zona de libre comercio</span>
+            <p>
+              La CAN consolidó una <strong>Zona Andina de Libre Comercio</strong>:
+              el 100% de los productos originarios andinos circulan sin aranceles dentro del bloque.
+            </p>
+            <p>
+              Esto es clave para que el mercado andino funcione como un solo espacio económico,
+              especialmente en sectores manufactureros que generan empleo.
+            </p>
+          </div>
+          <div class="box">
+            <div class="box-title">Dimensión económico-comercial</div>
+            <p class="muted">
+              Ver folleto sobre la dimensión económico-comercial:
+              <a href="https://www.comunidadandina.org/StaticFiles/201542994224DIMENSION%20ECONOMICO%20COMERCIAL.pdf"
+                 target="_blank" rel="noopener">
+                Descargar PDF
+              </a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 15. 54 años integración II -->
+      <section class="slide" data-title="54 años de integración (II)">
+        <h2 class="slide-title">54 años de integración de la CAN (II)</h2>
+        <p class="slide-subtitle">Ejemplos recientes de normas comunitarias.</p>
+
+        <div class="two-columns">
+          <div class="box">
+            <div class="box-title">Roaming internacional andino – Decisión 854</div>
+            <p>
+              La <strong>Decisión 854</strong> establece lineamientos comunitarios para
+              el <strong>servicio de roaming internacional</strong> entre los Países Miembros,
+              eliminando progresivamente los recargos y beneficiando a los ciudadanos andinos.
+            </p>
+            <p class="muted">
+              Nota de prensa:
+              <a href="https://www.comunidadandina.org/notas-de-prensa/desde-el-1-de-enero-de-2022-se-eliminaran-cargos-de-roaming-internacional-en-paises-de-la-comunidad-andina/"
+                 target="_blank" rel="noopener">
+                Eliminación de cargos de roaming
+              </a>
+            </p>
+          </div>
+          <div class="box">
+            <div class="box-title">Usuarios de telecomunicaciones – Decisión 897</div>
+            <p>
+              La <strong>Decisión 897</strong> actualiza los lineamientos para la
+              <strong>protección de los usuarios de servicios de telecomunicaciones</strong>,
+              incluyendo datos personales, seguridad, transparencia y derechos de los consumidores.
+            </p>
+            <p class="muted">
+              Explicación accesible:
+              <a href="https://www.comunidadandina.org/todo-sobre-la-norma-que-protege-a-los-usuarios-de-las-telecomunicaciones/"
+                 target="_blank" rel="noopener">
+                Todo sobre la norma que protege a los usuarios
+              </a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 16. Libre comercio y empleo -->
+      <section class="slide" data-title="Libre comercio andino y empleo">
+        <h2 class="slide-title">Libre comercio andino y empleo</h2>
+        <p class="slide-subtitle">Conexión entre integración comercial y trabajo productivo.</p>
+
+        <p>
+          El libre comercio intracomunitario favorece los sectores con mayor generación de empleo,
+          especialmente los productos manufacturados. La supresión de aranceles y la reducción de
+          barreras no arancelarias permiten que las empresas andinas compitan en un mercado ampliado.
+        </p>
+
+        <div class="highlight">
+          La integración comercial es una herramienta para ampliar
+          <strong>oportunidades productivas</strong> y mejorar las condiciones de vida en los cuatro países.
+        </div>
+      </section>
+
+      <!-- 17. Ordenamiento jurídico I -->
+      <section class="slide" data-title="Ordenamiento jurídico andino (I)">
+        <h2 class="slide-title">Ordenamiento jurídico andino (I)</h2>
+        <p class="slide-subtitle">El “esqueleto jurídico” que sostiene a la CAN.</p>
+
+        <div class="two-columns">
+          <div>
+            <span class="badge">Norma originaria</span>
+            <ul>
+              <li><strong>Acuerdo de Cartagena</strong> (1969), modificado por el Protocolo de Trujillo.</li>
+              <li>Establece objetivos, principios, órganos e instituciones y competencias del sistema.</li>
+            </ul>
+          </div>
+          <div>
+            <span class="badge">Características</span>
+            <ul>
+              <li>Primacía de la norma comunitaria frente al derecho interno incompatible.</li>
+              <li>Aplicabilidad inmediata de muchas normas andinas.</li>
+              <li>Efecto directo en los casos previstos.</li>
+              <li>Supranacionalidad y autonomía del sistema jurídico andino.</li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="muted">
+          Normativa Andina – Decisiones:
+          <a href="https://www.comunidadandina.org/normativa-andina/decisiones/1/"
+             target="_blank" rel="noopener">
+            Listado oficial de decisiones
+          </a>
+        </p>
+      </section>
+
+      <!-- 18. Órganos que producen derecho comunitario -->
+      <section class="slide" data-title="Órganos que producen derecho comunitario">
+        <h2 class="slide-title">Órganos que producen derecho comunitario andino</h2>
+        <p class="slide-subtitle">Quién adopta Decisiones y Resoluciones en la CAN.</p>
+
+        <div class="two-columns">
+          <div>
+            <span class="badge">Órganos decisorios</span>
+            <ul>
+              <li>
+                <strong>Consejo Andino de Ministros de Relaciones Exteriores</strong>:
+                órgano político; adopta <strong>Decisiones</strong> en materias de su competencia.
+              </li>
+              <li>
+                <strong>Comisión de la Comunidad Andina</strong>:
+                órgano normativo económico-comercial; adopta <strong>Decisiones</strong> sobre comercio,
+                integración productiva, servicios, etc.
+              </li>
+              <li>
+                <strong>Secretaría General de la Comunidad Andina</strong>:
+                órgano ejecutivo y técnico; adopta <strong>Resoluciones</strong> obligatorias.
+              </li>
+            </ul>
+          </div>
+          <div class="box">
+            <div class="box-title">Órganos que NO producen derecho comunitario</div>
+            <ul>
+              <li><strong>Consejo Presidencial Andino</strong>: fija lineamientos políticos de alto nivel, pero no adopta Decisiones ni Resoluciones normativas.</li>
+              <li><strong>CAF – Banco de Desarrollo de América Latina y el Caribe</strong>: es un organismo financiero regional, no un órgano comunitario andino creador de normas.</li>
+            </ul>
+            <p class="muted">
+              Con esto queda claro cuáles son los órganos decisorios que generan
+              <strong>derecho comunitario andino</strong>.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 19. Gaceta Oficial -->
+      <section class="slide" data-title="Gaceta Oficial del Acuerdo de Cartagena">
+        <h2 class="slide-title">Gaceta Oficial del Acuerdo de Cartagena</h2>
+        <p class="slide-subtitle">Publicación y obligatoriedad de las normas andinas.</p>
+
+        <div class="two-columns">
+          <div>
+            <span class="badge">Publicación</span>
+            <p>
+              El derecho comunitario andino entra en vigor con su publicación en la
+              <strong>Gaceta Oficial del Acuerdo de Cartagena</strong>, disponible en el sitio oficial.
+            </p>
+          </div>
+          <div>
+            <span class="badge">Cumplimiento</span>
+            <p>
+              Las Decisiones y Resoluciones son de <strong>cumplimiento obligatorio</strong> para
+              los Países Miembros; la Secretaría General monitorea y promueve su aplicación efectiva.
+            </p>
+          </div>
+        </div>
+
+        <p class="muted">
+          Gacetas:
+          <a href="https://www.comunidadandina.org/normativa-andina/gacetas/1/"
+             target="_blank" rel="noopener">
+            Listado de Gacetas Oficiales
+          </a>
+        </p>
+      </section>
+
+      <!-- 20. Decisión 486 -->
+      <section class="slide" data-title="Decisión 486 – Propiedad industrial">
+        <h2 class="slide-title">Decisión 486 – Régimen común sobre propiedad industrial</h2>
+        <p class="slide-subtitle">Un ejemplo central de norma comunitaria andina.</p>
+
+        <div class="two-columns">
+          <div>
+            <p>
+              La <strong>Decisión 486</strong> establece el <strong>Régimen Común sobre Propiedad Industrial</strong>
+              en la Comunidad Andina. Regula patentes, diseños, marcas, denominaciones de origen,
+              secretos industriales y competencia desleal vinculada a la propiedad industrial.
+            </p>
+            <p>
+              Es una norma clave para la innovación, la inversión y la lucha contra la falsificación
+              en la subregión andina.
+            </p>
+          </div>
+          <div class="box">
+            <div class="box-title">Documentos para mostrar</div>
+            <p class="muted">
+              Texto de la Decisión 486:
+              <a href="https://www.comunidadandina.org/StaticFiles/DocOf/DEC486.pdf"
+                 target="_blank" rel="noopener">
+                Descargar PDF
+              </a>
+            </p>
+            <p class="muted">
+              Tema “Propiedad intelectual”:
+              <a href="https://www.comunidadandina.org/temas/dg-dec/propiedad-intelectual/"
+                 target="_blank" rel="noopener">
+                Propiedad intelectual en la CAN
+              </a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 21. Otros ejemplos de normas comunitarias -->
+      <section class="slide" data-title="Otros ejemplos de normas comunitarias">
+        <h2 class="slide-title">Otros ejemplos de normas comunitarias andinas</h2>
+        <p class="slide-subtitle">Diversidad temática en el derecho andino.</p>
+
+        <div class="table-wrapper">
+          <table>
+            <caption>Decisiones andinas relevantes (selección)</caption>
+            <thead>
+              <tr>
+                <th>Decisión</th>
+                <th>Tema</th>
+                <th>Descripción breve</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Decisión 291</td>
+                <td>Inversión extranjera</td>
+                <td>Régimen común de tratamiento a los capitales extranjeros, marcas, patentes y regalías.</td>
+              </tr>
+              <tr>
+                <td>Decisión 345</td>
+                <td>Variedades vegetales</td>
+                <td>Protección a los derechos de los obtentores de variedades vegetales.</td>
+              </tr>
+              <tr>
+                <td>Decisión 398</td>
+                <td>Transporte de pasajeros</td>
+                <td>Transporte internacional de pasajeros por carretera entre Países Miembros.</td>
+              </tr>
+              <tr>
+                <td>Decisión 399</td>
+                <td>Transporte de mercancías</td>
+                <td>Transporte internacional de mercancías por carretera.</td>
+              </tr>
+              <tr>
+                <td>Decisión 501</td>
+                <td>Zonas de Integración Fronteriza (ZIF)</td>
+                <td>Establece las ZIF como espacios de cooperación e integración fronteriza.</td>
+              </tr>
+              <tr>
+                <td>Decisión 502</td>
+                <td>Centros Binacionales de Atención en Frontera</td>
+                <td>Regula los CBAF para facilitar el tránsito de personas, equipajes y mercancías.</td>
+              </tr>
+              <tr>
+                <td>Decisión 504</td>
+                <td>Pasaporte Andino</td>
+                <td>Creación del Pasaporte Andino como documento de viaje común.</td>
+              </tr>
+              <tr>
+                <td>Decisión 525</td>
+                <td>Características del Pasaporte Andino</td>
+                <td>Características técnicas específicas mínimas del Pasaporte Andino.</td>
+              </tr>
+              <tr>
+                <td>Decisión 545</td>
+                <td>Migración laboral</td>
+                <td>Instrumento Andino de Migración Laboral.</td>
+              </tr>
+              <tr>
+                <td>Decisión 750</td>
+                <td>Tarjeta Andina de Migración</td>
+                <td>Sistema Estadístico de la Tarjeta Andina de Migración (SETAM).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="muted">
+          Compilación de normas sobre migración (incluye Decisiones 501, 502, 504, 525, 545, 750):
+          <a href="https://www.comunidadandina.org/StaticFiles/201832185827normasmigracion.pdf"
+             target="_blank" rel="noopener">
+            Normas sobre migración en la Comunidad Andina (PDF)
+          </a>
+        </p>
+
+        <p class="muted">
+          Búsqueda general de decisiones:
+          <a href="https://www.comunidadandina.org/normativa-andina/decisiones/1/"
+             target="_blank" rel="noopener">
+            Normativa Andina – Decisiones
+          </a>
+        </p>
+      </section>
+
+      <!-- 22. Pasaporte Andino -->
+      <section class="slide" data-title="Pasaporte Andino y movilidad">
+        <h2 class="slide-title">Pasaporte Andino y movilidad</h2>
+        <p class="slide-subtitle">Un símbolo de ciudadanía andina.</p>
+
+        <div class="two-columns">
+          <div class="box">
+            <div class="box-title">Decisión 504 – Creación del Pasaporte Andino</div>
+            <p>
+              La <strong>Decisión 504</strong> crea el <strong>Pasaporte Andino</strong> como
+              documento de viaje común para los ciudadanos andinos, facilitando la movilidad
+              en la subregión y reforzando la identidad comunitaria.
+            </p>
+            <p class="muted">
+              Texto de la Decisión 504 (Gaceta Oficial 680):
+              <a href="https://www.comunidadandina.org/DocOficialesFiles/Gacetas/GACE680.PDF"
+                 target="_blank" rel="noopener">
+                Ver Gaceta (PDF)
+              </a>
+            </p>
+          </div>
+          <div class="box">
+            <div class="box-title">Cartillas útiles</div>
+            <p class="muted">
+              Cartilla sobre el Pasaporte Andino:
+              <a href="https://www.comunidadandina.org/StaticFiles/2012724162846pasaporte-andino.pdf"
+                 target="_blank" rel="noopener">
+                “Pasaporte Andino” (PDF)
+              </a>
+            </p>
+            <p class="muted">
+              Cartilla para viajeros andinos:
+              <a href="https://www.comunidadandina.org/StaticFiles/201211916156Pasaporte_Viajeros.pdf"
+                 target="_blank" rel="noopener">
+                “Tus derechos como viajero andino” (PDF)
+              </a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 23. Derechos del ciudadano andino -->
+      <section class="slide" data-title="Derechos del ciudadano andino">
+        <h2 class="slide-title">Derechos del ciudadano andino</h2>
+        <p class="slide-subtitle">Una visión centrada en la persona.</p>
+
+        <div class="two-columns">
+          <div class="box">
+            <div class="box-title">Movilidad, trabajo y seguridad social</div>
+            <ul>
+              <li>Derechos de migración y residencia en otros Países Miembros.</li>
+              <li>Acceso a empleo y protección de seguridad social en condiciones de trato igualitario.</li>
+              <li>Reconocimiento de aportes a sistemas de pensiones entre países andinos.</li>
+            </ul>
+          </div>
+          <div class="box">
+            <div class="box-title">Otras dimensiones</div>
+            <ul>
+              <li>Protección frente a desastres y emergencias.</li>
+              <li>Educación, cultura y difusión de la integración andina.</li>
+              <li>Acceso a información y servicios vinculados a la ciudadanía andina.</li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="muted">
+          Cartilla base:
+          <a href="https://www.comunidadandina.org/StaticFiles/2011225165851derechos_CAN.pdf"
+             target="_blank" rel="noopener">
+            “Derechos del Ciudadano Andino” (PDF)
+          </a>
+        </p>
+      </section>
+
+      <!-- 24. Cierre -->
+      <section class="slide" data-title="Cierre e ideas clave">
+        <h2 class="slide-title">Cierre de la sesión: ideas clave</h2>
+        <p class="slide-subtitle">Lo esencial que conviene retener.</p>
+
+        <ul>
+          <li>
+            La <strong>Comunidad Andina (CAN)</strong> nace en 1969 con 5 países (Bolivia, Chile,
+            Colombia, Ecuador y Perú). Venezuela se incorpora después y se retira en 2006;
+            Chile también fue miembro y luego se retiró.
+          </li>
+          <li>
+            La denominación oficial actual es <strong>Comunidad Andina</strong> o CAN; “Pacto Andino”
+            y “Comunidad Andina de Naciones” son denominaciones históricas.
+          </li>
+          <li>
+            El <strong>Sistema Andino de Integración (SAI)</strong> articula órganos políticos,
+            económicos, técnicos y sociales; la presidencia pro tempore rota anualmente
+            en <strong>orden alfabético</strong> entre los Países Miembros.
+          </li>
+          <li>
+            Producen <strong>derecho comunitario andino</strong> el
+            <strong>Consejo Andino de Ministros de Relaciones Exteriores</strong>,
+            la <strong>Comisión de la Comunidad Andina</strong> y la
+            <strong>Secretaría General</strong> (Decisiones y Resoluciones).
+          </li>
+          <li>
+            El derecho andino tiene <strong>primacía</strong> en las relaciones entre los países
+            de la CAN frente al derecho interno incompatible, y se integra con otros
+            compromisos internacionales.
+          </li>
+          <li>
+            La <strong>Decisión 504</strong> crea el <strong>Pasaporte Andino</strong>, uno de los
+            símbolos más claros de la ciudadanía andina y la libre circulación en la subregión.
+          </li>
+        </ul>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- Barra de navegación -->
+  <div class="nav-bar">
+    <div class="nav-inner">
+      <div class="nav-buttons">
+        <button class="nav-button" id="prev-btn" type="button">
+          <span>← Anterior</span>
+        </button>
+        <button class="nav-button" id="next-btn" type="button">
+          <span>Siguiente →</span>
+        </button>
+      </div>
+      <div class="nav-info">
+        <span id="slide-counter">1 / 24</span>
+        <span class="nav-title" id="slide-current-title">Objetivos de la Comunidad Andina</span>
+        <span class="nav-shortcut">Atajos: teclas ← y →</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const counterEl = document.getElementById('slide-counter');
+    const titleEl = document.getElementById('slide-current-title');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+
+    let current = 0;
+
+    function showSlide(index) {
+      slides[current].classList.remove('active');
+      current = (index + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      counterEl.textContent = (current + 1) + ' / ' + slides.length;
+      titleEl.textContent = slides[current].dataset.title || '';
+    }
+
+    prevBtn.addEventListener('click', () => showSlide(current - 1));
+    nextBtn.addEventListener('click', () => showSlide(current + 1));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') {
+        showSlide(current + 1);
+      } else if (e.key === 'ArrowLeft') {
+        showSlide(current - 1);
+      }
+    });
+
+    showSlide(0);
+  </script>
+</body>
+</html>
