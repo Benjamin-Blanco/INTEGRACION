@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quinta sesión – Tribunal Andino de Justicia (TJCA)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #020617;
+      --card: #ffffff;
+      --accent: #0f766e;
+      --accent-soft: #ccfbf1;
+      --text: #111827;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1f2937 0, #020617 50%, #000 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 10px 20px;
+      color: #f9fafb;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+      background: linear-gradient(120deg, #020617, #111827);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+
+    header p {
+      margin: 0;
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+
+    .slide-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      padding: 16px 8px 70px;
+    }
+
+    .slide-wrapper {
+      width: 100%;
+      max-width: 1120px;
+    }
+
+    .slide {
+      display: none;
+      background: var(--card);
+      border-radius: 18px;
+      padding: 22px 26px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(15, 23, 42, 0.18);
+      min-height: 430px;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    .slide-title {
+      margin: 0 0 8px;
+      font-size: 1.4rem;
+      color: var(--accent);
+    }
+
+    .slide-subtitle {
+      margin: 0 0 12px;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    p {
+      font-size: 0.96rem;
+      margin: 4px 0 10px;
+    }
+
+    ul, ol {
+      font-size: 0.96rem;
+      padding-left: 20px;
+      margin: 4px 0 8px;
+    }
+
+    li { margin-bottom: 4px; }
+
+    .two-columns {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 16px 22px;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 800px) {
+      .two-columns { grid-template-columns: 1fr; }
+    }
+
+    .box {
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      background: #f9fafb;
+      font-size: 0.9rem;
+    }
+
+    .box-title {
+      font-weight: 600;
+      font-size: 0.84rem;
+      color: #374151;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.76rem;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #065f46;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+
+    .highlight {
+      border-left: 3px solid #f97316;
+      background: #fff7ed;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      margin-top: 10px;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+      margin-top: 6px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 0.86rem;
+      background: #ffffff;
+    }
+
+    th, td {
+      border: 1px solid #e5e7eb;
+      padding: 5px 7px;
+      text-align: left;
+    }
+
+    th {
+      background: #ecfeff;
+      font-weight: 600;
+    }
+
+    caption {
+      caption-side: top;
+      text-align: left;
+      font-weight: 600;
+      margin-bottom: 4px;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    a {
+      color: #0369a1;
+      text-decoration: none;
+    }
+
+    a:hover { text-decoration: underline; }
+
+    .nav-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 8px 12px;
+      background: rgba(3, 7, 18, 0.96);
+      border-top: 1px solid rgba(148, 163, 184, 0.4);
+      display: flex;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .nav-inner {
+      width: 100%;
+      max-width: 1120px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: #e5e7eb;
+      font-size: 0.88rem;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .nav-button {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.85);
+      padding: 7px 16px;
+      font-size: 0.86rem;
+      background: rgba(15, 23, 42, 0.92);
+      color: #f9fafb;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-button:hover {
+      background: #0f766e;
+      border-color: #a7f3d0;
+    }
+
+    .nav-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: baseline;
+      justify-content: flex-end;
+    }
+
+    .nav-info span { opacity: 0.92; }
+
+    .nav-title { font-weight: 500; }
+
+    .nav-shortcut {
+      font-size: 0.78rem;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div>
+        <h1>Quinta sesión · Tribunal Andino de Justicia (TJCA)</h1>
+        <p>Régimen de solución de controversias, acciones, interpretación prejudicial, UP &amp; GO, Dictamen 001-2020 y 02-AI-2020.</p>
+      </div>
+      <p>Usa las flechas ← → o los botones para avanzar y retroceder.</p>
+    </div>
+  </header>
+
+  <div class="slide-container">
+    <div class="slide-wrapper" id="slides">
+
+      <!-- 1. Portada -->
+      <section class="slide active" data-title="Presentación general del TJCA">
+        <h2 class="slide-title">Tribunal Andino de Justicia (TJCA)</h2>
+        <p class="slide-subtitle">Órgano jurisdiccional de la Comunidad Andina.</p>
+
+        <div class="two-columns">
+          <div>
+            <span class="badge">Punto de partida</span>
+            <p>
+              El <strong>Tribunal de Justicia de la Comunidad Andina</strong> es el órgano
+              jurisdiccional del sistema. Su misión central es garantizar la
+              <strong>plena vigencia y aplicación uniforme del derecho andino</strong>
+              en Bolivia, Colombia, Ecuador y Perú.
+            </p>
+            <ul>
+              <li>Resuelve <strong>controversias</strong> entre Estados y órganos andinos.</li>
+              <li>Controla la <strong>legalidad</strong> de actos comunitarios.</li>
+              <li>Interpreta el derecho andino mediante la
+                  <strong>interpretación prejudicial</strong>.</li>
+            </ul>
+          </div>
+          <div class="box">
+            <div class="box-title">Sitio oficial del Tribunal</div>
+            <p class="muted">
+              Página principal:
+              <a href="https://www.tribunalandino.org.ec/"
+                 target="_blank" rel="noopener">
+                https://www.tribunalandino.org.ec/
+              </a>
+            </p>
+            <p class="muted">
+              Información institucional, normativa, jurisprudencia y estadísticas:
+              <a href="https://www.tribunalandino.org.ec/index.php/jurisprudencia/proceso_judicial/"
+                 target="_blank" rel="noopener">
+                Jurisprudencia por tipo de proceso
+              </a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Base jurídica y SAI -->
+      <section class="slide" data-title="Base jurídica y Sistema Andino">
+        <h2 class="slide-title">Fundamento jurídico y ubicación en el SAI</h2>
+        <p class="slide-subtitle">Dónde encaja el Tribunal en el Sistema Andino de Integración.</p>
+
+        <div class="two-columns">
+          <div>
+            <span class="badge">Base jurídica</span>
+            <ul>
+              <li><strong>Tratado de Creación del Tribunal de Justicia</strong> (1979).</li>
+              <li>Protocolos posteriores (p.ej. Protocolo de Cochabamba).</li>
+              <li><strong>Estatuto del TJCA</strong> (Decisión 500 del Consejo Andino de Ministros de RREE).</li>
+              <li>Tratado de Cartagena y Decisiones que definen competencias.</li>
+            </ul>
+            <p>
+              El TJCA es uno de los órganos del <strong>Sistema Andino de Integración</strong>
+              y actúa como garante del ordenamiento jurídico comunitario.
+            </p>
+          </div>
+          <div class="box">
+            <div class="box-title">Para mostrar en clase</div>
+            <p class="muted">
+              Página oficial de la CAN sobre el Tribunal:
+              <a href="https://www.comunidadandina.org/quienes-somos/tribunal-de-justicia-de-la-comunidad-andina/"
+                 target="_blank" rel="noopener">
+                Tribunal de Justicia de la Comunidad Andina – CAN
+              </a>
+            </p>
+            <p class="muted">
+              Desde allí se accede al <strong>Tratado de Creación</strong> y al
+              <strong>Estatuto del Tribunal</strong>.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Composición -->
+      <section class="slide" data-title="Composición del Tribunal">
+        <h2 class="slide-title">Composición del Tribunal Andino</h2>
+        <p class="slide-subtitle">Magistrados, requisitos y mandato.</p>
+
+        <div class="two-columns">
+          <div>
+            <span class="badge">Integración</span>
+            <ul>
+              <li>Un <strong>magistrado por cada País Miembro</strong> de la CAN.</li>
+              <li>Designados de común acuerdo por los gobiernos.</li>
+              <li>Requisitos similares al cargo de magistrado de máxima instancia nacional.</li>
+            </ul>
+            <p>
+              El diseño busca asegurar <strong>independencia</strong>, alta calificación
+              técnica y representación equilibrada de los Estados.
+            </p>
+          </div>
+          <div class="box">
+            <div class="box-title">Mandato y garantías</div>
+            <ul>
+              <li>Mandato por periodo determinado, con posibilidad de reelección según Estatuto.</li>
+              <li>Incompatibilidades y régimen de inmunidades propias de un órgano jurisdiccional internacional.</li>
+              <li>Sesiones en Quito; posibilidad de audiencias fuera de sede en casos específicos.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Particularidades del régimen de controversias -->
+      <section class="slide" data-title="Régimen de controversias">
+        <h2 class="slide-title">Particularidades del régimen de solución de controversias</h2>
+        <p class="slide-subtitle">Qué hace especial al TJCA frente a otros modelos.</p>
+
+        <div class="two-columns">
+          <div>
+            <span class="badge">Rasgos distintivos</span>
+            <ul>
+              <li><strong>Carácter supranacional</strong> del derecho andino.</li>
+              <li>Obligatoriedad y <strong>primacía</strong> de las normas comunitarias en su ámbito.</li>
+              <li>Fuerte énfasis en la <strong>interpretación prejudicial</strong> como mecanismo central.</li>
+              <li>Acción de incumplimiento con posibilidad de <strong>procedimiento sumario</strong> por desacato.</li>
+            </ul>
+          </div>
+          <div class="box">
+            <div class="box-title">Comparación rápida</div>
+            <p>
+              El modelo andino se inspira en el <strong>Tribunal de Justicia de la Unión Europea</strong>,
+              pero introduce ajustes propios: estructura más compacta, énfasis en PI y comercio,
+              y una articulación específica con las decisiones de la CAN.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Fuentes oficiales y doctrinales -->
+      <section class="slide" data-title="Fuentes oficiales y doctrinales">
+        <h2 class="slide-title">Fuentes oficiales y doctrinales sobre el TJCA</h2>
+        <p class="slide-subtitle">Para ir más allá de la presentación.</p>
+
+        <ul>
+          <li>
+            <strong>CAN – Tribunal de Justicia</strong>:
+            <a href="https://www.comunidadandina.org/quienes-somos/tribunal-de-justicia-de-la-comunidad-andina/"
+               target="_blank" rel="noopener">
+              página institucional en comunidadandina.org
+            </a>
+          </li>
+          <li>
+            <strong>Estatuto del Tribunal (Decisión 500)</strong>:
+            <a href="https://www.sice.oas.org/trade/junac/decisiones/dec500s.asp"
+               target="_blank" rel="noopener">
+              texto en SICE/OEA
+            </a>
+          </li>
+          <li>
+            <strong>Historia y evolución del TJCA (1979–2024)</strong>:
+            <a href="https://www.tribunalandino.org.ec/libros/Tomo%201%2C%20TJCA%2C%201979-2024%2C%2045%20an%CC%83os%20de%20creacio%CC%81n%20y%2040%20an%CC%83os%20al%20servicio%20del%20derecho%20y%20la%20integracio%CC%81n.pdf"
+               target="_blank" rel="noopener">
+              Tomo 1 – 45 años de creación del Tribunal
+            </a>
+          </li>
+          <li>
+            <strong>Análisis del sistema de sanciones por incumplimiento</strong>:
+            artículos doctrinales que examinan el procedimiento sumario por desacato y las
+            sanciones económicas.
+          </li>
+        </ul>
+
+        <p class="muted">
+          Estos materiales son útiles para ilustrar la clase con estadísticas, evolución institucional
+          y debates doctrinales.
+        </p>
+      </section>
+
+      <!-- 6. Acción de nulidad – definición -->
+      <section class="slide" data-title="Acción de nulidad (definición)">
+        <h2 class="slide-title">Acción de nulidad (I)</h2>
+        <p class="slide-subtitle">Definición y objeto.</p>
+
+        <div class="two-columns">
+          <div>
+            <span class="badge">¿Qué es?</span>
+            <p>
+              La <strong>acción de nulidad</strong> es el mecanismo por el cual el TJCA
+              controla la <strong>legalidad</strong> de ciertas normas y actos andinos.
+            </p>
+            <ul>
+              <li>Permite anular decisiones o resoluciones comunitarias contrarias al Tratado o a otras normas andinas.</li>
+              <li>Funciona como un <strong>control de legalidad</strong> supranacional.</li>
+            </ul>
+          </div>
+          <div class="box">
+            <div class="box-title">Objetivo</div>
+            <p>
+              Evitar que actos comunitarios contrarios al ordenamiento andino
+              sigan produciendo efectos, preservando la <strong>coherencia</strong>
+              del sistema jurídico de la CAN.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. Acción de nulidad – causales -->
+      <section class="slide" data-title="Acción de nulidad (causales)">
+        <h2 class="slide-title">Acción de nulidad (II)</h2>
+        <p class="slide-subtitle">Causales típicas.</p>
+
+        <ul>
+          <li><strong>Violación del Tratado de Cartagena</strong> o de sus Protocolos.</li>
+          <li><strong>Violación del Tratado de Creación del TJCA</strong> o de su Estatuto.</li>
+          <li>Contradicción con <strong>Decisiones</strong> de la CAN o con la propia jurisprudencia consolidada.</li>
+          <li>Vicios graves de procedimiento o de competencia del órgano que dictó el acto.</li>
+        </ul>
+
+        <div class="highlight">
+          La acción de nulidad refuerza la idea de que ningún órgano de la CAN
+          está por encima del ordenamiento jurídico andino.
+        </div>
+      </section>
+
+      <!-- 8. Acción de nulidad – legitimación, requisitos, cautelares -->
+      <section class="slide" data-title="Acción de nulidad (procedimiento)">
+        <h2 class="slide-title">Acción de nulidad (III)</h2>
+        <p class="slide-subtitle">Legitimación, requisitos y medidas cautelares.</p>
+
+        <div class="two-columns">
+          <div>
+            <span class="badge">Legitimados activos</span>
+            <ul>
+              <li>Países Miembros de la Comunidad Andina.</li>
+              <li>Órganos de la CAN, según el Estatuto.</li>
+              <li>En determinados supuestos, particulares afectados (cuando la norma así lo prevé).</li>
+            </ul>
+          </div>
+          <div class="box">
+            <div class="box-title">Aspectos procesales</div>
+            <ul>
+              <li>Plazos para interponer la acción contados desde la publicación en la Gaceta Oficial.</li>
+              <li>Posibilidad de solicitar <strong>medidas cautelares</strong> para suspender los efectos del acto impugnado.</li>
+              <li>La sentencia de nulidad tiene efectos <strong>erga omnes</strong> en el ámbito andino.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9. Acción de nulidad – enlaces -->
+      <section class="slide" data-title="Acción de nulidad (jurisprudencia)">
+        <h2 class="slide-title">Acción de nulidad (IV)</h2>
+        <p class="slide-subtitle">Jurisprudencia y recursos para profundizar.</p>
+
+        <p>
+          El Tribunal ha desarrollado una rica jurisprudencia sobre nulidad, en temas
+          que van desde propiedad industrial hasta transporte, competencia y otros.
+        </p>
+        <ul>
+          <li>
+            Jurisprudencia por tipo de proceso (acción de nulidad):
+            <a href="https://www.tribunalandino.org.ec/index.php/jurisprudencia/proceso_judicial/accion_nulidad/"
+               target="_blank" rel="noopener">
+              Acción de nulidad – Jurisprudencia
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 10. Interpretación prejudicial – concepto -->
+      <section class="slide" data-title="Interpretación prejudicial (concepto)">
+        <h2 class="slide-title">Interpretación prejudicial (I)</h2>
+        <p class="slide-subtitle">Concepto básico.</p>
+
+        <div class="two-columns">
+          <div>
+            <span class="badge">Definición</span>
+            <p>
+              La <strong>interpretación prejudicial</strong> es el mecanismo por el cual el
+              TJCA interpreta, a petición de un juez nacional o tribunal arbitral,
+              el <strong>sentido y alcance</strong> de las normas andinas aplicables a un caso.
+            </p>
+            <ul>
+              <li>El Tribunal no resuelve el litigio interno.</li>
+              <li>Entrega una interpretación vinculante de la norma comunitaria.</li>
+            </ul>
+          </div>
+          <div class="box">
+            <div class="box-title">Fundamento jurídico</div>
+            <p class="muted">
+              Artículos 32 y 33 del Tratado de Creación del TJCA:
+              competencia para interpretar el ordenamiento andino, garantizando
+              su aplicación uniforme.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 11. Interpretación prejudicial – obligatoria / facultativa -->
+      <section class="slide" data-title="Interpretación prejudicial (obligatoria)">
+        <h2 class="slide-title">Interpretación prejudicial (II)</h2>
+        <p class="slide-subtitle">¿Cuándo es obligatoria y cuándo facultativa?</p>
+
+        <ul>
+          <li>
+            Jueces de <strong>última o única instancia</strong>:
+            <ul>
+              <li>Deben consultar al TJCA cuando deban aplicar una norma andina dudosa.</li>
+              <li>Suspensión del proceso interno hasta recibir la interpretación.</li>
+            </ul>
+          </li>
+          <li>
+            Jueces de instancias inferiores:
+            <ul>
+              <li>Consulta <strong>facultativa</strong>, pero recomendable si existe duda razonable.</li>
+            </ul>
+          </li>
+          <li>La respuesta del Tribunal es <strong>obligatoria</strong> para el juez consultante.</li>
+        </ul>
+      </section>
+
+      <!-- 12. Interpretación prejudicial – pasos del procedimiento -->
+      <section class="slide" data-title="Interpretación prejudicial (pasos)">
+        <h2 class="slide-title">Interpretación prejudicial (III)</h2>
+        <p class="slide-subtitle">Pasos básicos del procedimiento.</p>
+
+        <ol>
+          <li>
+            <strong>Existencia de un proceso interno</strong> en el que deba aplicarse una norma andina.
+          </li>
+          <li>
+            <strong>Duda razonable</strong> sobre el sentido o alcance de la norma.
+          </li>
+          <li>
+            El juez (o tribunal arbitral) formula la <strong>solicitud de interpretación</strong>
+            precisando:
+            <ul>
+              <li>Normas andinas aplicables.</li>
+              <li>Hechos relevantes del caso.</li>
+              <li>Cuestión jurídica sobre la que se pide interpretación.</li>
+            </ul>
+          </li>
+          <li>
+            El TJCA admite, analiza y emite la <strong>sentencia de interpretación prejudicial</strong>.
+          </li>
+          <li>
+            El proceso interno se reanuda y el juez aplica la interpretación al caso concreto.
+          </li>
+        </ol>
+      </section>
+
+      <!-- 13. Interpretación prejudicial – administración y arbitraje -->
+      <section class="slide" data-title="Interpretación prejudicial (administración y arbitraje)">
+        <h2 class="slide-title">Interpretación prejudicial (IV)</h2>
+        <p class="slide-subtitle">Autoridades administrativas y arbitraje.</p>
+
+        <div class="two-columns">
+          <div>
+            <span class="badge">Administración</span>
+            <p>
+              El Tribunal ha reconocido que <strong>autoridades administrativas</strong> con
+              procedimientos “jurisdiccionalizados” también pueden (y en algunos
+              casos deben) solicitar interpretación prejudicial cuando aplican
+              normas andinas.
+            </p>
+          </div>
+          <div class="box">
+            <div class="box-title">Arbitraje</div>
+            <p>
+              En determinados arbitrajes donde se discute o aplica derecho andino,
+              los tribunales arbitrales pueden acudir al TJCA para asegurar
+              la uniformidad interpretativa.
+            </p>
+          </div>
+        </div>
+
+        <p class="muted">
+          Interpretaciones prejudiciales por año:
+          <a href="https://www.tribunalandino.org.ec/index.php/jurisprudencia/proceso_judicial/interpretaciones_prejudiciales/"
+             target="_blank" rel="noopener">
+            Interpretaciones prejudiciales – TJCA
+          </a>
+        </p>
+      </section>
+
+      <!-- 14. Interpretación prejudicial – recursos -->
+      <section class="slide" data-title="Interpretación prejudicial (recursos)">
+        <h2 class="slide-title">Interpretación prejudicial (V)</h2>
+        <p class="slide-subtitle">Cómo explotar la jurisprudencia en clase.</p>
+
+        <ul>
+          <li>
+            Buscador de interpretaciones:
+            <a href="https://www.tribunalandino.org.ec/index.php/jurisprudencia/proceso_judicial/interpretaciones_prejudiciales/"
+               target="_blank" rel="noopener">
+              Interpretaciones prejudiciales – TJCA
+            </a>
+          </li>
+          <li>
+            Ejemplos clásicos (marcas, competencia, aduanas) listados por año o por materia.
+          </li>
+          <li>
+            El caso <strong>UP &amp; GO (309-IP-2015)</strong> es un referente para estudiar
+            <strong>mala fe y competencia desleal</strong> en propiedad industrial.
+          </li>
+        </ul>
+      </section>
+
+      <!-- 15. Caso UP & GO – contexto -->
+      <section class="slide" data-title="Caso UP &amp; GO (contexto)">
+        <h2 class="slide-title">Caso UP &amp; GO (I)</h2>
+        <p class="slide-subtitle">Interpretación prejudicial 309-IP-2015.</p>
+
+        <div class="two-columns">
+          <div>
+            <span class="badge">Contexto</span>
+            <ul>
+              <li>Solicitud de registro de la marca <strong>UP &amp; GO</strong> en Perú.</li>
+              <li>Oposición basada en marcas previas UP &amp; GO y LIBERO UP &amp; GO.</li>
+              <li>INDECOPI deniega el registro; el caso llega al Poder Judicial.</li>
+              <li>El juez peruano consulta al TJCA sobre la interpretación del
+                  <strong>artículo 137</strong> de la Decisión 486 (mala fe y competencia desleal).</li>
+            </ul>
+          </div>
+          <div class="box">
+            <div class="box-title">Documento oficial</div>
+            <p class="muted">
+              Sentencia de interpretación prejudicial:
+              <a href="https://www.comunidadandina.org/DocOficialesFiles/Procesos/I_841_309_IP_2015.pdf"
+                 target="_blank" rel="noopener">
+                Proceso 309-IP-2015 – UP &amp; GO
+              </a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 16. Caso UP & GO – normas -->
+      <section class="slide" data-title="Caso UP &amp; GO (normas)">
+        <h2 class="slide-title">Caso UP &amp; GO (II)</h2>
+        <p class="slide-subtitle">Normas andinas relevantes.</p>
+
+        <ul>
+          <li><strong>Decisión 486</strong> – Régimen común sobre propiedad industrial.</li>
+          <li>Art. 135 literal e): marcas descriptivas.</li>
+          <li>Art. 137: registro solicitado para perpetrar actos de competencia desleal.</li>
+          <li>Art. 172: nulidad por mala fe.</li>
+        </ul>
+
+        <div class="highlight">
+          El TJCA precisa que cuando existan <strong>indicios razonables de mala fe</strong>,
+          la oficina nacional no sólo puede, sino que debe denegar el registro.
+        </div>
+      </section>
+
+      <!-- 17. Caso UP & GO – lecciones -->
+      <section class="slide" data-title="Caso UP &amp; GO (lecciones)">
+        <h2 class="slide-title">Caso UP &amp; GO (III)</h2>
+        <p class="slide-subtitle">Lecciones para el diseño institucional.</p>
+
+        <ul>
+          <li>La interpretación prejudicial no revisa hechos: se centra en la
+              <strong>norma andina</strong>.</li>
+          <li>El TJCA refuerza la protección frente a marcas registradas con
+              <strong>intención desleal</strong> de aprovechar signos ajenos notoriamente conocidos.</li>
+          <li>El juez nacional mantiene la responsabilidad de <strong>resolver el caso interno</strong>,
+              aplicando la interpretación comunitaria.</li>
+        </ul>
+      </section>
+
+      <!-- 18. Acto aclarado – concepto -->
+      <section class="slide" data-title="Acto aclarado (concepto)">
+        <h2 class="slide-title">Doctrina del “acto aclarado” (I)</h2>
+        <p class="slide-subtitle">Cuando ya no hace falta volver a preguntar.</p>
+
+        <div class="two-columns">
+          <div>
+            <span class="badge">Idea central</span>
+            <p>
+              Existe <strong>acto aclarado</strong> cuando el TJCA ya ha interpretado de forma
+              clara y reiterada una norma andina aplicable, de modo que no subsiste
+              duda razonable sobre su sentido.
+            </p>
+            <ul>
+              <li>El juez de última instancia puede no remitir nueva consulta.</li>
+              <li>Debe fundamentar su decisión en la jurisprudencia previa del TJCA.</li>
+            </ul>
+          </div>
+          <div class="box">
+            <div class="box-title">Guía oficial</div>
+            <p class="muted">
+              El Tribunal aprobó la
+              <strong>“Guía para la aplicación del criterio jurídico interpretativo
+              del acto aclarado en las solicitudes de interpretación prejudicial”</strong>
+              mediante el Acuerdo 06/2023.
+            </p>
+            <p class="muted">
+              Texto de la guía:
+              <a href="https://www.tribunalandino.org.ec/Actos_Aclarados/Gu%C3%ADa_para_la_aplicaci%C3%B3n_del_criterio_jur%C3%ADdico_interpretativo_del_acto_aclarado_en_las_solicitudes_de_interpretaci%C3%B3n_prejudicial.pdf"
+                 target="_blank" rel="noopener">
+                Guía sobre acto aclarado – TJCA
+              </a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 19. Acto aclarado – condiciones -->
+      <section class="slide" data-title="Acto aclarado (condiciones)">
+        <h2 class="slide-title">Doctrina del “acto aclarado” (II)</h2>
+        <p class="slide-subtitle">Condiciones y límites.</p>
+
+        <ul>
+          <li>Existe una <strong>línea jurisprudencial constante</strong> del TJCA sobre la norma aplicable.</li>
+          <li>El caso interno plantea <strong>la misma cuestión jurídica</strong> ya resuelta.</li>
+          <li>No se presentan <strong>nuevas dudas interpretativas relevantes</strong>.</li>
+        </ul>
+
+        <div class="highlight">
+          El acto aclarado no elimina la obligación de consulta, la
+          <strong>modula</strong> cuando el Tribunal ya ha despejado las dudas en
+          forma suficiente.
+        </div>
+      </section>
+
+      <!-- 20. Recurso por omisión -->
+      <section class="slide" data-title="Recurso por omisión">
+        <h2 class="slide-title">Recurso por omisión o inactividad</h2>
+        <p class="slide-subtitle">Cuando un órgano andino no actúa.</p>
+
+        <div class="two-columns">
+          <div>
+            <span class="badge">Objeto</span>
+            <p>
+              Permite al TJCA constatar que un <strong>órgano de la CAN</strong> ha omitido
+              adoptar una medida o acto que estaba obligado a dictar según el
+              Tratado o una Decisión.
+            </p>
+          </div>
+          <div class="box">
+            <div class="box-title">Efecto</div>
+            <p>
+              El Tribunal declara la omisión y obliga al órgano remiso a iniciar
+              el procedimiento para adoptar la medida correspondiente,
+              reforzando la <strong>efectividad</strong> del proceso de integración.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 21. Acción de incumplimiento – concepto -->
+      <section class="slide" data-title="Acción de incumplimiento (concepto)">
+        <h2 class="slide-title">Acción de incumplimiento (I)</h2>
+        <p class="slide-subtitle">Definición general.</p>
+
+        <div class="two-columns">
+          <div>
+            <span class="badge">¿Qué es?</span>
+            <p>
+              La <strong>acción de incumplimiento</strong> sirve para declarar que un
+              <strong>País Miembro</strong> no ha cumplido las obligaciones asumidas
+              en el marco de la CAN (Tratado, Decisiones, etc.).
+            </p>
+            <ul>
+              <li>Puede involucrar leyes, reglamentos, prácticas administrativas o inacciones.</li>
+            </ul>
+          </div>
+          <div class="box">
+            <div class="box-title">Legitimación</div>
+            <ul>
+              <li><strong>Secretaría General</strong> de la Comunidad Andina.</li>
+              <li>Países Miembros.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 22. Acción de incumplimiento – fase prejudicial (dictámenes) -->
+      <section class="slide" data-title="Acción de incumplimiento (fase prejudicial)">
+        <h2 class="slide-title">Acción de incumplimiento (II)</h2>
+        <p class="slide-subtitle">Fase prejudicial ante la Secretaría General.</p>
+
+        <ul>
+          <li>Se inicia normalmente con un <strong>reclamo</strong> ante la Secretaría General.</li>
+          <li>La SGCAN analiza la medida o práctica cuestionada y, si encuentra indicios,
+              emite un <strong>Dictamen de incumplimiento</strong> dirigido al Estado.</li>
+          <li>Ejemplo: <strong>Dictamen 001-2020</strong>, reclamo de Perú contra Bolivia
+              por diferenciación de precios de combustibles para transporte internacional.
+          </li>
+        </ul>
+
+        <p class="muted">
+          Texto del dictamen:
+          <a href="https://www.comunidadandina.org/DocOficialesFiles/Dictamenes/DICTAMEN001_2020.docx"
+             target="_blank" rel="noopener">
+            DICTAMEN 001-2020 – SGCAN
+          </a>
+        </p>
+      </section>
+
+      <!-- 23. Dictamen 001-2020 – ejemplo -->
+      <section class="slide" data-title="Dictamen 001-2020 (ejemplo)">
+        <h2 class="slide-title">Ejemplo: Dictamen 001-2020</h2>
+        <p class="slide-subtitle">Reclamo de Perú contra Bolivia por combustibles.</p>
+
+        <div class="two-columns">
+          <div>
+            <span class="badge">Hechos básicos</span>
+            <ul>
+              <li>Perú reclama contra un esquema de <strong>precios diferenciados</strong>
+                  de combustibles aplicado por Bolivia.</li>
+              <li>Se alega discriminación contra transportistas extranjeros
+                  en el comercio intracomunitario.</li>
+              <li>La SGCAN analiza posibles violaciones a Decisiones andinas
+                  sobre transporte internacional y al artículo 4 del Tratado del TJCA.</li>
+            </ul>
+          </div>
+          <div class="box">
+            <div class="box-title">Relevancia</div>
+            <p>
+              El dictamen antecede y alimenta la posterior
+              <strong>acción de incumplimiento 02-AI-2020</strong> ante el Tribunal,
+              mostrando la interacción entre SGCAN y TJCA en el control del
+              cumplimiento del derecho andino.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 24. Acción de incumplimiento – fase judicial -->
+      <section class="slide" data-title="Acción de incumplimiento (fase judicial)">
+        <h2 class="slide-title">Acción de incumplimiento (III)</h2>
+        <p class="slide-subtitle">Fase judicial ante el Tribunal.</p>
+
+        <ul>
+          <li>Si el Estado no corrige la situación, la SGCAN o un País Miembro
+              puede interponer la acción ante el TJCA.</li>
+          <li>El Tribunal:
+            <ul>
+              <li>Admite a trámite la demanda.</li>
+              <li>Corre traslado al Estado demandado.</li>
+              <li>Puede recabar información complementaria.</li>
+              <li>Dicta sentencia declarando si hay o no incumplimiento.</li>
+            </ul>
+          </li>
+          <li>La sentencia obliga al Estado a <strong>adecuar su normativa o práctica interna</strong>.</li>
+        </ul>
+
+        <p class="muted">
+          Jurisprudencia por acción de incumplimiento:
+          <a href="https://www.tribunalandino.org.ec/index.php/jurisprudencia/proceso_judicial/accion_incumplimiento/"
+             target="_blank" rel="noopener">
+            Acción de incumplimiento – Jurisprudencia
+          </a>
+        </p>
+      </section>
+
+      <!-- 25. Fase judicial – plazos y secuencia -->
+      <section class="slide" data-title="Fase judicial (plazos)">
+        <h2 class="slide-title">Fase judicial (IV)</h2>
+        <p class="slide-subtitle">Plazos orientativos del procedimiento ante el Tribunal.</p>
+
+        <ul>
+          <li><strong>Demanda</strong>: presentada por SGCAN o Estado.</li>
+          <li><strong>Auto de admisión</strong>: el Tribunal verifica requisitos de admisibilidad.</li>
+          <li><strong>Regularización de la demanda</strong>: si falta algún requisito formal,
+              puede otorgarse un plazo (p.ej. 15 días) para subsanar.</li>
+          <li><strong>Contestación de la demanda</strong>: el Estado demandado suele
+              disponer de un plazo breve (p.ej. 40 días) para responder.</li>
+          <li><strong>Excepciones previas y alegatos de conclusión</strong>: plazos adicionales,
+              como 10 días para excepciones y 8 días para alegatos, según el Estatuto.</li>
+          <li><strong>Sentencia</strong>: el Tribunal delibera y emite su fallo, que luego se
+              publica en la Gaceta Oficial.</li>
+        </ul>
+      </section>
+
+      <!-- 26. Caso 02-AI-2020 – contenido -->
+      <section class="slide" data-title="Caso 02-AI-2020 (contenido)">
+        <h2 class="slide-title">Caso 02-AI-2020 (I)</h2>
+        <p class="slide-subtitle">Acción de incumplimiento Perú vs Bolivia por combustibles.</p>
+
+        <div class="two-columns">
+          <div>
+            <span class="badge">Contexto</span>
+            <ul>
+              <li>Perú demanda a Bolivia ante el TJCA (Proceso 02-AI-2020).</li>
+              <li>Objeto: presunto incumplimiento de Decisiones andinas sobre
+                  transporte internacional por precios diferenciados de combustibles.</li>
+              <li>Se cuestiona el trato menos favorable a transportistas extranjeros
+                  frente a los nacionales.</li>
+            </ul>
+          </div>
+          <div class="box">
+            <div class="box-title">Documentos clave</div>
+            <ul>
+              <li>
+                Nota de prensa del Tribunal:
+                <a href="https://www.tribunalandino.org.ec/Notas%20de%20prensa/03-2023_Proceso02-AI-2020_28_julio_2023_Peru_Bolivia_gasolina.pdf"
+                   target="_blank" rel="noopener">
+                  Proceso 02-AI-2020 – Nota de prensa
+                  </a>
+              </li>
+              <li>
+                Sentencia en la Gaceta Oficial:
+                <a href="https://www.tribunalandino.org.ec/decisiones/AI/GOAC_5310_Proceso_02-AI-2020.pdf"
+                   target="_blank" rel="noopener">
+                  GOAC 5310 – Proceso 02-AI-2020
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 27. Caso 02-AI-2020 – resultado -->
+      <section class="slide" data-title="Caso 02-AI-2020 (resultado)">
+        <h2 class="slide-title">Caso 02-AI-2020 (II)</h2>
+        <p class="slide-subtitle">Resultado e implicancias.</p>
+
+        <ul>
+          <li>El Tribunal declara <strong>fundada</strong> la acción de incumplimiento.</li>
+          <li>Determina que el esquema de precios diferenciados
+              <strong>vulnera normas andinas</strong> sobre libre circulación y trato no discriminatorio.</li>
+          <li>Ordena a Bolivia adecuar su normativa y práctica a las obligaciones comunitarias.</li>
+          <li>Se abre la puerta al eventual uso del <strong>procedimiento sumario por desacato</strong> en caso de no cumplimiento.</li>
+        </ul>
+      </section>
+
+      <!-- 28. Desacato – procedimiento sumario y casos -->
+      <section class="slide" data-title="Desacato y procedimiento sumario">
+        <h2 class="slide-title">Desacato a sentencias de incumplimiento</h2>
+        <p class="slide-subtitle">Procedimiento sumario y ejemplos.</p>
+
+        <ul>
+          <li>Si existen indicios de que un Estado no acata una sentencia de incumplimiento,
+              el Tribunal puede iniciar un <strong>procedimiento sumario por desacato</strong>.</li>
+          <li>Casos emblemáticos:
+            <ul>
+              <li><strong>Proceso 1-AI-97</strong> – Sumario por incumplimiento de sentencia.</li>
+              <li><strong>Proceso 52-AI-2002</strong> – Auto de procedimiento sumario por desacato.</li>
+              <li><strong>Proceso 72-AI-2000</strong> – Pliego de cargos por posible desacato.</li>
+              <li><strong>Proceso 118-AI-2003</strong> – Segundo procedimiento sumario y agravamiento de sanción.</li>
+            </ul>
+          </li>
+          <li>En estos procesos el Tribunal examina si el Estado ha adoptado o no las medidas
+              internas necesarias para cumplir la sentencia.</li>
+        </ul>
+      </section>
+
+      <!-- 29. Desacato – sanciones posibles -->
+      <section class="slide" data-title="Desacato (sanciones)">
+        <h2 class="slide-title">Consecuencias del desacato</h2>
+        <p class="slide-subtitle">Sistema de sanciones en el derecho andino.</p>
+
+        <ul>
+          <li>Declaratoria de <strong>desacato internacional</strong> por incumplir la sentencia del TJCA.</li>
+          <li>Comunicación oficial a todos los Países Miembros y a los órganos de la CAN.</li>
+          <li>Autorización para adoptar <strong>sanciones económicas</strong>:
+            <ul>
+              <li>Por ejemplo, incremento de hasta un <strong>5 %</strong> de los gravámenes
+                  sobre un conjunto de productos del país incumplidor.</li>
+            </ul>
+          </li>
+          <li>En casos de reincidencia o gravedad, el Tribunal puede proponer el
+              <strong>agravamiento</strong> de las sanciones, previa opinión de la Secretaría General.</li>
+        </ul>
+
+        <div class="highlight">
+          El sistema de sanciones refuerza la <strong>supremacía y eficacia directa</strong>
+          del derecho andino, y busca que las sentencias no queden en letra muerta.
+        </div>
+      </section>
+
+      <!-- 30. Impacto práctico para empresas -->
+      <section class="slide" data-title="Impacto práctico del TJCA">
+        <h2 class="slide-title">Impacto práctico para empresas y operadores</h2>
+        <p class="slide-subtitle">Por qué el Tribunal importa en la vida real.</p>
+
+        <ul>
+          <li>Da <strong>seguridad jurídica</strong> a la inversión y al comercio intracomunitario.</li>
+          <li>Ofrece criterios uniformes en:
+            <ul>
+              <li>Marcas, patentes y otros derechos de PI.</li>
+              <li>Competencia, telecomunicaciones, transporte, etc.</li>
+            </ul>
+          </li>
+          <li>Permite que empresas de los cuatro países jueguen con
+              <strong>reglas claras y previsibles</strong> en todo el mercado andino.</li>
+        </ul>
+
+        <p class="muted">
+          Clasificación temática de jurisprudencia (libre competencia, propiedad intelectual, transporte, etc.):
+          <a href="https://www.tribunalandino.org.ec/index.php/jurisprudencia/clasificacion_tematica/libre_competencia/"
+             target="_blank" rel="noopener">
+            Ver jurisprudencia por tema
+          </a>
+        </p>
+      </section>
+
+      <!-- 31. Conclusiones -->
+      <section class="slide" data-title="Conclusiones de la sesión">
+        <h2 class="slide-title">Conclusiones principales</h2>
+        <p class="slide-subtitle">Qué deberías tener claro sobre el TJCA.</p>
+
+        <ul>
+          <li>El TJCA es el <strong>órgano jurisdiccional</strong> de la Comunidad Andina
+              y pieza clave del sistema de integración.</li>
+          <li>Cuenta con un conjunto de <strong>acciones específicas</strong>:
+              nulidad, incumplimiento, omisión e interpretación prejudicial.</li>
+          <li>La <strong>interpretación prejudicial</strong> garantiza la aplicación uniforme
+              del derecho andino en los cuatro países.</li>
+          <li>Casos como <strong>UP &amp; GO</strong>, el <strong>Dictamen 001-2020</strong> y
+              la <strong>acción 02-AI-2020</strong> muestran el impacto del Tribunal
+              en propiedad industrial, transporte y libre circulación.</li>
+          <li>El desacato a las sentencias de incumplimiento puede derivar en
+              procedimientos sumarios y suspensión de beneficios comunitarios.</li>
+        </ul>
+      </section>
+
+      <!-- 32. Recursos y cuestionario -->
+      <section class="slide" data-title="Recursos y cuestionario">
+        <h2 class="slide-title">Recursos en línea y cuestionario</h2>
+        <p class="slide-subtitle">Para seguir estudiando el Tribunal y cerrar la sesión.</p>
+
+        <div class="two-columns">
+          <div>
+            <span class="badge">Recursos del Tribunal</span>
+            <ul>
+              <li>
+                Portal general del Tribunal:
+                <a href="https://www.tribunalandino.org.ec/"
+                   target="_blank" rel="noopener">
+                  https://www.tribunalandino.org.ec/
+                </a>
+              </li>
+              <li>
+                Jurisprudencia por tipo de proceso:
+                <a href="https://www.tribunalandino.org.ec/index.php/jurisprudencia/proceso_judicial/"
+                   target="_blank" rel="noopener">
+                  Proceso judicial – TJCA
+                </a>
+              </li>
+              <li>
+                Interpretaciones prejudiciales:
+                <a href="https://www.tribunalandino.org.ec/index.php/jurisprudencia/proceso_judicial/interpretaciones_prejudiciales/"
+                   target="_blank" rel="noopener">
+                  Interpretaciones prejudiciales
+                </a>
+              </li>
+              <li>
+                Acción de incumplimiento:
+                <a href="https://www.tribunalandino.org.ec/index.php/jurisprudencia/proceso_judicial/accion_incumplimiento/"
+                   target="_blank" rel="noopener">
+                  Acción de incumplimiento
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="box">
+            <div class="box-title">Cuestionario de la quinta sesión</div>
+            <p>
+              Para revisar y fijar contenidos, responde el cuestionario en el siguiente enlace:
+            </p>
+            <p>
+              <a href="https://forms.gle/HPjGY422GM5NAdcMA"
+                 target="_blank" rel="noopener"
+                 style="font-size:1.05rem;font-weight:600;">
+                Abrir cuestionario de la quinta sesión
+              </a>
+            </p>
+            <p class="muted">
+              Si lo necesitas, puedes copiar el enlace:
+              <br />
+              <code>https://forms.gle/HPjGY422GM5NAdcMA</code>
+            </p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- Barra de navegación -->
+  <div class="nav-bar">
+    <div class="nav-inner">
+      <div class="nav-buttons">
+        <button class="nav-button" id="prev-btn" type="button">
+          <span>← Anterior</span>
+        </button>
+        <button class="nav-button" id="next-btn" type="button">
+          <span>Siguiente →</span>
+        </button>
+      </div>
+      <div class="nav-info">
+        <span id="slide-counter">1 / 1</span>
+        <span class="nav-title" id="slide-current-title">Presentación general del TJCA</span>
+        <span class="nav-shortcut">Atajos: teclas ← y →</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const counterEl = document.getElementById('slide-counter');
+    const titleEl = document.getElementById('slide-current-title');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+
+    let current = 0;
+
+    function showSlide(index) {
+      slides[current].classList.remove('active');
+      current = (index + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      counterEl.textContent = (current + 1) + ' / ' + slides.length;
+      titleEl.textContent = slides[current].dataset.title || '';
+    }
+
+    prevBtn.addEventListener('click', () => showSlide(current - 1));
+    nextBtn.addEventListener('click', () => showSlide(current + 1));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') {
+        showSlide(current + 1);
+      } else if (e.key === 'ArrowLeft') {
+        showSlide(current - 1);
+      }
+    });
+
+    showSlide(0);
+  </script>
+</body>
+</html>
