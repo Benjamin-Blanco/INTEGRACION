@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>MERCOSUR – Parte 1 (Diapositivas 1–30)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-alt: #0b1022;
+      --accent: #f5c400;
+      --accent-soft: rgba(245, 196, 0, 0.12);
+      --text: #f5f5f7;
+      --muted: #c3c6d8;
+      --card: #101427;
+      --border: #262c49;
+      --shadow-soft: 0 16px 40px rgba(0, 0, 0, 0.55);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #151b3b 0, #050816 55%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .deck-header {
+      padding: 10px 24px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(5, 8, 22, 0.92);
+      backdrop-filter: blur(12px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .deck-title {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+
+    .deck-subtitle {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .slides {
+      position: relative;
+      flex: 1;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      padding: 18px;
+    }
+
+    .slide {
+      width: 100%;
+      max-width: 1100px;
+      max-height: 100%;
+      background: radial-gradient(circle at top left, #171c3b 0, #070a18 55%);
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+      padding: 28px 34px;
+      display: none;
+      flex-direction: column;
+      overflow: auto;
+    }
+
+    .slide.active {
+      display: flex;
+      animation: fadeIn 280ms ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 10px;
+      gap: 12px;
+    }
+
+    .slide-title {
+      font-size: 24px;
+      font-weight: 650;
+      letter-spacing: 0.02em;
+    }
+
+    .slide-tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      padding: 2px 10px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .slide-body {
+      margin-top: 8px;
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+
+    .slide-body p {
+      margin-bottom: 10px;
+    }
+
+    .slide-body strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    ul {
+      margin-left: 18px;
+      margin-top: 4px;
+      margin-bottom: 6px;
+    }
+
+    li {
+      margin-bottom: 4px;
+    }
+
+    .highlight-box {
+      border-left: 3px solid var(--accent);
+      padding-left: 10px;
+      margin: 8px 0;
+      font-size: 14px;
+    }
+
+    .pill {
+      display: inline-block;
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(245, 196, 0, 0.6);
+      background: var(--accent-soft);
+      color: var(--accent);
+      margin-right: 6px;
+      margin-top: 2px;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(245, 196, 0, 0.6);
+    }
+
+    a:hover {
+      border-bottom-style: solid;
+    }
+
+    .footer-controls {
+      padding: 10px 18px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      border-top: 1px solid var(--border);
+      background: rgba(5, 8, 22, 0.96);
+      backdrop-filter: blur(10px);
+    }
+
+    .buttons {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    button {
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      font-size: 13px;
+      background: #151935;
+      color: var(--text);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    button.primary {
+      background: linear-gradient(135deg, #f5c400, #f0a500);
+      color: #120f08;
+      border-color: rgba(0, 0, 0, 0.35);
+      font-weight: 600;
+    }
+
+    button:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+
+    .pager {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .help {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 900px) {
+      .slide {
+        padding: 20px 16px;
+        border-radius: 0;
+      }
+
+      .slide-title {
+        font-size: 20px;
+      }
+
+      .deck-header, .footer-controls {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="deck-header">
+    <div>
+      <div class="deck-title">MERCOSUR – Integración Económica Regional</div>
+      <div class="deck-subtitle">Parte 1 – Diapositivas 1 a 30</div>
+    </div>
+    <div class="help">Navega con ← → o clic en los botones</div>
+  </header>
+
+  <main class="slides">
+    <!-- 1 -->
+    <section class="slide active" id="slide-1">
+      <div class="slide-header">
+        <h1 class="slide-title">MERCOSUR: visión general</h1>
+        <span class="slide-tag">Introducción</span>
+      </div>
+      <div class="slide-body">
+        <p><strong>MERCOSUR (Mercado Común del Sur)</strong> es un proceso de <strong>integración económica regional</strong> iniciado por Argentina, Brasil, Paraguay y Uruguay con el <strong>Tratado de Asunción de 1991</strong>.</p>
+        <p>Elementos centrales del proyecto:</p>
+        <ul>
+          <li>Conformar un <strong>mercado común</strong> con libre circulación de bienes, servicios y factores productivos.</li>
+          <li>Establecer una <strong>tarifa externa común (TEC)</strong> hacia terceros países.</li>
+          <li>Coordinar <strong>políticas macroeconómicas</strong> entre los Estados.</li>
+          <li>Armonizar <strong>legislaciones</strong> en áreas vinculadas al comercio.</li>
+          <li>Construir la integración sobre <strong>bases democráticas</strong> y de <strong>cooperación</strong>.</li>
+        </ul>
+        <p>MERCOSUR se inscribe en el marco jurídico más amplio de la <strong>ALADI</strong> (Tratado de Montevideo 1980) mediante el <strong>Acuerdo de Complementación Económica Nº 18 (ACE-18)</strong>, y mantiene vínculos con otros esquemas regionales como la <strong>Comunidad Andina (CAN)</strong>.</p>
+        <p>
+          <span class="pill">Enlace oficial MERCOSUR</span>
+          <a href="https://www.mercosur.int" target="_blank" rel="noopener noreferrer">https://www.mercosur.int</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="slide" id="slide-2">
+      <div class="slide-header">
+        <h1 class="slide-title">Tratado de Asunción (1991)</h1>
+        <span class="slide-tag">Acta fundacional</span>
+      </div>
+      <div class="slide-body">
+        <p>El <strong>26 de marzo de 1991</strong>, Argentina, Brasil, Paraguay y Uruguay firmaron el <strong>Tratado de Asunción</strong>, que define la creación del <strong>MERCOSUR</strong>.</p>
+        <p>Compromisos esenciales del Tratado:</p>
+        <ul>
+          <li>Constituir un <strong>mercado común</strong> con:
+            <ul>
+              <li><strong>Libre circulación</strong> de bienes.</li>
+              <li><strong>Libre circulación</strong> de servicios.</li>
+              <li><strong>Libre circulación</strong> de factores productivos (capital y trabajo).</li>
+            </ul>
+          </li>
+          <li>Adoptar una <strong>Tarifa Externa Común (TEC)</strong> frente a terceros países.</li>
+          <li>Coordinar <strong>políticas macroeconómicas</strong> (comerciales, cambiarias, fiscales, monetarias, etc.).</li>
+          <li>Avanzar en la <strong>armonización legislativa</strong> en materias relevantes para el comercio.</li>
+        </ul>
+        <div class="highlight-box">
+          El Tratado preveía una <strong>estructura institucional provisoria</strong> para la etapa de transición, que luego sería reemplazada por una estructura definitiva (Protocolo de Ouro Preto).
+        </div>
+        <p>
+          <span class="pill">Texto fundacional</span>
+          Consultable en la sección “Documentos fundacionales” de <a href="https://www.mercosur.int/documentos-e-informes" target="_blank" rel="noopener noreferrer">mercosur.int</a>.
+        </p>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="slide" id="slide-3">
+      <div class="slide-header">
+        <h1 class="slide-title">Tratado de Asunción: cronograma y apertura</h1>
+        <span class="slide-tag">Programa de liberación</span>
+      </div>
+      <div class="slide-body">
+        <p>El Tratado de Asunción incorporó un <strong>Programa de Liberación Comercial</strong> con plazos concretos:</p>
+        <ul>
+          <li>Compromiso de eliminar:
+            <ul>
+              <li><strong>Aranceles internos</strong> entre los Estados Partes.</li>
+              <li><strong>Barreras no arancelarias</strong> al comercio intra-bloque.</li>
+            </ul>
+          </li>
+          <li>Fecha objetivo inicial: <strong>31 de diciembre de 1994</strong>.</li>
+          <li>El plazo se extendió luego hasta <strong>1999/2000</strong> para completar la desgravación.</li>
+        </ul>
+        <p>El Tratado también incluyó una cláusula de <strong>apertura a nuevos miembros latinoamericanos</strong>:</p>
+        <div class="highlight-box">
+          <strong>Artículo 20:</strong> habilita la <strong>adhesión de nuevos Estados</strong> miembros de la <strong>ALADI</strong>, siempre que acepten las obligaciones del Tratado y los protocolos complementarios.
+        </div>
+        <p>Este artículo es la base jurídica que luego permitó la <strong>adhesión de Bolivia</strong> como nuevo Estado Parte.</p>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section class="slide" id="slide-4">
+      <div class="slide-header">
+        <h1 class="slide-title">Objetivos económicos y sociales</h1>
+        <span class="slide-tag">Desarrollo con justicia social</span>
+      </div>
+      <div class="slide-body">
+        <p>El MERCOSUR se concibe desde su origen como un instrumento para el <strong>desarrollo económico</strong> con <strong>justicia social</strong>.</p>
+        <p>Objetivos destacados:</p>
+        <ul>
+          <li>Impulsar el <strong>crecimiento económico</strong> de los países miembros.</li>
+          <li>Mejorar las <strong>relaciones comerciales regionales</strong>, reduciendo costos y barreras.</li>
+          <li>Cimentar la <strong>integración sudamericana</strong> sobre:
+            <ul>
+              <li><strong>Democracia</strong> y Estado de derecho.</li>
+              <li><strong>Cooperación</strong> y coordinación de políticas públicas.</li>
+            </ul>
+          </li>
+        </ul>
+        <p>La eliminación de aranceles y barreras no arancelarias busca:</p>
+        <ul>
+          <li>Ampliar el <strong>mercado interno ampliado</strong> para bienes y servicios.</li>
+          <li>Favorecer <strong>economías de escala</strong> y cadenas de valor regionales.</li>
+          <li>Generar condiciones para <strong>mayor inversión</strong> y empleo.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 5 -->
+    <section class="slide" id="slide-5">
+      <div class="slide-header">
+        <h1 class="slide-title">Democracia como condición de membresía</h1>
+        <span class="slide-tag">Protocolo de Ushuaia</span>
+      </div>
+      <div class="slide-body">
+        <p>Desde sus primeros años, el MERCOSUR vinculó la <strong>participación en el bloque</strong> con el respeto a la <strong>democracia</strong>.</p>
+        <p>Hito clave:</p>
+        <ul>
+          <li>En <strong>1998</strong>, los Estados Partes y los entonces asociados <strong>Bolivia</strong> y <strong>Chile</strong> suscriben el <strong>Protocolo de Ushuaia</strong> sobre compromiso democrático.</li>
+          <li>El protocolo entra en vigor en <strong>2002</strong>.</li>
+          <li>Establece que la ruptura del <strong>orden democrático</strong> en un Estado Parte puede implicar la <strong>suspensión de sus derechos</strong> en el MERCOSUR.</li>
+        </ul>
+        <p>Aplicaciones concretas del Protocolo de Ushuaia:</p>
+        <ul>
+          <li><strong>Suspensión de Paraguay</strong> en <strong>2012</strong>.</li>
+          <li><strong>Suspensión de Venezuela</strong> en <strong>2017</strong>, en el marco de crisis políticas.</li>
+        </ul>
+        <p>
+          <span class="pill">Compromiso democrático</span>
+          Documentos disponibles en la sección “Normativa – Protocolos” de <a href="https://www.mercosur.int/normativa" target="_blank" rel="noopener noreferrer">mercosur.int</a>.
+        </p>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section class="slide" id="slide-6">
+      <div class="slide-header">
+        <h1 class="slide-title">De la estructura provisoria al Ouro Preto</h1>
+        <span class="slide-tag">Institucionalización</span>
+      </div>
+      <div class="slide-body">
+        <p>Durante los primeros años, el MERCOSUR funcionó con una <strong>estructura institucional ad hoc</strong>, pensada como transitoria.</p>
+        <p>El salto cualitativo se da con el <strong>Protocolo de Ouro Preto</strong>:</p>
+        <ul>
+          <li>Firmado el <strong>17 de diciembre de 1994</strong>.</li>
+          <li>Vigente desde <strong>1995</strong>.</li>
+          <li>Define la <strong>estructura institucional definitiva</strong> del MERCOSUR.</li>
+          <li>Otorga al MERCOSUR <strong>personalidad jurídica internacional</strong> para actuar frente a terceros.</li>
+        </ul>
+        <p>El Protocolo organiza al bloque en:</p>
+        <ul>
+          <li><strong>Órganos decisorios intergubernamentales</strong> (CMC, GMC, CCM).</li>
+          <li><strong>Órganos no decisorios</strong> (Secretaría, foro parlamentario, foro económico-social, etc.).</li>
+        </ul>
+        <p>
+          <span class="pill">Texto Ouro Preto</span>
+          Localizable en “Documentos fundacionales” de <a href="https://www.mercosur.int/documentos-e-informes" target="_blank" rel="noopener noreferrer">mercosur.int</a>.
+        </p>
+      </div>
+    </section>
+
+    <!-- 7 -->
+    <section class="slide" id="slide-7">
+      <div class="slide-header">
+        <h1 class="slide-title">Órganos decisorios intergubernamentales</h1>
+        <span class="slide-tag">CMC – GMC – CCM</span>
+      </div>
+      <div class="slide-body">
+        <p>El Protocolo de Ouro Preto establece <strong>tres órganos decisorios</strong>, todos de <strong>naturaleza intergubernamental</strong> (no supranacional):</p>
+        <ul>
+          <li><strong>Consejo del Mercado Común (CMC)</strong>.</li>
+          <li><strong>Grupo Mercado Común (GMC)</strong>.</li>
+          <li><strong>Comisión de Comercio del MERCOSUR (CCM)</strong>.</li>
+        </ul>
+        <p>Que sean “intergubernamentales” significa que:</p>
+        <ul>
+          <li><strong>No son órganos supranacionales</strong> con potestad de imponer normas directamente a particulares.</li>
+          <li>Están formados por <strong>representantes de los gobiernos nacionales</strong>.</li>
+          <li>Sus decisiones requieren el <strong>consenso de todos los Estados Partes</strong>.</li>
+          <li>Las normas que aprueban deben ser <strong>incorporadas a los ordenamientos nacionales</strong> para surtir efecto interno.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 8 -->
+    <section class="slide" id="slide-8">
+      <div class="slide-header">
+        <h1 class="slide-title">Consejo del Mercado Común (CMC)</h1>
+        <span class="slide-tag">Máxima instancia política</span>
+      </div>
+      <div class="slide-body">
+        <p>El <strong>CMC</strong> es la <strong>máxima autoridad política intergubernamental</strong> del MERCOSUR:</p>
+        <ul>
+          <li>Integrado por los <strong>Ministros de Relaciones Exteriores</strong> y de <strong>Economía</strong> de cada Estado Parte.</li>
+          <li>Responsable de la <strong>conducción política y estratégica</strong> del proceso de integración.</li>
+          <li>Define las <strong>orientaciones generales</strong> del bloque.</li>
+          <li>Aprueba las <strong>Decisiones CMC</strong>, que son normas obligatorias para los Estados.</li>
+        </ul>
+        <p>Características intergubernamentales:</p>
+        <ul>
+          <li>Cada país está representado por su <strong>gobierno</strong>, no por una entidad supranacional independiente.</li>
+          <li>Las Decisiones se adoptan por <strong>consenso</strong>.</li>
+          <li>Para que tengan efecto interno, deben ser <strong>incorporadas por cada Estado</strong> siguiendo sus procedimientos constitucionales.</li>
+        </ul>
+        <p>
+          <span class="pill">Normas CMC</span>
+          Buscador de Decisiones en “Normativa MERCOSUR”: <a href="https://www.mercosur.int/normativa" target="_blank" rel="noopener noreferrer">mercosur.int/normativa</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- 9 -->
+    <section class="slide" id="slide-9">
+      <div class="slide-header">
+        <h1 class="slide-title">Grupo Mercado Común (GMC)</h1>
+        <span class="slide-tag">Órgano ejecutivo intergubernamental</span>
+      </div>
+      <div class="slide-body">
+        <p>El <strong>GMC</strong> es el <strong>órgano ejecutivo intergubernamental</strong> del MERCOSUR:</p>
+        <ul>
+          <li>Se ocupa del <strong>funcionamiento operativo</strong> y del seguimiento del proceso de integración.</li>
+          <li>Implementa las <strong>Decisiones</strong> del CMC.</li>
+          <li>Coordina políticas sectoriales a través de subgrupos y foros técnicos.</li>
+          <li>Adopta <strong>Resoluciones GMC</strong> de alcance obligatorio para los Estados.</li>
+        </ul>
+        <p>El carácter intergubernamental se refleja en que:</p>
+        <ul>
+          <li>Está integrado por <strong>representantes de los gobiernos</strong> (viceministros, altos funcionarios, etc.).</li>
+          <li>No posee <strong>competencias directas sobre los ciudadanos</strong> sin mediación de los Estados.</li>
+          <li>Sus Resoluciones también requieren <strong>incorporación nacional</strong>, salvo algunas normas internas de funcionamiento.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 10 -->
+    <section class="slide" id="slide-10">
+      <div class="slide-header">
+        <h1 class="slide-title">Comisión de Comercio del MERCOSUR (CCM)</h1>
+        <span class="slide-tag">Administración comercial</span>
+      </div>
+      <div class="slide-body">
+        <p>La <strong>CCM</strong> es el órgano intergubernamental especializado en <strong>política comercial común</strong>:</p>
+        <ul>
+          <li>Administra el <strong>Arancel Externo Común (AEC)</strong>.</li>
+          <li>Vigila el cumplimiento de las <strong>reglas de origen</strong>.</li>
+          <li>Analiza y propone medidas en materia de <strong>defensa comercial</strong> (antidumping, salvaguardias, etc.).</li>
+          <li>Adopta <strong>Directivas CCM</strong> para la gestión del comercio intrabloque y extrabloque.</li>
+        </ul>
+        <p>La CCM también es intergubernamental:</p>
+        <ul>
+          <li>Delegaciones de cada Estado negocian técnicamente y elevan propuestas.</li>
+          <li>No existe una “autoridad aduanera supranacional”; cada país aplica las normas a través de sus propias instituciones.</li>
+        </ul>
+        <p>
+          <span class="pill">Comercio y NCM</span>
+          Más información en las secciones “Comercio” y “Nomenclatura” de <a href="https://www.mercosur.int" target="_blank" rel="noopener noreferrer">mercosur.int</a>.
+        </p>
+      </div>
+    </section>
+
+    <!-- 11 -->
+    <section class="slide" id="slide-11">
+      <div class="slide-header">
+        <h1 class="slide-title">Tipología de normas del MERCOSUR</h1>
+        <span class="slide-tag">Decisiones – Resoluciones – Directivas</span>
+      </div>
+      <div class="slide-body">
+        <p>La estructura normativa básica del MERCOSUR se organiza en tres tipos de instrumentos:</p>
+        <ul>
+          <li><strong>Decisiones CMC</strong>:
+            <ul>
+              <li>Normas emanadas del <strong>Consejo del Mercado Común</strong>.</li>
+              <li>Definen lineamientos políticos y compromisos de alto nivel.</li>
+            </ul>
+          </li>
+          <li><strong>Resoluciones GMC</strong>:
+            <ul>
+              <li>Emitidas por el <strong>Grupo Mercado Común</strong>.</li>
+              <li>Regulan aspectos ejecutivos, técnicos y de implementación.</li>
+            </ul>
+          </li>
+          <li><strong>Directivas CCM</strong>:
+            <ul>
+              <li>Emitidas por la <strong>Comisión de Comercio del MERCOSUR</strong>.</li>
+              <li>Regulan la aplicación del <strong>AEC</strong>, reglas de origen y otros instrumentos comerciales.</li>
+            </ul>
+          </li>
+        </ul>
+        <p>En general:</p>
+        <ul>
+          <li>Son <strong>obligatorias</strong> para los Estados Partes.</li>
+          <li>Requieren <strong>incorporación al derecho interno</strong> para producir efectos dentro de cada país (salvo algunas normas internas de funcionamiento).</li>
+        </ul>
+        <p>
+          <span class="pill">Buscador normativo</span>
+          <a href="https://www.mercosur.int/normativa" target="_blank" rel="noopener noreferrer">Normativa MERCOSUR – mercosur.int</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- 12 -->
+    <section class="slide" id="slide-12">
+      <div class="slide-header">
+        <h1 class="slide-title">Órganos no decisorios</h1>
+        <span class="slide-tag">Participación y apoyo técnico</span>
+      </div>
+      <div class="slide-body">
+        <p>Además de los órganos decisorios, el Protocolo de Ouro Preto creó <strong>órganos no decisorios</strong> que amplían la participación y dan soporte técnico:</p>
+        <ul>
+          <li><strong>Secretaría del MERCOSUR</strong> (antes Secretaría Administrativa), con sede en <strong>Montevideo</strong>:
+            <ul>
+              <li>Brinda <strong>apoyo técnico</strong> a los órganos del bloque.</li>
+              <li>Es responsable del <strong>registro y archivo</strong> de la normativa.</li>
+              <li>Recibe las <strong>notificaciones de incorporación nacional</strong> de normas.</li>
+            </ul>
+          </li>
+          <li><strong>Comisión Parlamentaria Conjunta</strong> (CPC), luego reemplazada por el <strong>Parlamento del MERCOSUR (PARLASUR)</strong> como foro legislativo consultivo.</li>
+          <li><strong>Foro Consultivo Económico-Social</strong>, que integra:
+            <ul>
+              <li><strong>Sindicatos</strong>.</li>
+              <li><strong>Gremios empresariales</strong>.</li>
+              <li>Otros actores de la sociedad civil.</li>
+            </ul>
+          </li>
+        </ul>
+        <p>Estos órganos <strong>no emiten normas vinculantes</strong>, pero pueden formular <strong>recomendaciones</strong> y ampliar la legitimidad social del proceso de integración.</p>
+      </div>
+    </section>
+
+    <!-- 13 -->
+    <section class="slide" id="slide-13">
+      <div class="slide-header">
+        <h1 class="slide-title">Parlamento del MERCOSUR (PARLASUR)</h1>
+        <span class="slide-tag">Dimensión parlamentaria</span>
+      </div>
+      <div class="slide-body">
+        <p>El <strong>PARLASUR</strong> surge del <strong>Protocolo Constitutivo del Parlamento del MERCOSUR</strong> firmado en <strong>2005</strong>:</p>
+        <ul>
+          <li>Entra en vigor en <strong>2007</strong>.</li>
+          <li>Reemplaza progresivamente a la <strong>Comisión Parlamentaria Conjunta</strong>.</li>
+          <li>Se define como un órgano <strong>parlamentario consultivo</strong> de la integración.</li>
+        </ul>
+        <p>Objetivos principales:</p>
+        <ul>
+          <li>Incorporar una <strong>dimensión parlamentaria</strong> al MERCOSUR.</li>
+          <li>Avanzar hacia la <strong>elección directa de parlamentarios</strong>.</li>
+          <li>Aplicar el criterio de <strong>“proporcionalidad atenuada”</strong> para que los países pequeños tengan una representación significativa.</li>
+          <li>Prever elecciones directas a partir de <strong>2020</strong> como horizonte político.</li>
+        </ul>
+        <p>
+          <span class="pill">PARLASUR</span>
+          Información institucional en <a href="https://www.parlamentomercosur.org" target="_blank" rel="noopener noreferrer">parlamentomercosur.org</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- 14 -->
+    <section class="slide" id="slide-14">
+      <div class="slide-header">
+        <h1 class="slide-title">Expansión de la agenda: nuevos organismos</h1>
+        <span class="slide-tag">Más allá del comercio</span>
+      </div>
+      <div class="slide-body">
+        <p>Con el tiempo, el MERCOSUR consolidó una agenda que <strong>trasciende lo estrictamente comercial</strong>. Se crearon organismos especializados, entre ellos:</p>
+        <ul>
+          <li><strong>Tribunal Permanente de Revisión (TPR)</strong>:
+            <ul>
+              <li>Creado por el <strong>Protocolo de Olivos</strong> (2002).</li>
+              <li>Órgano judicial-arbitral para la <strong>solución de controversias</strong> en el bloque.</li>
+            </ul>
+          </li>
+          <li><strong>Instituto de Políticas Públicas en Derechos Humanos (IPPDH)</strong>:
+            <ul>
+              <li>Enfocado en la <strong>agenda de derechos humanos</strong> en el MERCOSUR.</li>
+            </ul>
+          </li>
+          <li><strong>Instituto Social del MERCOSUR (ISM)</strong>:
+            <ul>
+              <li>Aborda temas de <strong>política social, inclusión y desarrollo humano</strong>.</li>
+            </ul>
+          </li>
+          <li><strong>Fondo para la Convergencia Estructural (FOCEM)</strong>:
+            <ul>
+              <li>Creado en <strong>2005</strong> para <strong>reducir asimetrías</strong> mediante proyectos de infraestructura y cohesión social.</li>
+            </ul>
+          </li>
+        </ul>
+        <p>Estos organismos reflejan que el MERCOSUR incorpora <strong>dimensiones sociales, ciudadanas y de desarrollo regional</strong>, más allá del arancel.</p>
+      </div>
+    </section>
+
+    <!-- 15 -->
+    <section class="slide" id="slide-15">
+      <div class="slide-header">
+        <h1 class="slide-title">Esquema intergubernamental de decisiones</h1>
+        <span class="slide-tag">Consenso</span>
+      </div>
+      <div class="slide-body">
+        <p>El MERCOSUR sigue un <strong>modelo intergubernamental</strong> de toma de decisiones:</p>
+        <ul>
+          <li>Las decisiones relevantes se adoptan por <strong>consenso</strong> entre los Estados Partes.</li>
+          <li>Cada país tiene un <strong>voto igual</strong>, sin ponderación por tamaño económico o población.</li>
+          <li>No se utilizan mecanismos de “<strong>mayoría calificada</strong>” al estilo de la Unión Europea.</li>
+          <li>La <strong>presencia de todos los Estados</strong> es requisito para la validez de las reuniones decisorias.</li>
+        </ul>
+        <p>Implicaciones del esquema:</p>
+        <ul>
+          <li>Refuerza la <strong>soberanía estatal</strong> en el proceso de integración.</li>
+          <li>Hace que la integración sea <strong>más gradual</strong> y basada en <strong>acuerdos negociados</strong>.</li>
+          <li>Pone el acento en la <strong>coordinación política</strong>, no en la delegación de competencias a un órgano supranacional.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 16 -->
+    <section class="slide" id="slide-16">
+      <div class="slide-header">
+        <h1 class="slide-title">Proceso normativo e incorporación nacional</h1>
+        <span class="slide-tag">Vigencia simultánea</span>
+      </div>
+      <div class="slide-body">
+        <p>Las normas adoptadas por CMC, GMC y CCM siguen un <strong>circuito normativo</strong> particular:</p>
+        <ul>
+          <li>El órgano intergubernamental adopta la norma (Decisión, Resolución, Directiva).</li>
+          <li>Cada Estado Parte debe <strong>incorporarla a su ordenamiento jurídico</strong>, según sus procedimientos internos (leyes, decretos, etc.).</li>
+          <li>El MERCOSUR <strong>no legisla de manera supranacional</strong>, es decir, sus normas no se aplican directamente a particulares sin esa incorporación.</li>
+        </ul>
+        <div class="highlight-box">
+          Para asegurar la <strong>entrada en vigor simultánea</strong>, se estableció un mecanismo: cuando todos los Estados notifican a la <strong>Secretaría del MERCOSUR</strong> que incorporaron la norma, la Secretaría declara su vigencia conjunta <strong>30 días después</strong>.
+        </div>
+        <p>Este mecanismo evita <strong>desfasajes regulatorios</strong> entre miembros y refuerza la idea de un “acervo” común, aunque gestionado por cada Estado.</p>
+      </div>
+    </section>
+
+    <!-- 17 -->
+    <section class="slide" id="slide-17">
+      <div class="slide-header">
+        <h1 class="slide-title">Aplicación directa y excepciones</h1>
+        <span class="slide-tag">Art. 40 – Ouro Preto</span>
+      </div>
+      <div class="slide-body">
+        <p>No todas las normas del MERCOSUR exigen el mismo tipo de incorporación:</p>
+        <ul>
+          <li>Algunas normas <strong>internas de funcionamiento</strong> (por ejemplo, reglamentos de procedimientos, organización interna de órganos) <strong>no requieren incorporación nacional</strong> y rigen directamente en el plano institucional.</li>
+          <li>Cuando una disposición MERCOSUR ya está contemplada en la legislación de un país, éste puede <strong>informar que ya la tiene vigente</strong>, lo que simplifica la incorporación.</li>
+          <li>En cambio, las normas <strong>comerciales</strong> (aranceles, reglas de origen, medidas de defensa comercial, etc.) suelen requerir una incorporación más formal.</li>
+        </ul>
+        <p>El <strong>Artículo 40 del Protocolo de Ouro Preto</strong> establece la obligación de que los Estados Partes incorporen las normas en <strong>tiempo y forma</strong>, para que el MERCOSUR funcione de manera <strong>armoniosa y coherente</strong>.</p>
+      </div>
+    </section>
+
+    <!-- 18 -->
+    <section class="slide" id="slide-18">
+      <div class="slide-header">
+        <h1 class="slide-title">Foros técnicos y red institucional</h1>
+        <span class="slide-tag">Más de 300 espacios</span>
+      </div>
+      <div class="slide-body">
+        <p>Junto a los órganos centrales, el MERCOSUR articula una extensa <strong>red de foros técnicos</strong>:</p>
+        <ul>
+          <li><strong>Más de 300 foros de negociación</strong>, incluyendo:
+            <ul>
+              <li><strong>Subgrupos de trabajo</strong>.</li>
+              <li><strong>Comisiones técnicas</strong>.</li>
+              <li><strong>Reuniones especializadas</strong>.</li>
+            </ul>
+          </li>
+        </ul>
+        <p>Ámbitos temáticos cubiertos:</p>
+        <ul>
+          <li><strong>Agricultura</strong>, <strong>industria</strong>, <strong>energía</strong>.</li>
+          <li><strong>Salud, educación, trabajo, transporte</strong>.</li>
+          <li><strong>Justicia, seguridad, políticas sociales</strong>, entre otros.</li>
+        </ul>
+        <p>Función de estos foros:</p>
+        <ul>
+          <li>Permitir que expertos de los cuatro Estados armonicen <strong>políticas sectoriales</strong>.</li>
+          <li>Elevar propuestas técnicas al <strong>CMC, GMC o CCM</strong> para su eventual aprobación política.</li>
+          <li>Hacer posible que la integración avance en <strong>múltiples áreas simultáneamente</strong>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 19 -->
+    <section class="slide" id="slide-19">
+      <div class="slide-header">
+        <h1 class="slide-title">MERCOSUR en el marco de la ALADI</h1>
+        <span class="slide-tag">ACE Nº 18</span>
+      </div>
+      <div class="slide-body">
+        <p>Para insertarse en el sistema de integración latinoamericano, los cuatro países registran al MERCOSUR como un acuerdo de la <strong>ALADI</strong>:</p>
+        <ul>
+          <li>Mediante el <strong>Acuerdo de Complementación Económica Nº 18 (ACE-18)</strong>.</li>
+          <li>Firmado el <strong>29 de noviembre de 1991</strong>.</li>
+          <li>Vigente desde <strong>1992</strong>.</li>
+        </ul>
+        <p>Características del ACE-18:</p>
+        <ul>
+          <li>Es un <strong>tratado comercial</strong> en el ámbito de la ALADI.</li>
+          <li>Formaliza las <strong>preferencias arancelarias</strong> entre Argentina, Brasil, Paraguay y Uruguay.</li>
+          <li>Incorpora al esquema ALADI las <strong>concesiones del Tratado de Asunción</strong>.</li>
+          <li>Da base jurídica a la creación de una <strong>zona de libre comercio MERCOSUR</strong> compatible con el Tratado de Montevideo 1980.</li>
+        </ul>
+        <p>
+          <span class="pill">ACE-18</span>
+          Textos y protocolos pueden consultarse en <a href="https://www.aladi.org" target="_blank" rel="noopener noreferrer">aladi.org</a> (sección “Acuerdos de Complementación Económica”).
+        </p>
+      </div>
+    </section>
+
+    <!-- 20 -->
+    <section class="slide" id="slide-20">
+      <div class="slide-header">
+        <h1 class="slide-title">Contenido y alcance del ACE-18</h1>
+        <span class="slide-tag">Liberalización intrarregional</span>
+      </div>
+      <div class="slide-body">
+        <p>El <strong>ACE-18</strong> y sus <strong>Protocolos Adicionales</strong> recogen las principales disciplinas comerciales del MERCOSUR:</p>
+        <ul>
+          <li>Programas de <strong>reducción arancelaria</strong> entre los cuatro países.</li>
+          <li>Metas de <strong>eliminación de aranceles intrazonales</strong>.</li>
+          <li>Disposiciones sobre <strong>reglas de origen</strong>, medidas de salvaguardia, etc.</li>
+        </ul>
+        <p>Cronograma de desgravación:</p>
+        <ul>
+          <li>Objetivo inicial: <strong>0% de arancel intrazona</strong> para todos los productos al <strong>31/12/1994</strong>.</li>
+          <li>Prórroga del plazo hasta <strong>1999</strong> para completar la desgravación.</li>
+          <li>Desde <strong>2000</strong>, prácticamente el <strong>100% del comercio intrarregional</strong> se realiza sin aranceles.</li>
+        </ul>
+        <p>Excepciones sensibles al programa original:</p>
+        <ul>
+          <li><strong>Azúcar</strong>.</li>
+          <li><strong>Automotores</strong>, negociados mediante esquemas especiales debido a su importancia estratégica.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 21 -->
+    <section class="slide" id="slide-21">
+      <div class="slide-header">
+        <h1 class="slide-title">Protocolos adicionales del ACE-18</h1>
+        <span class="slide-tag">Actualización normativa</span>
+      </div>
+      <div class="slide-body">
+        <p>El ACE-18 es un acuerdo “vivo” que se actualiza mediante <strong>Protocolos Adicionales numerados</strong>:</p>
+        <ul>
+          <li>Cada nueva <strong>norma comercial</strong> adoptada por el MERCOSUR se incorpora al ACE-18 a través de un protocolo adicional.</li>
+          <li>Esto incluye:
+            <ul>
+              <li>Cambios en <strong>reglas de origen</strong>.</li>
+              <li>Nuevos <strong>requisitos sanitarios o técnicos</strong>.</li>
+              <li>Ajustes arancelarios dentro del esquema intrazona.</li>
+            </ul>
+          </li>
+        </ul>
+        <p>Ejemplo ilustrativo:</p>
+        <ul>
+          <li>La <strong>Decisión CMC Nº 5/23</strong>, que establece el nuevo <strong>Régimen de Origen MERCOSUR</strong> (2023), se incorpora como el <strong>Protocolo Adicional Nº 218 al ACE-18</strong>.</li>
+        </ul>
+        <p>Hasta 2025 se han aprobado <strong>cientos de protocolos adicionales</strong>, reflejando la constante <strong>evolución normativa</strong> del bloque.</p>
+      </div>
+    </section>
+
+    <!-- 22 -->
+    <section class="slide" id="slide-22">
+      <div class="slide-header">
+        <h1 class="slide-title">Nomenclatura Común del MERCOSUR (NCM)</h1>
+        <span class="slide-tag">Clasificación arancelaria</span>
+      </div>
+      <div class="slide-body">
+        <p>El MERCOSUR adoptó una <strong>Nomenclatura Común (NCM)</strong> de <strong>8 dígitos</strong> basada en el <strong>Sistema Armonizado</strong> de la Organización Mundial de Aduanas.</p>
+        <p>Importancia de la NCM:</p>
+        <ul>
+          <li>Permite una <strong>clasificación homogénea</strong> de productos en todos los Estados Partes.</li>
+          <li>Sirve de base para:
+            <ul>
+              <li>Aplicación del <strong>Arancel Externo Común (AEC)</strong>.</li>
+              <li>Definición de <strong>reglas de origen</strong>.</li>
+              <li>Estadísticas de comercio exterior.</li>
+            </ul>
+          </li>
+          <li>Las modificaciones a la NCM se realizan mediante <strong>Resoluciones del GMC</strong>.</li>
+        </ul>
+        <p>
+          <span class="pill">NCM</span>
+          Detalles en la sección de Nomenclatura de <a href="https://www.mercosur.int" target="_blank" rel="noopener noreferrer">mercosur.int</a> y en los anexos del ACE-18 en <a href="https://www.aladi.org" target="_blank" rel="noopener noreferrer">aladi.org</a>.
+        </p>
+      </div>
+    </section>
+
+    <!-- 23 -->
+    <section class="slide" id="slide-23">
+      <div class="slide-header">
+        <h1 class="slide-title">Arancel Externo Común (AEC) y excepciones</h1>
+        <span class="slide-tag">Unión aduanera imperfecta</span>
+      </div>
+      <div class="slide-body">
+        <p>El <strong>AEC</strong> es la columna vertebral de la <strong>unión aduanera</strong> del MERCOSUR:</p>
+        <ul>
+          <li>Se aplica a las <strong>importaciones extrazona</strong>.</li>
+          <li>Se basa en la <strong>NCM</strong> común a los cuatro países.</li>
+          <li>Las modificaciones al AEC se instrumentan mediante <strong>Resoluciones GMC</strong>.</li>
+        </ul>
+        <p>Sin embargo, el AEC presenta <strong>importantes excepciones</strong>:</p>
+        <ul>
+          <li>No se aplica plenamente a los sectores de:
+            <ul>
+              <li><strong>Azúcar</strong>.</li>
+              <li><strong>Automotores</strong>, regidos por acuerdos específicos.</li>
+            </ul>
+          </li>
+          <li>Cada Estado mantiene <strong>Listas Nacionales de Excepción</strong> al AEC.</li>
+          <li>Existen <strong>regímenes especiales de importación</strong> (zonas francas, bienes de capital, etc.) donde tampoco se aplica el AEC.</li>
+        </ul>
+        <p>Las excepciones muestran que el MERCOSUR es una <strong>unión aduanera “imperfecta”</strong>, adaptada a las diferencias estructurales entre economías.</p>
+      </div>
+    </section>
+
+    <!-- 24 -->
+    <section class="slide" id="slide-24">
+      <div class="slide-header">
+        <h1 class="slide-title">Listas de excepción y Decisiones recientes</h1>
+        <span class="slide-tag">Flexibilidades</span>
+      </div>
+      <div class="slide-body">
+        <p>Las <strong>Listas Nacionales de Excepción</strong> son un instrumento clave de flexibilidad:</p>
+        <ul>
+          <li>Cada país dispone de un conjunto de <strong>ítems NCM fuera del AEC</strong>.</li>
+          <li>La <strong>Decisión CMC 58/10</strong> fijó las listas de excepción permanentes para los Estados Partes.</li>
+          <li>La <strong>Decisión CMC 02/25</strong> permitió una <strong>ampliación transitoria en 50 ítems adicionales</strong> para cada país.</li>
+        </ul>
+        <p>Además, se prevén <strong>regímenes especiales de importación</strong>:</p>
+        <ul>
+          <li>Zonas francas y áreas aduaneras especiales.</li>
+          <li>Regímenes para <strong>bienes de capital</strong> y equipamiento.</li>
+          <li>Otros regímenes que autorizan no aplicar el AEC en determinados casos.</li>
+        </ul>
+        <p>La lógica general es permitir que el esquema común se adapte a la <strong>realidad productiva</strong> de cada país, sin desmantelar el principio de una <strong>tarifa externa compartida</strong>.</p>
+      </div>
+    </section>
+
+    <!-- 25 -->
+    <section class="slide" id="slide-25">
+      <div class="slide-header">
+        <h1 class="slide-title">ALADI y el principio de convergencia abierta</h1>
+        <span class="slide-tag">Marco latinoamericano</span>
+      </div>
+      <div class="slide-body">
+        <p>La <strong>ALADI</strong> (Asociación Latinoamericana de Integración) es el marco jurídico regional que permite la coexistencia de múltiples acuerdos y bloques, entre ellos el MERCOSUR.</p>
+        <p>ALADI ofrece:</p>
+        <ul>
+          <li><strong>Acuerdos de Alcance Parcial (AAP)</strong>, como el <strong>ACE-18</strong>.</li>
+          <li>La <strong>Preferencia Arancelaria Regional (PAR)</strong>, un descuento general de aranceles entre miembros.</li>
+          <li>Cinco principios rectores:
+            <ul>
+              <li><strong>Pluralismo</strong> en las modalidades de integración.</li>
+              <li><strong>Convergencia</strong> progresiva de acuerdos.</li>
+              <li><strong>Flexibilidad</strong> para adaptarse a cada país.</li>
+              <li><strong>Multiplicidad</strong> de instrumentos.</li>
+              <li><strong>Tratos diferenciales</strong> para economías de menor desarrollo.</li>
+            </ul>
+          </li>
+        </ul>
+        <p>El MERCOSUR se concibe así como un <strong>bloque subregional específico</strong> dentro de la arquitectura de integración más amplia que provee la ALADI.</p>
+      </div>
+    </section>
+
+    <!-- 26 -->
+    <section class="slide" id="slide-26">
+      <div class="slide-header">
+        <h1 class="slide-title">Estados Asociados al MERCOSUR</h1>
+        <span class="slide-tag">Acuerdos ALADI</span>
+      </div>
+      <div class="slide-body">
+        <p>Varios países latinoamericanos han firmado acuerdos de libre comercio con MERCOSUR bajo el paraguas de la ALADI, obteniendo el estatus de <strong>Estados Asociados</strong>:</p>
+        <ul>
+          <li><strong>Chile</strong> – mediante el <strong>ACE-35</strong>.</li>
+          <li><strong>Bolivia</strong> – mediante el <strong>ACE-36</strong> (antes de su adhesión plena).</li>
+          <li><strong>Colombia, Ecuador y Perú</strong> – mediante los <strong>ACE-58/59</strong>.</li>
+        </ul>
+        <p>Características del estatus de Estado Asociado:</p>
+        <ul>
+          <li>Acceso a <strong>preferencias arancelarias</strong> y a una zona de libre comercio con el MERCOSUR.</li>
+          <li>Participación en ciertas <strong>reuniones y ámbitos de diálogo</strong> del MERCOSUR.</li>
+          <li>Sin llegar a asumir todas las <strong>obligaciones de un Estado Parte pleno</strong> (no se integran al AEC, por ejemplo).</li>
+        </ul>
+        <p>Esto demuestra el uso de la ALADI como <strong>plataforma de convergencia</strong> entre bloques y países.</p>
+      </div>
+    </section>
+
+    <!-- 27 -->
+    <section class="slide" id="slide-27">
+      <div class="slide-header">
+        <h1 class="slide-title">Adhesión de Bolivia al MERCOSUR</h1>
+        <span class="slide-tag">De Estado Asociado a Estado Parte</span>
+      </div>
+      <div class="slide-body">
+        <p><strong>Bolivia</strong>, además de ser parte de la <strong>Comunidad Andina (CAN)</strong>, decidió avanzar hacia la <strong>adhesión plena al MERCOSUR</strong> para complementar su inserción regional.</p>
+        <p>Etapas principales del proceso:</p>
+        <ul>
+          <li>Manifestación formal de la intención de adhesión en la década de 2000.</li>
+          <li>Creación de un <strong>Grupo de Trabajo Ad Hoc</strong> en 2007 (<strong>Decisión CMC Nº 01/07</strong>).</li>
+          <li>Negociaciones intermitentes sobre términos y condiciones.</li>
+          <li>Firma del <strong>Protocolo de Adhesión</strong> el <strong>17 de julio de 2015</strong> en Brasilia.</li>
+          <li>Largo proceso de ratificación parlamentaria hasta su entrada en vigor en <strong>agosto de 2024</strong>.</li>
+        </ul>
+        <p>Hasta entonces, Bolivia era <strong>Estado Asociado</strong> vía ACE-36 y participaba con <strong>voz pero sin voto</strong>.</p>
+      </div>
+    </section>
+
+    <!-- 28 -->
+    <section class="slide" id="slide-28">
+      <div class="slide-header">
+        <h1 class="slide-title">Solicitud e invitación a Bolivia (2006–2007)</h1>
+        <span class="slide-tag">Inicio del proceso</span>
+      </div>
+      <div class="slide-body">
+        <p>Hitos iniciales de la adhesión boliviana:</p>
+        <ul>
+          <li>En <strong>diciembre de 2006</strong>, el presidente <strong>Evo Morales</strong> expresa formalmente la intención de que Bolivia se incorpore como <strong>Estado Parte</strong> del MERCOSUR.</li>
+          <li>En <strong>enero de 2007</strong>, mediante la <strong>Decisión CMC Nº 01/07</strong>, los Estados Partes crean un <strong>Grupo de Trabajo Ad Hoc</strong> para la incorporación de Bolivia.</li>
+          <li>Ese grupo, integrado por representantes bolivianos y de cada país MERCOSUR, mantiene <strong>reuniones exploratorias</strong> durante 2007.</li>
+          <li>La invitación a Bolivia se reitera en <strong>cumbres posteriores</strong>, destacando:
+            <ul>
+              <li>La condición de Bolivia como <strong>país andino</strong>.</li>
+              <li>Su posición geográfica, fronteriza con todos los miembros originales.</li>
+            </ul>
+          </li>
+        </ul>
+        <p>Estas etapas van preparando el terreno para el posterior <strong>Protocolo de Adhesión (2015)</strong>.</p>
+      </div>
+    </section>
+
+    <!-- 29 -->
+    <section class="slide" id="slide-29">
+      <div class="slide-header">
+        <h1 class="slide-title">Protocolo de Adhesión de Bolivia (2015)</h1>
+        <span class="slide-tag">Contenido central</span>
+      </div>
+      <div class="slide-body">
+        <p>El <strong>Protocolo de Adhesión del Estado Plurinacional de Bolivia al MERCOSUR</strong> se firma el <strong>17 de julio de 2015</strong> en <strong>Brasilia</strong>:</p>
+        <ul>
+          <li>Firmado por los presidentes de los Estados Partes y de Bolivia.</li>
+          <li>Consta de <strong>13 artículos</strong> y anexos.</li>
+          <li>Dispone que Bolivia:
+            <ul>
+              <li>Adhiere al <strong>Tratado de Asunción</strong>.</li>
+              <li>Adhiere al <strong>Protocolo de Ouro Preto</strong>.</li>
+              <li>Adhiere al <strong>Protocolo de Olivos</strong> (solución de controversias).</li>
+              <li>Adhiere al <strong>Protocolo de Ushuaia</strong> (cláusula democrática).</li>
+              <li>Adhiere al <strong>Protocolo de Derechos Humanos de Asunción (2005)</strong>.</li>
+              <li>Adhiere al <strong>Protocolo Constitutivo del PARLASUR</strong>, entre otros instrumentos.</li>
+            </ul>
+          </li>
+        </ul>
+        <p>El Protocolo define que Bolivia se convierte en <strong>Estado Parte con plenos derechos y obligaciones</strong> una vez que el instrumento entre en vigor tras la <strong>ratificación legislativa</strong> por todos los Estados Partes y por Bolivia.</p>
+      </div>
+    </section>
+
+    <!-- 30 -->
+    <section class="slide" id="slide-30">
+      <div class="slide-header">
+        <h1 class="slide-title">Ratificación y compromisos de Bolivia</h1>
+        <span class="slide-tag">Hacia la plena integración</span>
+      </div>
+      <div class="slide-body">
+        <p>El proceso de ratificación del Protocolo demanda casi <strong>nueve años</strong>:</p>
+        <ul>
+          <li><strong>Paraguay</strong> ratifica en 2015.</li>
+          <li>Le siguen <strong>Uruguay</strong> y <strong>Argentina</strong>.</li>
+          <li><strong>Brasil</strong> culmina la ratificación en 2019, y la <strong>Decisión CMC Nº 20/19</strong> reconoce a Bolivia como “<strong>Estado Parte en proceso de adhesión</strong>”.</li>
+          <li>En <strong>julio de 2024</strong>, Bolivia deposita el <strong>Instrumento de Ratificación</strong> ante el MERCOSUR.</li>
+          <li>El Protocolo entra en vigor <strong>30 días después</strong> (agosto de 2024), cuando Bolivia pasa a ser formalmente <strong>Nuevo Estado Parte</strong>.</li>
+        </ul>
+        <p>Compromisos clave asumidos por Bolivia:</p>
+        <ul>
+          <li>Integrar el <strong>acervo normativo</strong> del MERCOSUR (miles de normas vigentes).</li>
+          <li>Adoptar en un máximo de <strong>4 años</strong>:
+            <ul>
+              <li>La <strong>Nomenclatura Común (NCM)</strong>.</li>
+              <li>El <strong>Arancel Externo Común (AEC)</strong>.</li>
+              <li>El <strong>Régimen de Origen MERCOSUR</strong>.</li>
+            </ul>
+          </li>
+          <li>Aplicar estos compromisos con <strong>gradualidad</strong>, <strong>flexibilidad</strong> y reconocimiento de <strong>asimetrías</strong>, negociando excepciones y plazos diferenciados.</li>
+        </ul>
+        <p>Para organizar este proceso se crea un <strong>Grupo de Trabajo Especial (GT Bolivia)</strong>, que elabora el <strong>cronograma de incorporación normativa</strong>.</p>
+      </div>
+    </section>
+
+   <!-- 31 -->
+    <section class="slide" id="slide-31">
+      <div class="slide-header">
+        <h1 class="slide-title">Cuestionario – Parte 1</h1>
+        <span class="slide-tag">Evaluación rápida</span>
+      </div>
+      <div class="slide-body">
+        <p>Completa el siguiente cuestionario para verificar tu comprensión de la Parte 1 (diapositivas 1–30):</p>
+        <p>
+          <strong>Link al formulario:</strong><br>
+          <a href="https://forms.gle/d56rGeeiTpPt1ER16" target="_blank" rel="noopener noreferrer">
+            https://forms.gle/d56rGeeiTpPt1ER16
+          </a>
+        </p>
+        <div class="highlight-box">
+          Recuerda: el cuestionario es obligatorio para acreditar la participación y asegurar que estás siguiendo el contenido del módulo.
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer-controls">
+    <div class="buttons">
+      <button id="prevBtn" onclick="prevSlide()">&larr; Anterior</button>
+      <button id="nextBtn" class="primary" onclick="nextSlide()">Siguiente &rarr;</button>
+    </div>
+    <div class="pager" id="pagerInfo">Diapositiva 1 de 30 (Parte 1)</div>
+    <div class="help">Parte 2: diapositivas 31–60 (resto del contenido)</div>
+  </footer>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const pagerInfo = document.getElementById('pagerInfo');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let current = 0;
+
+    function updateSlides() {
+      slides.forEach((s, i) => s.classList.toggle('active', i === current));
+      pagerInfo.textContent = `Diapositiva ${current + 1} de ${slides.length} (Parte 1)`;
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === slides.length - 1;
+    }
+
+    function nextSlide() {
+      if (current < slides.length - 1) {
+        current++;
+        updateSlides();
+      }
+    }
+
+    function prevSlide() {
+      if (current > 0) {
+        current--;
+        updateSlides();
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+
+    updateSlides();
+  </script>
+</body>
+</html>
