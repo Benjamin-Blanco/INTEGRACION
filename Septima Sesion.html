@@ -1,992 +1,933 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>MERCOSUR – Parte 2 (Diapositivas 31–60)</title>
+  <meta charset="UTF-8" />
+  <title>MERCOSUR – Parte 2 (Bolivia, FOCEM y agenda externa)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    body {
+    :root {
+      --bg: #ffffff;
+      --text: #111111;
+      --muted: #444444;
+      --accent: #004b8d;
+      --border: #dddddd;
+      --soft: #f5f5f5;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      background: #050814;
-      color: #f1f1f1;
-      font-family: Arial, sans-serif;
     }
-    .slide {
-      width: 100vw;
-      height: 100vh;
-      box-sizing: border-box;
-      padding: 40px 60px;
-      display: none;
-      overflow-y: auto;
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-    h1, h2 {
-      color: #ffd65c;
-      margin-top: 0;
-    }
-    h1 { font-size: 2.1rem; }
-    h2 { font-size: 1.6rem; }
-    p { line-height: 1.45; margin-bottom: 0.7rem; }
-    ul { margin-left: 1.2rem; margin-bottom: 0.7rem; }
-    li { margin-bottom: 0.25rem; }
-    a {
-      color: #7fd0ff;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .nav {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 1000;
-    }
-    .btn {
-      background: #ffd65c;
-      color: #111;
-      border: none;
+
+    .deck-header {
       padding: 10px 20px;
-      font-weight: bold;
-      cursor: pointer;
+      border-bottom: 1px solid var(--border);
+      background: #ffffff;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .deck-title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .deck-subtitle {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .slides {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      padding: 16px;
+    }
+
+    .slide {
+      width: 100%;
+      max-width: 1100px;
+      background: #ffffff;
       border-radius: 4px;
-      font-size: 0.95rem;
+      border: 1px solid var(--border);
+      padding: 26px 30px;
+      display: none;
+      flex-direction: column;
+      overflow: auto;
+    }
+
+    .slide.active {
+      display: flex;
+      animation: fadeIn 220ms ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 10px;
+      gap: 10px;
+    }
+
+    .slide-title {
+      font-size: 22px;
+      font-weight: 650;
+    }
+
+    .slide-tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      padding: 2px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--soft);
+      white-space: nowrap;
+    }
+
+    .slide-body {
+      margin-top: 6px;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .slide-body p {
+      margin-bottom: 10px;
+    }
+
+    .slide-body strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    ul {
+      margin-left: 18px;
+      margin-top: 4px;
+      margin-bottom: 6px;
+    }
+
+    li {
+      margin-bottom: 4px;
+    }
+
+    .highlight-box {
+      border-left: 3px solid var(--accent);
+      padding-left: 10px;
+      margin: 10px 0;
+      font-size: 14px;
+      background: var(--soft);
+    }
+
+    .pill {
+      display: inline-block;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      background: #ffffff;
+      margin-right: 5px;
+      margin-top: 2px;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px dashed var(--accent);
+    }
+
+    a:hover {
+      border-bottom-style: solid;
+    }
+
+    .footer-controls {
+      padding: 8px 16px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      border-top: 1px solid var(--border);
+      background: #ffffff;
+      position: sticky;
+      bottom: 0;
+      z-index: 20;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    button {
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      font-size: 13px;
+      background: var(--soft);
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    button.primary {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+
+    button:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+
+    .pager {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .help {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 900px) {
+      .slide {
+        padding: 18px 14px;
+        border-radius: 0;
+      }
+
+      .slide-title {
+        font-size: 18px;
+      }
+
+      .deck-header, .footer-controls {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
     }
   </style>
-  <script>
-    let currentSlide = 0;
-    function showSlide(n) {
-      const slides = document.getElementsByClassName('slide');
-      if (n < 0 || n >= slides.length) return;
-      slides[currentSlide].style.display = 'none';
-      slides[n].style.display = 'block';
-      currentSlide = n;
-    }
-    window.onload = () => {
-      const slides = document.getElementsByClassName('slide');
-      if (slides.length > 0) slides[0].style.display = 'block';
-    };
-  </script>
 </head>
 <body>
+  <header class="deck-header">
+    <div>
+      <div class="deck-title">MERCOSUR – Integración Económica Regional</div>
+      <div class="deck-subtitle">Parte 2 – Bolivia, FOCEM, agenda externa y debates actuales</div>
+    </div>
+    <div class="help">Usa ← → o los botones de abajo</div>
+  </header>
 
-<!-- ===================== SLIDE 31 ===================== -->
-<div class="slide">
-  <h1>Comercio de Bolivia con MERCOSUR y ALADI (2023–2024)</h1>
-  <p>
-    Bolivia mantiene una relación comercial histórica con el MERCOSUR, inicialmente como
-    <strong>Estado Asociado</strong> mediante acuerdos parciales ALADI y, desde 2024, como
-    <strong>Estado Parte pleno</strong>. Este vínculo se apoya en:
-  </p>
-  <ul>
-    <li>Contratos energéticos de gas natural con Brasil y Argentina.</li>
-    <li>Acuerdos de libre comercio bajo ALADI (especialmente el ACE-36 Bolivia–MERCOSUR).</li>
-    <li>
-      Un patrón estructural donde Bolivia exporta mayormente <strong>recursos naturales</strong> y
-      compra <strong>manufacturas e insumos industriales</strong>.
-    </li>
-  </ul>
-  <p>
-    Para visualizar la balanza comercial Bolivia–MERCOSUR, los principales productos y la evolución reciente:
-  </p>
-  <p>
-    <a href="https://ibce.org.bo/publicaciones-ibcecifras-pdf.php?id=1189" target="_blank" rel="noopener">
-      Boletín IBCE “Bolivia y MERCOSUR” (PDF con tablas y gráficos recientes)
-    </a>
-  </p>
-</div>
+  <main class="slides">
+    <!-- 31 -->
+    <section class="slide active" id="slide-31">
+      <div class="slide-header">
+        <h1 class="slide-title">Mapa de esta segunda parte</h1>
+        <span class="slide-tag">Guía</span>
+      </div>
+      <div class="slide-body">
+        <p>En esta segunda parte se desarrollan cinco bloques temáticos:</p>
+        <ul>
+          <li><strong>Bolivia y el comercio con el MERCOSUR</strong> (visión general, fuentes de datos).</li>
+          <li><strong>Protocolo de Adhesión de Bolivia al MERCOSUR</strong> (obligaciones clave y plazos).</li>
+          <li><strong>FOCEM</strong> (origen, funcionamiento, magnitud y el caso Paraguay).</li>
+          <li><strong>Acuerdos extrarregionales del MERCOSUR</strong> (Israel, Egipto, India, SACU, Palestina y otros procesos).</li>
+          <li><strong>Debates actuales y ejercicio de clase</strong> sobre flexibilización vs. negociaciones en bloque.</li>
+        </ul>
+        <p>La lógica es combinar <strong>instituciones</strong>, <strong>normativa</strong> y <strong>política económica</strong> con el caso concreto de <strong>Bolivia</strong> en la región.</p>
+      </div>
+    </section>
 
-<!-- ===================== SLIDE 32 ===================== -->
-<div class="slide">
-  <h1>Exportaciones de Bolivia al MERCOSUR (2023)</h1>
-  <p>
-    En 2023, las <strong>exportaciones de Bolivia al MERCOSUR</strong> alcanzaron alrededor de
-    <strong>USD 2.588,2 millones</strong>, con un perfil fuertemente concentrado.
-  </p>
-  <p>Rasgos centrales:</p>
-  <ul>
-    <li>
-      Se exportaron aproximadamente <strong>336 productos</strong> distintos al bloque,
-      pero el valor se concentra en pocos rubros.
-    </li>
-    <li>
-      El <strong>gas natural</strong> representó cerca del <strong>80% del valor exportado</strong>
-      (unos <strong>USD 2.047 millones</strong>).
-    </li>
-    <li>
-      Excluyendo el gas, las exportaciones suman apenas <strong>USD 541,4 millones</strong>.
-    </li>
-  </ul>
-  <p>Principales productos no gasíferos:</p>
-  <ul>
-    <li>Granos de soya y derivados (tortas de soya).</li>
-    <li><strong>Urea</strong> (fertilizante producido en Bolivia).</li>
-    <li><strong>Bananas</strong> y otros productos agroindustriales.</li>
-    <li><strong>Ulexita</strong> (mineral de boro).</li>
-    <li><strong>Estaño metálico</strong> y desechos de aluminio.</li>
-  </ul>
-  <p>
-    Estos datos pueden contrastarse en:
-    <a href="https://ibce.org.bo/publicaciones-ibcecifras-pdf.php?id=1189" target="_blank" rel="noopener">
-      IBCE – Bolivia y MERCOSUR (PDF)
-    </a>
-  </p>
-</div>
+    <!-- 32 -->
+    <section class="slide" id="slide-32">
+      <div class="slide-header">
+        <h1 class="slide-title">Comercio de Bolivia con el MERCOSUR</h1>
+        <span class="slide-tag">Panorama y fuentes</span>
+      </div>
+      <div class="slide-body">
+        <p>El comercio de Bolivia con los Estados Parte del MERCOSUR (<strong>Argentina, Brasil, Paraguay, Uruguay</strong>) es uno de los ejes de su inserción regional:</p>
+        <ul>
+          <li>Al menos desde la década de 2000, <strong>Brasil y Argentina</strong> se mantienen entre los <strong>principales destinos</strong> de exportaciones bolivianas (gas natural, energía eléctrica, manufacturas, agroindustria).</li>
+          <li>El MERCOSUR es también un <strong>proveedor central</strong> de bienes de capital, insumos industriales, combustibles, alimentos y bienes de consumo.</li>
+          <li>El peso relativo exacto del MERCOSUR en el comercio total de Bolivia varía por año y por ciclo de precios de hidrocarburos.</li>
+        </ul>
+        <p>Para datos y series actualizadas (valores, volúmenes, principales productos):</p>
+        <ul>
+          <li><strong>IBCE – Instituto Boliviano de Comercio Exterior</strong> (boletines y reportes en PDF):<br>
+            <a href="https://ibce.org.bo" target="_blank" rel="noopener noreferrer">https://ibce.org.bo</a>
+          </li>
+          <li><strong>INE Bolivia – Comercio Exterior</strong> (tabulados y series):<br>
+            <a href="https://www.ine.gob.bo" target="_blank" rel="noopener noreferrer">https://www.ine.gob.bo</a>
+          </li>
+          <li><strong>ALADI – Estadísticas de comercio</strong> (datos intrarregionales):<br>
+            <a href="https://www.aladi.org" target="_blank" rel="noopener noreferrer">https://www.aladi.org</a>
+          </li>
+        </ul>
+        <p>En clase se puede abrir alguno de estos sitios y ubicar los datos de <strong>exportaciones e importaciones de Bolivia hacia/desde MERCOSUR</strong> para un año reciente.</p>
+      </div>
+    </section>
 
-<!-- ===================== SLIDE 33 ===================== -->
-<div class="slide">
-  <h1>Importaciones de Bolivia desde el MERCOSUR (2023)</h1>
-  <p>
-    En 2023, las <strong>importaciones de Bolivia desde el MERCOSUR</strong> alcanzaron alrededor de
-    <strong>USD 3.395,9 millones</strong>, con un universo de casi <strong>3.850 productos</strong>.
-  </p>
-  <p>Principales rubros importados:</p>
-  <ul>
-    <li><strong>Diésel (gasoil)</strong> y <strong>gasolinas</strong> desde refinerías argentinas y brasileñas.</li>
-    <li><strong>Barras de hierro</strong> y otros insumos siderúrgicos.</li>
-    <li><strong>Vehículos automóviles</strong> y camiones de carga (principalmente desde Brasil).</li>
-    <li><strong>Harina de trigo</strong> y otros alimentos procesados.</li>
-    <li><strong>Bebidas preparadas sin alcohol</strong> y productos de consumo masivo.</li>
-    <li><strong>Fungicidas</strong>, agroquímicos y <strong>aceites lubricantes</strong>.</li>
-    <li><strong>Aceite crudo de petróleo</strong> para refino.</li>
-  </ul>
-  <p>
-    El MERCOSUR provee a Bolivia manufacturas, bienes de capital y combustibles refinados que el país
-    no produce en volumen suficiente, reforzando la interdependencia energética e industrial.
-  </p>
-  <p>
-    Tablas detalladas en:
-    <a href="https://ibce.org.bo/images/publicaciones/CE-318-Cifras-Comercio-Exterior-Boliviano-2023.pdf"
-       target="_blank" rel="noopener">
-      “Cifras del Comercio Exterior Boliviano 2023” – IBCE (PDF)
-    </a>
-  </p>
-</div>
+    <!-- 33 -->
+    <section class="slide" id="slide-33">
+      <div class="slide-header">
+        <h1 class="slide-title">Protocolo de Adhesión de Bolivia al MERCOSUR</h1>
+        <span class="slide-tag">Estructura general</span>
+      </div>
+      <div class="slide-body">
+        <p>El <strong>Protocolo de Adhesión del Estado Plurinacional de Bolivia al MERCOSUR</strong> se firmó el <strong>17 de julio de 2015</strong> en Brasilia.</p>
+        <p>Características básicas:</p>
+        <ul>
+          <li>Instrumento internacional que <strong>integra a Bolivia</strong> al Tratado de Asunción, al Protocolo de Ouro Preto y a otros instrumentos constitutivos.</li>
+          <li>Consta de <strong>13 artículos</strong> y anexos técnicos.</li>
+          <li>Establece <strong>plazos y modalidades</strong> para que Bolivia:
+            <ul>
+              <li>Adopte la <strong>Nomenclatura Común del MERCOSUR (NCM)</strong> y el <strong>Arancel Externo Común (AEC)</strong>.</li>
+              <li>Integre el <strong>acervo normativo</strong> existente.</li>
+              <li>Aplique el <strong>Régimen de Origen del MERCOSUR</strong> y el <strong>Protocolo de Olivos</strong> para solución de controversias.</li>
+            </ul>
+          </li>
+        </ul>
+        <p>El Protocolo entra en vigor en <strong>agosto de 2024</strong>, una vez completadas las ratificaciones de todos los Estados Parte y de Bolivia.</p>
+        <p class="highlight-box">
+          Para consultar el texto íntegro del Protocolo puede utilizarse la base de tratados del MERCOSUR alojada por la Cancillería de Paraguay:<br>
+          <a href="https://www.mre.gov.py/tratados/public_web/ConsultaMercosur.aspx" target="_blank" rel="noopener noreferrer">https://www.mre.gov.py/tratados/public_web/ConsultaMercosur.aspx</a><br>
+          (buscar: <strong>“Protocolo de Adhesión del Estado Plurinacional de Bolivia al MERCOSUR”</strong>).
+        </p>
+      </div>
+    </section>
 
-<!-- ===================== SLIDE 34 ===================== -->
-<div class="slide">
-  <h1>Balanza Comercial Bolivia–MERCOSUR</h1>
-  <p>
-    Estructuralmente, Bolivia registra un <strong>déficit comercial</strong> con el MERCOSUR
-    en casi todos los años, especialmente en bienes no energéticos.
-  </p>
-  <p>En 2023:</p>
-  <ul>
-    <li>Exportaciones totales al MERCOSUR: <strong>USD 2.588 millones</strong>.</li>
-    <li>Importaciones desde el MERCOSUR: <strong>USD 3.395,9 millones</strong>.</li>
-    <li>
-      Déficit global con MERCOSUR (incluyendo gas): alrededor de
-      <strong>USD 807 millones</strong>.
-    </li>
-    <li>
-      Déficit “no tradicional” (excluyendo gas): por encima de
-      <strong>USD 2.850 millones</strong>.
-    </li>
-  </ul>
-  <p>
-    Esto muestra que el gas natural “cubre” parcialmente el déficit industrial, pero no revierte
-    la estructura de dependencia de importaciones de alto valor agregado desde el bloque.
-  </p>
-</div>
+    <!-- 34 -->
+    <section class="slide" id="slide-34">
+      <div class="slide-header">
+        <h1 class="slide-title">Obligaciones de adhesión (I)</h1>
+        <span class="slide-tag">Tratados constitutivos</span>
+      </div>
+      <div class="slide-body">
+        <p>Bolivia, al adherir, asume la obligación de integrarse a los <strong>instrumentos constitutivos</strong> del MERCOSUR. El Protocolo establece, entre otros puntos, que Bolivia:</p>
+        <ul>
+          <li><strong>Adhiere al Tratado de Asunción</strong> (1991), base jurídica del MERCOSUR.</li>
+          <li><strong>Adhiere al Protocolo de Ouro Preto</strong> (1994), que define la estructura institucional y otorga personalidad jurídica internacional al bloque.</li>
+          <li><strong>Adhiere al Protocolo de Olivos</strong> (2002), que regula el <strong>régimen de solución de controversias</strong>.</li>
+          <li><strong>Adhiere al Protocolo de Ushuaia</strong> y otros instrumentos en materia de <strong>compromiso democrático</strong> y <strong>derechos humanos</strong>.</li>
+        </ul>
+        <p>En términos prácticos, Bolivia pasa a ser parte de:</p>
+        <ul>
+          <li>La <strong>arquitectura institucional intergubernamental</strong> (CMC, GMC, CCM, PARLASUR, foros sociales, etc.).</li>
+          <li>Los <strong>procedimientos decisorios</strong> por consenso.</li>
+          <li>Los <strong>mecanismos de solución de controversias</strong> existentes para los Estados Parte.</li>
+        </ul>
+      </div>
+    </section>
 
-<!-- ===================== SLIDE 35 ===================== -->
-<div class="slide">
-  <h1>Aranceles y Desgravación Bolivia–MERCOSUR (ACE-36)</h1>
-  <p>
-    El comercio entre Bolivia y los Estados Parte del MERCOSUR se rige por el
-    <strong>Acuerdo de Complementación Económica Nº 36 (ACE-36)</strong>, suscrito en el marco de ALADI.
-  </p>
-  <p>Aspectos clave del ACE-36:</p>
-  <ul>
-    <li>
-      Establece un proceso de <strong>liberación comercial</strong> bilateral que culmina en
-      <strong>arancel 0%</strong> para prácticamente todo el universo arancelario.
-    </li>
-    <li>
-      Desde 2014, rige la desgravación total para el 100% de los productos cubiertos, en ambas direcciones.
-    </li>
-    <li>
-      El gas natural se negoció en convenios energéticos específicos, fuera de la lógica arancelaria del ACE-36.
-    </li>
-  </ul>
-  <p>
-    El MERCOSUR en su conjunto está registrado en ALADI mediante el
-    <strong>ACE-18</strong>, que formaliza el bloque como acuerdo comercial subregional:
-  </p>
-  <p>
-    <a href="https://www2.aladi.org/biblioteca/publicaciones/aladi/acuerdos/ace/es/ace18/ACE_018_002.pdf"
-       target="_blank" rel="noopener">
-      ACE-18 – Texto oficial (MERCOSUR dentro de ALADI) – PDF
-    </a>
-  </p>
-</div>
+    <!-- 35 -->
+    <section class="slide" id="slide-35">
+      <div class="slide-header">
+        <h1 class="slide-title">Obligaciones de adhesión (II)</h1>
+        <span class="slide-tag">Arancel y reglas de origen</span>
+      </div>
+      <div class="slide-body">
+        <p>Uno de los núcleos del Protocolo está en el <strong>Artículo 4</strong>, que fija el plazo para que Bolivia adopte la NCM y el AEC. En una de sus frases clave se establece que:</p>
+        <div class="highlight-box">
+          «<strong>A más tardar en cuatro (4) años</strong>, el Estado Plurinacional de Bolivia adoptará la <strong>Nomenclatura Común del MERCOSUR (NCM)</strong> y el <strong>Arancel Externo Común (AEC)</strong>.»
+        </div>
+        <p>Además, el Protocolo dispone que Bolivia:</p>
+        <ul>
+          <li>Adopte el <strong>Régimen de Origen del MERCOSUR</strong>, reemplazando progresivamente las reglas de origen de otros acuerdos bilaterales y subregionales en la relación con los Estados Parte.</li>
+          <li>Adecue su <strong>legislación aduanera interna</strong> para aplicar el AEC y la NCM de forma compatible con el resto del bloque.</li>
+        </ul>
+        <p>La implementación concreta de este proceso se detalla en anexos y cronogramas que negocia el <strong>Grupo de Trabajo Especial para la Adhesión de Bolivia</strong>.</p>
+      </div>
+    </section>
 
-<!-- ===================== SLIDE 36 ===================== -->
-<div class="slide">
-  <h1>Utilización de Preferencias y Acumulación de Origen</h1>
-  <p>
-    Con arancel cero prácticamente generalizado, la <strong>utilización de las preferencias</strong>
-    por parte de exportadores bolivianos es muy elevada.
-  </p>
-  <p>Elementos principales:</p>
-  <ul>
-    <li>
-      Tramitación rutinaria de <strong>certificados de origen ALADI</strong> para que las
-      exportaciones a Argentina, Brasil, Paraguay y Uruguay ingresen libres de arancel.
-    </li>
-    <li>
-      Simplificación procedimental para productos recurrentes y de gran volumen.
-    </li>
-  </ul>
-  <p>
-    Desde 2025 se incorpora una innovación importante:
-  </p>
-  <ul>
-    <li>
-      Un <strong>Acuerdo de Acumulación de Origen</strong> que permite usar insumos de
-      <strong>Colombia, Ecuador o Perú</strong> en productos bolivianos que se exportan al MERCOSUR
-      con trato preferencial.
-    </li>
-    <li>
-      Esto favorece en particular a <strong>textiles, confecciones, calzados y manufacturas de cuero</strong>,
-      donde la combinación de insumos andinos y producción boliviana sigue calificando como “originario ALADI”.
-    </li>
-  </ul>
-  <p>
-    El objetivo es potenciar la competitividad de las <strong>pymes bolivianas</strong> y acercar
-    los esquemas CAN–MERCOSUR en la práctica, sin necesidad de un tratado único.
-  </p>
-</div>
+    <!-- 36 -->
+    <section class="slide" id="slide-36">
+      <div class="slide-header">
+        <h1 class="slide-title">Obligaciones de adhesión (III)</h1>
+        <span class="slide-tag">Acervo normativo</span>
+      </div>
+      <div class="slide-body">
+        <p>El Protocolo establece que Bolivia debe integrar el llamado <strong>acervo normativo</strong> del MERCOSUR:</p>
+        <ul>
+          <li>Se trata de <strong>miles de normas vigentes</strong> (Decisiones CMC, Resoluciones GMC, Directivas CCM y otros instrumentos).</li>
+          <li>Bolivia debe:
+            <ul>
+              <li>Identificar qué normas requieren <strong>incorporación explícita</strong> a su derecho interno.</li>
+              <li>Determinar qué normas ya son compatibles con su ordenamiento jurídico.</li>
+              <li>Aplicar un <strong>cronograma de incorporación</strong> con plazos escalonados.</li>
+            </ul>
+          </li>
+        </ul>
+        <p>En lenguaje político, suele resumirse que:</p>
+        <div class="highlight-box">
+          «Bolivia integrará el <strong>acervo normativo del MERCOSUR</strong>, con gradualidad y tomando en cuenta sus condiciones de desarrollo y estructura productiva.»
+        </div>
+        <p>La gestión de este proceso requiere coordinación estrecha entre:</p>
+        <ul>
+          <li><strong>Cancillería</strong> y <strong>ministerios sectoriales</strong> (economía, producción, transporte, etc.).</li>
+          <li>El <strong>Parlamento</strong> y otras instancias con competencia normativa.</li>
+          <li>Empresarios, trabajadores y otros actores interesados en los cambios regulatorios.</li>
+        </ul>
+      </div>
+    </section>
 
-<!-- ===================== SLIDE 37 ===================== -->
-<div class="slide">
-  <h1>Comercio Bolivia–ALADI más allá del MERCOSUR</h1>
-  <p>
-    Además del MERCOSUR, Bolivia mantiene flujos importantes de comercio con otros países
-    de la <strong>ALADI</strong>, especialmente:
-  </p>
-  <ul>
-    <li>
-      Países de la <strong>Comunidad Andina (CAN)</strong>: Perú, Colombia, Ecuador.
-    </li>
-    <li>
-      <strong>Chile</strong>, socio estratégico para logística y tránsito de mercancías, en particular
-      minerales e hidrocarburos.
-    </li>
-  </ul>
-  <p>
-    En ALADI rige la <strong>Preferencia Arancelaria Regional (PAR)</strong>, que:
-  </p>
-  <ul>
-    <li>Otorga rebajas arancelarias generales entre los miembros.</li>
-    <li>
-      Contiene <strong>tratos diferenciales</strong> para economías como Bolivia y Paraguay
-      (márgenes de preferencia más altos).
-    </li>
-  </ul>
-  <p>
-    Sin embargo, la mayor parte de las transacciones se realizan bajo
-    <strong>Acuerdos de Alcance Parcial (ACE)</strong> específicos, muchos de ellos con
-    desgravación ya prácticamente total.
-  </p>
-</div>
+    <!-- 37 -->
+    <section class="slide" id="slide-37">
+      <div class="slide-header">
+        <h1 class="slide-title">FOCEM: origen y sentido</h1>
+        <span class="slide-tag">Convergencia estructural</span>
+      </div>
+      <div class="slide-body">
+        <p>El <strong>Fondo para la Convergencia Estructural del MERCOSUR (FOCEM)</strong> es el principal instrumento regional de <strong>financiamiento de proyectos</strong> para reducir asimetrías.</p>
+        <p>Elementos básicos:</p>
+        <ul>
+          <li>Creado por la <strong>Decisión CMC 45/04</strong> y reglamentado por la <strong>Decisión CMC 18/05</strong>.</li>
+          <li>En funcionamiento desde <strong>2006</strong>.</li>
+          <li>Objetivo: financiar <strong>proyectos de infraestructura, integración productiva, cohesión social y fortalecimiento institucional</strong> que beneficien, sobre todo, a las <strong>economías más pequeñas</strong>.</li>
+        </ul>
+        <p>Tipos de programas típicos:</p>
+        <ul>
+          <li><strong>Convergencia estructural</strong>: carreteras, puentes, energía, logística.</li>
+          <li><strong>Desarrollo de la competitividad</strong>: apoyo a pymes, innovación, cadenas de valor.</li>
+          <li><strong>Cohesión social</strong>: salud, vivienda, saneamiento, inclusión social.</li>
+          <li><strong>Fortalecimiento institucional</strong>: aduanas, estadísticas, planificación, capacidad de gestión.</li>
+        </ul>
+        <p>Información y proyectos pueden consultarse en:<br>
+          <a href="https://focem.mercosur.int" target="_blank" rel="noopener noreferrer">https://focem.mercosur.int</a>
+        </p>
+      </div>
+    </section>
 
-<!-- ===================== SLIDE 38 ===================== -->
-<div class="slide">
-  <h1>Comercio Regional vs Interregional de Bolivia</h1>
-  <p>
-    Para entender el peso del MERCOSUR en la inserción internacional de Bolivia es útil
-    comparar la región con el resto del mundo:
-  </p>
-  <ul>
-    <li>
-      Gracias al gas, la región sudamericana (especialmente MERCOSUR) absorbe una porción significativa
-      de las exportaciones totales bolivianas.
-    </li>
-    <li>
-      Sin el gas, la participación del MERCOSUR en las exportaciones no tradicionales bolivianas es baja
-      (del orden del <strong>6%</strong>).
-    </li>
-    <li>
-      Mercados extrarregionales (Asia, Europa, Norteamérica) concentran la demanda de
-      <strong>minerales y metales</strong> y proveen buena parte de la maquinaria y tecnología.
-    </li>
-  </ul>
-  <p>
-    En síntesis: la región es clave para la <strong>integración energética y de consumo masivo</strong>,
-    mientras que la <strong>diversificación exportadora no tradicional</strong> de Bolivia se juega
-    principalmente en mercados extrarregionales.
-  </p>
-</div>
+    <!-- 38 -->
+    <section class="slide" id="slide-38">
+      <div class="slide-header">
+        <h1 class="slide-title">FOCEM: financiamiento y contribuciones</h1>
+        <span class="slide-tag">Aportes anuales</span>
+      </div>
+      <div class="slide-body">
+        <p>El FOCEM se financia con contribuciones anuales de los Estados Parte, de acuerdo con su tamaño económico. El esquema inicial fue:</p>
+        <ul>
+          <li><strong>Brasil</strong>: 70 millones de dólares por año.</li>
+          <li><strong>Argentina</strong>: 27 millones de dólares por año.</li>
+          <li><strong>Uruguay</strong>: 2 millones de dólares por año.</li>
+          <li><strong>Paraguay</strong>: 1 millón de dólares por año.</li>
+        </ul>
+        <p>Es decir, el FOCEM fue diseñado desde el inicio como un instrumento con <strong>contribuciones proporcionales al tamaño</strong>, pero con una distribución de recursos fuertemente <strong>favorable a los países más pequeños</strong>.</p>
+        <p>Posteriormente, con la incorporación de Venezuela al MERCOSUR, se previó un aporte adicional (que quedó condicionado por la situación política y la suspensión de dicho país).</p>
+        <p>La regla general es que los <strong>principales contribuyentes netos</strong> son Brasil y Argentina, y los <strong>mayores receptores netos</strong> son Paraguay y, en menor medida, Uruguay.</p>
+      </div>
+    </section>
 
-<!-- ===================== SLIDE 39 ===================== -->
-<div class="slide">
-  <h1>Socios Comerciales y Rol del MERCOSUR</h1>
-  <p>
-    En el ranking reciente de socios comerciales de Bolivia (alrededor de 2025) destacan:
-  </p>
-  <ul>
-    <li>
-      <strong>China</strong> y otros destinos asiáticos como grandes compradores de minerales
-      y proveedores de bienes industriales.
-    </li>
-    <li>
-      <strong>Brasil</strong> como principal socio regional: compra gas y alimentos, y vende combustibles,
-      bienes industriales y alimentos procesados.
-    </li>
-    <li>
-      <strong>Argentina</strong> como proveedor clave de combustibles y trigo, además de receptor de gas.
-    </li>
-  </ul>
-  <p>
-    Desde la óptica del MERCOSUR, esto implica que:
-  </p>
-  <ul>
-    <li>
-      El bloque sigue siendo crítico para el <strong>abastecimiento energético y de combustibles</strong>
-      de Bolivia.
-    </li>
-    <li>
-      Hay espacio para ampliar el peso del MERCOSUR como destino de
-      <strong>exportaciones no tradicionales bolivianas</strong>.
-    </li>
-  </ul>
-  <p>
-    Para datos concretos por país, producto y año:
-    <a href="https://ibce.org.bo/images/publicaciones/CE-318-Cifras-Comercio-Exterior-Boliviano-2023.pdf"
-       target="_blank" rel="noopener">
-      Cifras del Comercio Exterior Boliviano 2023 – IBCE (PDF)
-    </a>
-  </p>
-</div>
+    <!-- 39 -->
+    <section class="slide" id="slide-39">
+      <div class="slide-header">
+        <h1 class="slide-title">FOCEM y Paraguay: aportes y beneficios</h1>
+        <span class="slide-tag">Economía pequeña, gran beneficiaria</span>
+      </div>
+      <div class="slide-body">
+        <p>Paraguay es, de lejos, el <strong>principal beneficiario neto</strong> del FOCEM:</p>
+        <ul>
+          <li>La estructura de aportes le asigna una contribución anual de alrededor de <strong>1 millón de dólares</strong>, muy inferior a la de Brasil y Argentina.</li>
+          <li>Según diversas notas oficiales y de prensa económica del propio MERCOSUR y de Paraguay, desde la creación del fondo el país ha recibido <strong>más de 640 millones de dólares</strong> en financiamiento FOCEM para unos <strong>veinte y tantos proyectos</strong> de infraestructura, energía, fronteras, saneamiento y desarrollo social.</li>
+          <li>En estimaciones intermedias (alrededor de 2017), se señalaba que Paraguay había aportado del orden de <strong>menos de 100 millones de dólares</strong> en total, frente a <strong>varios cientos de millones recibidos</strong>, confirmando su condición de <strong>receptor neto</strong>.</li>
+        </ul>
+        <p>La lectura política es clara:</p>
+        <div class="highlight-box">
+          El FOCEM es una pieza central para que una economía pequeña como Paraguay pueda <strong>ver beneficios tangibles</strong> de formar parte de una unión aduanera con vecinos mucho más grandes.
+        </div>
+        <p>Esto es relevante como referencia para cualquier discusión sobre <strong>asimetrías</strong> y <strong>posicionamiento de Bolivia</strong> en el MERCOSUR.</p>
+      </div>
+    </section>
 
-<!-- ===================== SLIDE 40 ===================== -->
-<div class="slide">
-  <h1>Estrategia Boliviana: Integración Regional y Proyección Global</h1>
-  <p>
-    La adhesión plena al MERCOSUR y la pertenencia a la CAN colocan a Bolivia en una posición singular:
-  </p>
-  <ul>
-    <li>
-      Puede usar la <strong>integración regional</strong> para consolidar su papel como proveedor de energía,
-      alimentos y ciertos insumos industriales.
-    </li>
-    <li>
-      Puede aprovechar al MERCOSUR como plataforma para <strong>negociaciones extrarregionales</strong>
-      (UE, EFTA, SACU, India, etc.).
-    </li>
-    <li>
-      Debe enfrentar el reto de diversificar su oferta más allá de gas y minerales, tanto hacia la región
-      como hacia otros continentes.
-    </li>
-  </ul>
-  <p>
-    La clave es que la integración regional no sea solo un mercado de salida de materias primas, sino un
-    espacio para construir <strong>cadenas de valor regionales</strong> en sectores como agroindustria,
-    manufacturas livianas y tecnologías vinculadas a la transición energética.
-  </p>
-</div>
+    <!-- 40 -->
+    <section class="slide" id="slide-40">
+      <div class="slide-header">
+        <h1 class="slide-title">FOCEM: tipos de proyectos y ejemplos</h1>
+        <span class="slide-tag">Impacto en territorio</span>
+      </div>
+      <div class="slide-body">
+        <p>A modo de ejemplos (sin entrar al detalle de cada obra), los proyectos FOCEM han financiado:</p>
+        <ul>
+          <li><strong>Corredores viales y puentes</strong> que mejoran la conexión entre zonas productivas y fronteras.</li>
+          <li><strong>Interconexiones eléctricas</strong> y líneas de transmisión que permiten exportar/importar energía entre países.</li>
+          <li><strong>Obras de saneamiento y agua potable</strong> en localidades con déficit de infraestructura básica.</li>
+          <li><strong>Centros logísticos y aduaneros</strong> que facilitan el comercio intrarregional.</li>
+          <li><strong>Proyectos sociales</strong> en áreas vulnerables (vivienda, salud, educación).</li>
+        </ul>
+        <p>En la página del FOCEM se listan proyectos por país y por eje temático, con fichas y montos aprobados:<br>
+          <a href="https://focem.mercosur.int" target="_blank" rel="noopener noreferrer">https://focem.mercosur.int</a>
+        </p>
+        <p>Para Bolivia, la discusión pendiente es cómo <strong>posicionarse</strong> frente a un eventual <strong>nuevo ciclo del FOCEM</strong> o de instrumentos similares, considerando sus <strong>necesidades de infraestructura y desarrollo productivo</strong>.</p>
+      </div>
+    </section>
 
-<!-- ===================== SLIDE 41 ===================== -->
-<div class="slide">
-  <h1>FOCEM y Paraguay: Integración con Solidaridad</h1>
-  <p>
-    El caso de Paraguay muestra cómo el MERCOSUR incorporó un componente de
-    <strong>solidaridad estructural</strong> a través del
-    <strong>Fondo para la Convergencia Estructural del MERCOSUR (FOCEM)</strong>.
-  </p>
-  <p>Características centrales del FOCEM:</p>
-  <ul>
-    <li>Creado en 2005 como fondo regional no reembolsable.</li>
-    <li>
-      Objetivo: financiar proyectos de <strong>convergencia económica, competitividad y cohesión social</strong>.
-    </li>
-    <li>
-      Estructura de aportes fuertemente asimétrica: Brasil aporta la mayor parte; Paraguay, la menor.
-    </li>
-    <li>
-      Paraguay recibió más de <strong>USD 640 millones</strong> entre 2005 y 2025, siendo el principal beneficiario.
-    </li>
-  </ul>
-  <p>
-    Información y mapas de proyectos:
-  </p>
-  <p>
-    <a href="https://www.mercosur.int/wp-content/uploads/2024/04/Folleto-FOCEM_ES.pdf"
-       target="_blank" rel="noopener">
-      Folleto FOCEM – MERCOSUR (PDF con gráficos y proyectos)
-    </a>
-  </p>
-</div>
+    <!-- 41 -->
+    <section class="slide" id="slide-41">
+      <div class="slide-header">
+        <h1 class="slide-title">Agenda externa del MERCOSUR</h1>
+        <span class="slide-tag">Apertura negociada</span>
+      </div>
+      <div class="slide-body">
+        <p>El MERCOSUR no sólo se integra hacia adentro; también construye una <strong>agenda externa común</strong> a través de acuerdos con terceros:</p>
+        <ul>
+          <li>Acuerdos de <strong>libre comercio</strong> (eliminación o reducción amplia de aranceles y disciplinas complementarias).</li>
+          <li>Acuerdos de <strong>preferencias fijas</strong> (rebajas arancelarias parciales, usualmente limitadas a listas de productos).</li>
+          <li>Acuerdos de <strong>cooperación y complementación económica</strong>.</li>
+        </ul>
+        <p>Entre los acuerdos ya concluidos con terceros se destacan:</p>
+        <ul>
+          <li><strong>Israel</strong> (acuerdo de libre comercio).</li>
+          <li><strong>Egipto</strong> (acuerdo de libre comercio).</li>
+          <li><strong>Singapur</strong> (acuerdo de libre comercio, de firma más reciente).</li>
+          <li><strong>India</strong> (acuerdo de preferencias fijas).</li>
+          <li><strong>SACU</strong> (acuerdo de preferencias fijas con la unión aduanera del África austral).</li>
+          <li><strong>Palestina</strong> (acuerdo de libre comercio, pendiente de entrada en vigor).</li>
+        </ul>
+        <p>La agenda externa es hoy uno de los campos donde más se discute la <strong>“flexibilización”</strong> del bloque.</p>
+      </div>
+    </section>
 
-<!-- ===================== SLIDE 42 ===================== -->
-<div class="slide">
-  <h1>Proyectos FOCEM en Paraguay</h1>
-  <p>
-    A lo largo de dos décadas, Paraguay ha ejecutado proyectos FOCEM en:
-  </p>
-  <ul>
-    <li><strong>Infraestructura vial</strong> (rutas en San Pedro y Concepción, accesos al Gran Asunción).</li>
-    <li><strong>Integración fronteriza</strong> (centros de frontera como Puerto Falcón).</li>
-    <li><strong>Interconexión eléctrica</strong> (líneas de 500 kV Itaipú–Villa Hayes).</li>
-    <li><strong>Agua potable y saneamiento</strong> en comunidades rurales e indígenas.</li>
-    <li><strong>Vivienda social</strong>: más de 2.300 viviendas financiadas o cofinanciadas.</li>
-  </ul>
-  <p>
-    Detalle técnico:
-    <a href="https://focem.mercosur.int/docs/FOCEM_es.pdf" target="_blank" rel="noopener">
-      Documento FOCEM – Proyectos y distribución de recursos (PDF)
-    </a>
-  </p>
-</div>
+    <!-- 42 -->
+    <section class="slide" id="slide-42">
+      <div class="slide-header">
+        <h1 class="slide-title">MERCOSUR–Israel</h1>
+        <span class="slide-tag">Libre comercio</span>
+      </div>
+      <div class="slide-body">
+        <p>El acuerdo MERCOSUR–Israel es uno de los primeros acuerdos de libre comercio extrarregionales del bloque:</p>
+        <ul>
+          <li>Negociado durante la década de 2000.</li>
+          <li>Firmado a fines de la década (mediados de 2007, ratificaciones posteriores).</li>
+          <li>Entra en vigor de forma escalonada al comienzo de la década de 2010, una vez concluidas las ratificaciones.</li>
+        </ul>
+        <p>Características generales:</p>
+        <ul>
+          <li>Elimina o reduce significativamente aranceles para una amplia lista de bienes industriales y agroindustriales.</li>
+          <li>Incluye disciplinas sobre <strong>reglas de origen, salvaguardias y solución de controversias</strong>.</li>
+          <li>Es un caso de <strong>acuerdo Norte–Sur</strong> con un socio de alto ingreso per cápita y fuerte componente tecnológico.</li>
+        </ul>
+        <p>El texto del acuerdo y sus listas de desgravación pueden consultarse a través de bases de tratados como la de Paraguay:<br>
+          <a href="https://www.mre.gov.py/tratados/public_web/ConsultaMercosur.aspx" target="_blank" rel="noopener noreferrer">https://www.mre.gov.py/tratados/public_web/ConsultaMercosur.aspx</a>
+        </p>
+      </div>
+    </section>
 
-<!-- ===================== SLIDE 43 ===================== -->
-<div class="slide">
-  <h1>Impacto del FOCEM en Paraguay</h1>
-  <p>
-    El FOCEM tuvo impactos concretos sobre la estructura productiva y social paraguaya:
-  </p>
-  <ul>
-    <li>
-      Reducción del aislamiento de regiones históricamente marginadas, con menores costos logísticos
-      y tiempos de traslado.
-    </li>
-    <li>
-      Refuerzo de la seguridad energética y apoyo al desarrollo industrial (incluida la maquila).
-    </li>
-    <li>
-      Mejora del acceso a servicios básicos de agua y saneamiento, con impactos en salud pública.
-    </li>
-    <li>
-      Incremento del parque de vivienda social y mitigación de déficit habitacional en sectores vulnerables.
-    </li>
-  </ul>
-  <p>
-    Desde el punto de vista financiero, Paraguay aportó aproximadamente <strong>USD 20 millones</strong>
-    y recibió más de <strong>USD 640 millones</strong>, con una relación de beneficio muy favorable
-    que ilustra el principio de <strong>discriminación positiva</strong> a favor de economías pequeñas.
-  </p>
-</div>
+    <!-- 43 -->
+    <section class="slide" id="slide-43">
+      <div class="slide-header">
+        <h1 class="slide-title">MERCOSUR–Egipto</h1>
+        <span class="slide-tag">Libre comercio Sur–Sur</span>
+      </div>
+      <div class="slide-body">
+        <p>El acuerdo MERCOSUR–Egipto es un ejemplo de acuerdo de libre comercio <strong>Sur–Sur</strong>:</p>
+        <ul>
+          <li>Acuerdo de libre comercio firmado a comienzos de la década de 2010.</li>
+          <li>Entra en vigor en <strong>2017</strong>, luego de completarse las ratificaciones.</li>
+          <li>Abarca bienes industriales y agroindustriales, con listas de desgravación diferenciadas.</li>
+        </ul>
+        <p>Rasgos relevantes:</p>
+        <ul>
+          <li>Abre el mercado del <strong>norte de África y Medio Oriente</strong> a productos del MERCOSUR.</li>
+          <li>Facilita la exportación de <strong>alimentos, productos químicos, automotores y otros bienes</strong>.</li>
+          <li>Permite a Egipto mejorar su acceso a un mercado de más de <strong>250 millones de habitantes</strong> en el Cono Sur.</li>
+        </ul>
+        <p>Los textos del acuerdo pueden localizarse vía:<br>
+          <a href="https://www.mre.gov.py/tratados/public_web/ConsultaMercosur.aspx" target="_blank" rel="noopener noreferrer">https://www.mre.gov.py/tratados/public_web/ConsultaMercosur.aspx</a>
+        </p>
+      </div>
+    </section>
 
-<!-- ===================== SLIDE 44 ===================== -->
-<div class="slide">
-  <h1>Trato Especial y Diferencial en MERCOSUR</h1>
-  <p>
-    El MERCOSUR ha ido incorporando formalmente el concepto de
-    <strong>“tratamiento especial y diferenciado”</strong> para sus miembros de menor desarrollo relativo:
-    <strong>Paraguay, Uruguay y Bolivia</strong>.
-  </p>
-  <p>A nivel político y normativo:</p>
-  <ul>
-    <li>
-      El <strong>Protocolo de Adhesión de Bolivia (2015)</strong> menciona expresamente
-      los principios de <em>gradualidad, flexibilidad, reconocimiento de asimetrías y trato diferencial</em>.
-    </li>
-    <li>
-      Decisiones como las del CMC (por ejemplo, 29/03) subrayan la necesidad de compensar asimetrías
-      estructurales dentro del bloque.
-    </li>
-  </ul>
-  <p>
-    En la práctica, esto se traduce en:
-  </p>
-  <ul>
-    <li>Plazos más amplios de transición arancelaria y normativa para países pequeños.</li>
-    <li>Acceso privilegiado a fondos estructurales (FOCEM).</li>
-    <li>
-      Flexibilidades en la aplicación del Arancel Externo Común (AEC) y en la adopción de ciertas normas.
-    </li>
-  </ul>
-</div>
+    <!-- 44 -->
+    <section class="slide" id="slide-44">
+      <div class="slide-header">
+        <h1 class="slide-title">MERCOSUR–India</h1>
+        <span class="slide-tag">Acuerdo de preferencias</span>
+      </div>
+      <div class="slide-body">
+        <p>Con India, el MERCOSUR suscribe un <strong>Acuerdo de Preferencias Fijas</strong> (no un libre comercio pleno):</p>
+        <ul>
+          <li>Firmado en la década de 2000 y en vigor desde <strong>2009</strong>.</li>
+          <li>Se basa en <strong>listas de productos</strong> a los que se otorgan reducciones arancelarias específicas (por ejemplo, 10%, 20% o más, según el ítem).</li>
+          <li>Es un primer paso hacia una posible <strong>profundización futura</strong> de la relación comercial.</li>
+        </ul>
+        <p>Características generales:</p>
+        <ul>
+          <li>Permite al MERCOSUR mejorar el acceso a un mercado de más de <strong>1.400 millones de habitantes</strong> con fuerte expansión de la demanda.</li>
+          <li>Abre oportunidades para productos agroindustriales, químicos, farmacéuticos y algunas manufacturas.</li>
+          <li>India obtiene mejores condiciones para exportar productos industriales, químicos, farmacéuticos y bienes de capital al MERCOSUR.</li>
+        </ul>
+        <p>El texto del acuerdo puede consultarse en bases de tratados o en el portal del <strong>Ministerio de Comercio de India</strong> y en:<br>
+          <a href="https://www.mre.gov.py/tratados/public_web/ConsultaMercosur.aspx" target="_blank" rel="noopener noreferrer">https://www.mre.gov.py/tratados/public_web/ConsultaMercosur.aspx</a>
+        </p>
+      </div>
+    </section>
 
-<!-- ===================== SLIDE 45 ===================== -->
-<div class="slide">
-  <h1>Listas de Excepción y Regímenes Especiales</h1>
-  <p>
-    En materia de <strong>Arancel Externo Común (AEC)</strong>, todos los Estados Parte disponen de
-    listas de excepción, pero las economías pequeñas han recibido márgenes mayores:
-  </p>
-  <ul>
-    <li>Todos los países cuentan con listas de cerca de 100 ítems NCM exentos del AEC.</li>
-    <li>
-      <strong>Paraguay y Uruguay</strong> obtuvieron listas ampliadas, con 50 ítems adicionales
-      autorizados temporalmente por la <strong>Decisión CMC 02/25</strong>.
-    </li>
-    <li>
-      Se toleran regímenes especiales (ciertos bienes de capital con arancel cero,
-      zonas francas industriales, etc.) por su impacto en empleo y desarrollo local.
-    </li>
-  </ul>
-  <p>
-    Para Bolivia, el Protocolo de Adhesión prevé la posibilidad de:
-  </p>
-  <ul>
-    <li>
-      Negociar sus propias <strong>listas de excepción al AEC</strong> en la fase de convergencia.
-    </li>
-    <li>
-      Recibir un <strong>trato no menos favorable</strong> al que obtuvieron Paraguay y Uruguay.
-    </li>
-  </ul>
-</div>
+    <!-- 45 -->
+    <section class="slide" id="slide-45">
+      <div class="slide-header">
+        <h1 class="slide-title">MERCOSUR–SACU</h1>
+        <span class="slide-tag">Preferencias con África austral</span>
+      </div>
+      <div class="slide-body">
+        <p>El acuerdo con la <strong>Unión Aduanera del África Austral (SACU)</strong> es otro ejemplo de <strong>acuerdo de preferencias fijas</strong>:</p>
+        <ul>
+          <li>SACU incluye a <strong>Sudáfrica, Namibia, Botsuana, Lesoto y Esuatini</strong>.</li>
+          <li>El acuerdo se firma hacia fines de la década de 2000, con entrada en vigor a mediados de la década de 2010.</li>
+          <li>Contempla listas de productos con <strong>rebajas arancelarias recíprocas</strong> para bienes seleccionados.</li>
+        </ul>
+        <p>Relevancia estratégica:</p>
+        <ul>
+          <li>Acerca al MERCOSUR a un socio africano con <strong>peso industrial y minero</strong> importante (Sudáfrica).</li>
+          <li>Abre espacio para exportaciones agroindustriales del MERCOSUR y para importaciones de minerales, insumos industriales y otros bienes desde la SACU.</li>
+          <li>Es un ejemplo de <strong>cooperación Sur–Sur interbloques</strong>.</li>
+        </ul>
+        <p>Los instrumentos y listas de desgravación se pueden revisar en la base de tratados del MERCOSUR administrada por Paraguay:<br>
+          <a href="https://www.mre.gov.py/tratados/public_web/ConsultaMercosur.aspx" target="_blank" rel="noopener noreferrer">https://www.mre.gov.py/tratados/public_web/ConsultaMercosur.aspx</a>
+        </p>
+      </div>
+    </section>
 
-<!-- ===================== SLIDE 46 ===================== -->
-<div class="slide">
-  <h1>Otros Instrumentos de Apoyo a Economías Pequeñas</h1>
-  <p>
-    Además del FOCEM y de las listas de excepción, se han desarrollado otros instrumentos
-    de apoyo a las economías de menor tamaño:
-  </p>
-  <ul>
-    <li>
-      Programas de <strong>capacitación y asistencia técnica</strong> financiados en buena parte
-      por Argentina y Brasil, dirigidos a funcionarios de Paraguay, Uruguay y Bolivia.
-    </li>
-    <li>
-      Un <strong>Fondo de Garantías para MIPYMES</strong>, orientado a facilitar el crédito para
-      proyectos exportadores intrarregionales.
-    </li>
-    <li>
-      Propuestas de nuevos fondos orientados a <strong>infraestructura digital y energética</strong>
-      en el marco de la renovación del FOCEM.
-    </li>
-  </ul>
-  <p>
-    La lógica es que la integración no agrave las brechas, sino que cree
-    <strong>condiciones para que las economías pequeñas converjan</strong> en capacidades productivas.
-  </p>
-</div>
+    <!-- 46 -->
+    <section class="slide" id="slide-46">
+      <div class="slide-header">
+        <h1 class="slide-title">MERCOSUR–Palestina</h1>
+        <span class="slide-tag">Acuerdo aún no vigente</span>
+      </div>
+      <div class="slide-body">
+        <p>Con Palestina, el MERCOSUR concluye un acuerdo de libre comercio que, sin embargo, <strong>no ha entrado plenamente en vigor</strong>:</p>
+        <ul>
+          <li>Firma del acuerdo a comienzos de la década de 2010.</li>
+          <li>Requiere ratificación por parte de todos los Estados Parte y de Palestina para entrar en vigor.</li>
+          <li>Hasta la fecha, el proceso de ratificación ha sido <strong>incompleto</strong>, por lo que el acuerdo se considera <strong>firmado pero no vigente</strong>.</li>
+        </ul>
+        <p>Relevancia:</p>
+        <ul>
+          <li>Tiene un fuerte componente <strong>político y simbólico</strong> de apoyo a Palestina.</li>
+          <li>En lo económico, se proyecta sobre un <strong>volumen de comercio reducido</strong>, pero abre un canal institucionalizado.</li>
+        </ul>
+        <p>El texto del acuerdo puede localizarse también mediante la base de tratados del MERCOSUR:<br>
+          <a href="https://www.mre.gov.py/tratados/public_web/ConsultaMercosur.aspx" target="_blank" rel="noopener noreferrer">https://www.mre.gov.py/tratados/public_web/ConsultaMercosur.aspx</a>
+        </p>
+      </div>
+    </section>
 
-<!-- ===================== SLIDE 47 ===================== -->
-<div class="slide">
-  <h1>MERCOSUR vs Comunidad Andina (CAN)</h1>
-  <p>
-    La <strong>Comunidad Andina (CAN)</strong> y el <strong>MERCOSUR</strong> son los dos principales
-    esquemas de integración económica en Sudamérica, pero responden a arquitecturas distintas.
-  </p>
-  <p>En la CAN:</p>
-  <ul>
-    <li>
-      El modelo es más <strong>supranacional</strong>: existe un
-      <strong>Tribunal Andino de Justicia</strong> con competencia interpretativa y una
-      Secretaría General con atribuciones técnicas importantes.
-    </li>
-    <li>
-      Las decisiones comunitarias están concebidas para tener <strong>efectos directos</strong>
-      sobre los ordenamientos internos, aunque su aplicación práctica presenta limitaciones
-      y asimetrías entre países.
-    </li>
-    <li>
-      Se ha avanzado en esquemas de <strong>arancel externo común</strong> y normas de circulación
-      de personas, pero con excepciones, regímenes especiales y diferencias en el grado de implementación.
-    </li>
-  </ul>
-  <p>En el MERCOSUR:</p>
-  <ul>
-    <li>
-      El modelo es claramente <strong>intergubernamental</strong>: las decisiones se adoptan por consenso
-      y no existe un órgano ejecutivo supranacional.
-    </li>
-    <li>
-      Las normas del MERCOSUR requieren <strong>incorporación al derecho interno</strong> para tener vigencia.
-    </li>
-    <li>
-      La unión aduanera es <strong>“imperfecta”</strong>, con numerosas excepciones al AEC y regímenes especiales.
-    </li>
-  </ul>
-</div>
+    <!-- 47 -->
+    <section class="slide" id="slide-47">
+      <div class="slide-header">
+        <h1 class="slide-title">Otras negociaciones clave: Unión Europea</h1>
+        <span class="slide-tag">Acuerdo amplio pendiente</span>
+      </div>
+      <div class="slide-body">
+        <p>El proceso de negociación más ambicioso del MERCOSUR es el <strong>acuerdo birregional con la Unión Europea</strong>:</p>
+        <ul>
+          <li>Negociaciones iniciadas en <strong>1999</strong>, con múltiples interrupciones y relanzamientos.</li>
+          <li>En <strong>2019</strong> se anuncia la conclusión política del acuerdo comercial.</li>
+          <li>En <strong>2024</strong>, se presenta una versión actualizada con capítulo de <strong>sostenibilidad</strong>, compromisos climáticos y salvaguardas.</li>
+          <li>Aun así, el acuerdo <strong>no está ratificado</strong> por todos los Estados miembros de la UE ni por todos los Estados Parte del MERCOSUR.</li>
+        </ul>
+        <p>Temas sensibles:</p>
+        <ul>
+          <li><strong>Medio ambiente y deforestación</strong> (particularmente en Brasil).</li>
+          <li><strong>Agricultura y competencia</strong> con productores europeos.</li>
+          <li>Compromisos regulatorios en <strong>servicios, compras públicas y propiedad intelectual</strong>.</li>
+        </ul>
+        <p>Esta negociación es un telón de fondo clave para cualquier debate sobre <strong>flexibilización</strong> de la política comercial común del MERCOSUR.</p>
+      </div>
+    </section>
 
-<!-- ===================== SLIDE 48 ===================== -->
-<div class="slide">
-  <h1>ALADI como Paraguas Jurídico Regional</h1>
-  <p>
-    La <strong>Asociación Latinoamericana de Integración (ALADI)</strong>, creada por el Tratado de
-    Montevideo 1980, actúa como paraguas jurídico de la mayoría de acuerdos comerciales
-    subregionales de América Latina.
-  </p>
-  <p>Elementos centrales de ALADI:</p>
-  <ul>
-    <li>13 países miembros (incluye toda Sudamérica, México, Cuba, Panamá).</li>
-    <li>
-      Objetivo de avanzar gradualmente hacia un <strong>mercado común latinoamericano</strong>.
-    </li>
-    <li>
-      Instrumentos como la <strong>Preferencia Arancelaria Regional (PAR)</strong> y los
-      <strong>Acuerdos de Alcance Parcial (AAP/ACE)</strong>.
-    </li>
-  </ul>
-  <p>
-    El MERCOSUR está formalizado dentro de ALADI a través del
-    <strong>Acuerdo de Complementación Económica Nº 18 (ACE-18)</strong>:
-  </p>
-  <p>
-    <a href="https://www2.aladi.org/biblioteca/publicaciones/aladi/acuerdos/ace/es/ace18/ACE_018_002.pdf"
-       target="_blank" rel="noopener">
-      ACE-18 – Texto oficial en ALADI (PDF)
-    </a>
-  </p>
-  <p>
-    Gracias a esta estructura, los países y bloques pueden suscribir acuerdos entre sí (por ejemplo
-    MERCOSUR–Chile, MERCOSUR–Bolivia, MERCOSUR–CAN) sin salirse del marco jurídico común,
-    acumulando compromisos en distintos niveles.
-  </p>
-</div>
+    <!-- 48 -->
+    <section class="slide" id="slide-48">
+      <div class="slide-header">
+        <h1 class="slide-title">Bolivia frente a la agenda externa del MERCOSUR</h1>
+        <span class="slide-tag">Doble pertenencia CAN–MERCOSUR</span>
+      </div>
+      <div class="slide-body">
+        <p>Bolivia es simultáneamente miembro de la <strong>Comunidad Andina (CAN)</strong> y Estado Parte del <strong>MERCOSUR</strong>:</p>
+        <ul>
+          <li>En la CAN, Bolivia participa de una <strong>zona de libre comercio andina</strong> con normas comunes, pero <strong>sin un arancel externo común plenamente vigente</strong>.</li>
+          <li>En el MERCOSUR, Bolivia debe avanzar hacia la adopción del <strong>AEC</strong> y la <strong>NCM</strong>, es decir, hacia una <strong>unión aduanera</strong>.</li>
+        </ul>
+        <p>Implicaciones de esta doble pertenencia:</p>
+        <ul>
+          <li>Necesidad de <strong>coordinación fina</strong> entre los compromisos asumidos en la CAN y los asumidos en el MERCOSUR.</li>
+          <li>Riesgo de <strong>“encerrarse” en reglas de origen y aranceles incompatibles</strong> si no se maneja bien la convergencia.</li>
+          <li>Oportunidad de convertirse en un <strong>“puente” logístico y normativo</strong> entre la Cuenca del Plata y la Comunidad Andina.</li>
+        </ul>
+        <p>Este contexto hace especialmente relevante la discusión sobre <strong>flexibilización</strong> y sobre el <strong>margen de maniobra</strong> de Bolivia dentro del MERCOSUR.</p>
+      </div>
+    </section>
 
-<!-- ===================== SLIDE 49 ===================== -->
-<div class="slide">
-  <h1>Alianza del Pacífico y MERCOSUR</h1>
-  <p>
-    La <strong>Alianza del Pacífico</strong> (Chile, Colombia, México, Perú) y el <strong>MERCOSUR</strong>
-    representan dos modelos de integración económica con lógicas diferentes pero potencialmente
-    complementarias.
-  </p>
-  <p>Alianza del Pacífico:</p>
-  <ul>
-    <li>Zona de libre comercio, sin arancel externo común.</li>
-    <li>
-      Fuerte énfasis en <strong>integración de mercados financieros</strong>, movilidad de personas
-      y acumulación de origen para exportar conjuntamente a terceros.
-    </li>
-    <li>
-      Imagen de bloque “abierto” y orientado a la <strong>competitividad global</strong>.
-    </li>
-  </ul>
-  <p>MERCOSUR:</p>
-  <ul>
-    <li>
-      Unión aduanera imperfecta, con un <strong>Arancel Externo Común</strong> y numerosas excepciones.
-    </li>
-    <li>
-      Mayor densidad institucional (órganos decisorios, protocolos, fondos estructurales).
-    </li>
-    <li>
-      Importante peso político y negociador en acuerdos birregionales.
-    </li>
-  </ul>
-  <p>
-    Juntos, MERCOSUR y Alianza del Pacífico concentran una gran parte del comercio y del PIB
-    de América Latina, lo que hace relevante cualquier iniciativa de <strong>convergencia</strong>
-    entre ambos.
-  </p>
-</div>
+    <!-- 49 -->
+    <section class="slide" id="slide-49">
+      <div class="slide-header">
+        <h1 class="slide-title">Debate interno: “flexibilización” del MERCOSUR</h1>
+        <span class="slide-tag">Bloque vs. negociaciones individuales</span>
+      </div>
+      <div class="slide-body">
+        <p>En los últimos años ha ganado fuerza el debate sobre la <strong>“flexibilización”</strong> del MERCOSUR:</p>
+        <ul>
+          <li>Algunos gobiernos proponen permitir que un Estado Parte pueda <strong>firmar acuerdos comerciales</strong> con terceros países aun cuando el resto del bloque no desee o no pueda hacerlo al mismo ritmo.</li>
+          <li>Otros defienden la idea de que el MERCOSUR debe <strong>negociar siempre como bloque</strong> para preservar su <strong>poder de negociación</strong> y la lógica de la <strong>unión aduanera</strong>.</li>
+        </ul>
+        <p>Elementos a considerar:</p>
+        <ul>
+          <li>El Tratado de Asunción y el Protocolo de Ouro Preto fueron pensados para una <strong>política comercial común</strong>.</li>
+          <li>La flexibilización podría facilitar acuerdos bilaterales rápidos, pero también <strong>erosionar el AEC</strong> y generar <strong>desviaciones de comercio</strong> dentro del bloque.</li>
+          <li>El tamaño relativo de cada economía influye en cómo valora <strong>negociar solo</strong> versus <strong>negociar en bloque</strong>.</li>
+        </ul>
+        <p>En este debate, la posición de un país como <strong>Bolivia</strong> no es neutra: debe calibrar la relación entre <strong>autonomía</strong> y <strong>poder colectivo</strong>.</p>
+      </div>
+    </section>
 
-<!-- ===================== SLIDE 50 ===================== -->
-<div class="slide">
-  <h1>Convergencia en la Diversidad</h1>
-  <p>
-    Desde mediados de la década de 2010, varios gobiernos latinoamericanos impulsaron la idea
-    de una <strong>“Convergencia en la Diversidad”</strong> entre MERCOSUR y Alianza del Pacífico:
-  </p>
-  <ul>
-    <li>
-      Reconocimiento de que ambos esquemas pueden <strong>complementarse</strong>:
-      mercado interno y densidad institucional de un lado, apertura y agilidad negociadora del otro.
-    </li>
-    <li>
-      Propuestas de interconexión entre cadenas de valor de ambos bloques.
-    </li>
-    <li>
-      Diálogo político y técnico sobre normas sanitarias, facilitación del comercio y cooperación.
-    </li>
-  </ul>
-  <p>
-    Países como <strong>Chile, Perú y Colombia</strong>, que son Estados Asociados al MERCOSUR
-    y miembros plenos de la Alianza del Pacífico, funcionan de hecho como <strong>puentes</strong>
-    entre los dos esquemas.
-  </p>
-</div>
+    <!-- 50 -->
+    <section class="slide" id="slide-50">
+      <div class="slide-header">
+        <h1 class="slide-title">Desafíos para Bolivia en el MERCOSUR</h1>
+        <span class="slide-tag">Riesgos</span>
+      </div>
+      <div class="slide-body">
+        <p>Entre los desafíos que enfrenta Bolivia como nuevo Estado Parte del MERCOSUR se pueden destacar:</p>
+        <ul>
+          <li><strong>Ajuste arancelario</strong>:
+            <ul>
+              <li>Adopción del <strong>AEC</strong> puede implicar <strong>subir aranceles</strong> para algunos orígenes extra–regionales y <strong>bajarlos</strong> para otros.</li>
+            </ul>
+          </li>
+          <li><strong>Cambio de reglas de origen</strong>:
+            <ul>
+              <li>La adopción del <strong>Régimen de Origen MERCOSUR</strong> puede alterar incentivos productivos y cadenas de suministro actual.</li>
+            </ul>
+          </li>
+          <li><strong>Capacidad institucional</strong>:
+            <ul>
+              <li>Se requiere <strong>fortalecer aduanas, ventanillas únicas, estadísticas y coordinación interinstitucional</strong> para aplicar la normativa MERCOSUR.</li>
+            </ul>
+          </li>
+          <li><strong>Compatibilización con la CAN</strong>:
+            <ul>
+              <li>Evitar <strong>inconsistencias jurídicas</strong> entre compromisos andinos y compromisos en el MERCOSUR.</li>
+            </ul>
+          </li>
+        </ul>
+        <p>Todos estos puntos requieren una estrategia clara de <strong>política comercial y de desarrollo productivo</strong>.</p>
+      </div>
+    </section>
 
-<!-- ===================== SLIDE 51 ===================== -->
-<div class="slide">
-  <h1>MERCOSUR en el Ecosistema Latinoamericano</h1>
-  <p>
-    El MERCOSUR no opera en el vacío; comparte la región con otros mecanismos y foros:
-  </p>
-  <ul>
-    <li><strong>ALADI</strong> como paraguas jurídico.</li>
-    <li><strong>CAN</strong> como bloque andino con fuerte componente normativo y supranacional.</li>
-    <li>
-      <strong>Alianza del Pacífico</strong> como esquema abierto y de integración profunda
-      entre cuatro economías del Pacífico.
-    </li>
-    <li>
-      Foros políticos más amplios (CELAC, por ejemplo) en los que participan los mismos países.
-    </li>
-  </ul>
-  <p>
-    Esta superposición de instituciones ofrece oportunidades de cooperación, pero también
-    plantea el reto de <strong>coordinar agendas y evitar duplicidades</strong>.
-  </p>
-</div>
+    <!-- 51 -->
+    <section class="slide" id="slide-51">
+      <div class="slide-header">
+        <h1 class="slide-title">Oportunidades para Bolivia en el MERCOSUR</h1>
+        <span class="slide-tag">Potencial</span>
+      </div>
+      <div class="slide-body">
+        <p>Al mismo tiempo, la adhesión de Bolivia al MERCOSUR abre varias oportunidades:</p>
+        <ul>
+          <li><strong>Mercado ampliado</strong>:
+            <ul>
+              <li>Acceso estable y previsible a un mercado de más de <strong>250 millones</strong> de personas.</li>
+            </ul>
+          </li>
+          <li><strong>Integración energética</strong>:
+            <ul>
+              <li>Gas, electricidad, interconexiones y proyectos de <strong>transición energética</strong> con socios grandes.</li>
+            </ul>
+          </li>
+          <li><strong>Infraestructura y FOCEM</strong>:
+            <ul>
+              <li>Posibilidad de participar –si se renueva o amplía el instrumento– en proyectos de <strong>convergencia estructural</strong>.</li>
+            </ul>
+          </li>
+          <li><strong>Logística e hidrovías</strong>:
+            <ul>
+              <li>Aprovechar corredores bioceánicos, puertos fluviales y marítimos para <strong>bajar costos de transporte</strong>.</li>
+            </ul>
+          </li>
+          <li><strong>Coordinación de posiciones</strong>:
+            <ul>
+              <li>Negociar temas globales (OMC, clima, seguridad alimentaria) con un <strong>peso colectivo mayor</strong>.</li>
+            </ul>
+          </li>
+        </ul>
+        <p>El resultado final dependerá de la <strong>capacidad de diseño de políticas públicas internas</strong> y de la <strong>incidencia activa</strong> en los foros del MERCOSUR.</p>
+      </div>
+    </section>
 
-<!-- ===================== SLIDE 52 ===================== -->
-<div class="slide">
-  <h1>Bolivia como Puente CAN–MERCOSUR</h1>
-  <p>
-    La adhesión de Bolivia al MERCOSUR, manteniendo su pertenencia a la CAN, crea
-    una situación inédita:
-  </p>
-  <ul>
-    <li>
-      Bolivia es el <strong>único país miembro pleno de dos esquemas aduaneros regionales</strong>.
-    </li>
-    <li>
-      Tiene incentivos para promover mecanismos de <strong>convergencia normativa y comercial</strong>
-      entre CAN y MERCOSUR.
-    </li>
-    <li>
-      Puede impulsar soluciones prácticas como la <strong>acumulación de origen</strong>,
-      corredores logísticos compartidos y armonización selectiva de normas técnicas.
-    </li>
-  </ul>
-  <p>
-    Esta doble pertenencia puede ser una ventaja estratégica si se gestiona con una
-    <strong>visión de articulación sudamericana</strong> y no como una superposición conflictiva.
-  </p>
-</div>
+    <!-- 52 -->
+    <section class="slide" id="slide-52">
+      <div class="slide-header">
+        <h1 class="slide-title">Consulta de tratados del MERCOSUR</h1>
+        <span class="slide-tag">Base de datos en línea</span>
+      </div>
+      <div class="slide-body">
+        <p>Una herramienta práctica para estudiar la normativa y los acuerdos del MERCOSUR (incluidos los extrarregionales) es la base de datos de tratados administrada por el <strong>Ministerio de Relaciones Exteriores de Paraguay</strong>:</p>
+        <p class="highlight-box">
+          <strong>Base de tratados MERCOSUR:</strong><br>
+          <a href="https://www.mre.gov.py/tratados/public_web/ConsultaMercosur.aspx" target="_blank" rel="noopener noreferrer">
+            https://www.mre.gov.py/tratados/public_web/ConsultaMercosur.aspx
+          </a>
+        </p>
+        <p>En esa base se puede:</p>
+        <ul>
+          <li>Filtrar por <strong>“MERCOSUR”</strong> en el campo de organización o acuerdo.</li>
+          <li>Buscar por <strong>título del tratado</strong> (palabras clave).</li>
+          <li>Ver la <strong>fecha de firma</strong>, el <strong>estado de ratificación</strong> y si el acuerdo está <strong>vigente o no</strong>.</li>
+        </ul>
+        <p>Ejemplo útil para clase:</p>
+        <ul>
+          <li>Buscar el <strong>“ACUERDO DE ADMISIÓN DE TÍTULOS Y GRADOS UNIVERSITARIOS PARA EL EJERCICIO DE ACTIVIDADES ACADÉMICAS EN LOS ESTADOS PARTE DEL MERCOSUR, LA REPÚBLICA DE BOLIVIA Y LA REPÚBLICA DE CHILE”</strong>.</li>
+          <li>Allí se observa que fue <strong>firmado en 1999</strong>, pero sólo <strong>ratificado por Paraguay</strong>.</li>
+          <li>Por lo tanto, el acuerdo <strong>no está vigente</strong>, lo cual muestra la importancia del <strong>proceso de ratificación</strong> en la integración.</li>
+        </ul>
+      </div>
+    </section>
 
-<!-- ===================== SLIDE 53 ===================== -->
-<div class="slide">
-  <h1>Desafíos Internos del MERCOSUR</h1>
-  <p>
-    El MERCOSUR enfrenta una agenda interna exigente:
-  </p>
-  <ul>
-    <li>
-      Consolidar la <strong>unión aduanera</strong>, reduciendo el número de excepciones
-      al AEC y armonizando regímenes especiales.
-    </li>
-    <li>
-      Profundizar la <strong>integración productiva</strong>, más allá del comercio de bienes.
-    </li>
-    <li>
-      Avanzar en temas de <strong>integración digital</strong>, facilitación del comercio,
-      ventanillas únicas y reconocimiento mutuo de estándares.
-    </li>
-    <li>
-      Mantener y actualizar instrumentos de <strong>trato especial y diferenciado</strong> en favor
-      de economías pequeñas, en un contexto de restricciones fiscales.
-    </li>
-  </ul>
-</div>
+    <!-- 53 -->
+    <section class="slide" id="slide-53">
+      <div class="slide-header">
+        <h1 class="slide-title">Ejercicio de clase: flexibilización vs. negociación en bloque</h1>
+        <span class="slide-tag">Preguntas abiertas</span>
+      </div>
+      <div class="slide-body">
+        <p><strong>Consigna general:</strong> A partir de lo visto sobre el MERCOSUR, el Protocolo de Adhesión de Bolivia, el FOCEM y la agenda externa, responde las siguientes preguntas por escrito.</p>
+        <ol>
+          <li><strong>¿Debería Bolivia apoyar una “flexibilización” del MERCOSUR</strong> que permita a cada Estado Parte negociar acuerdos comerciales por separado y eliminar la posibilidad de ser una Unión Aduanera? Explica por qué.</li>
+          <li>Si Bolivia opta por <strong>defender las negociaciones en bloque</strong>, ¿qué ventajas concretas ves que tendría Bolivia?
+          </li>
+          <li>Si Bolivia apoyara una flexibilización, ¿qué ventajas concretas ves que tendría Bolivia?
+          </li>
+          <li>En tu opinión, ¿qué <strong>condiciones mínimas</strong> debería exigir Bolivia para aceptar cualquier esquema de flexibilización?</li>
+          
+        </ol>
+        <p>Las respuestas deberían combinar <strong>argumentos económicos</strong>, <strong>institucionales</strong> y <strong>políticos</strong>, utilizando conceptos trabajados en ambas partes de la clase.</p>
+      </div>
+    </section>
+<!-- DIAPOSITIVA FINAL – CRITERIOS DE EVALUACIÓN + CUESTIONARIO -->
+<section class="slide" id="slide-final">
+  <div class="slide-header">
+    <h1 class="slide-title">Criterios de Evaluación y Cuestionario</h1>
+    <span class="slide-tag">Evaluación</span>
+  </div>
 
-<!-- ===================== SLIDE 54 ===================== -->
-<div class="slide">
-  <h1>Oportunidades para Bolivia dentro del MERCOSUR</h1>
-  <p>
-    Para Bolivia, la adhesión plena al MERCOSUR abre varias oportunidades concretas:
-  </p>
-  <ul>
-    <li>
-      Participar directamente en las <strong>negociaciones externas</strong> del bloque
-      (por ejemplo, acuerdos con la UE, EFTA u otros).
-    </li>
-    <li>
-      Integrarse a <strong>cadenas regionales de valor</strong> (autopartes, agroindustria,
-      insumos para la transición energética, etc.).
-    </li>
-    <li>
-      Aprovechar instrumentos como el <strong>FOCEM</strong> y otros mecanismos de apoyo
-      para proyectos de infraestructura, logística y desarrollo productivo.
-    </li>
-    <li>
-      Potenciar su rol de <strong>conector logístico</strong> entre Atlántico y Pacífico,
-      en coordinación con países vecinos.
-    </li>
-  </ul>
-</div>
+  <div class="slide-body">
+    <p><strong>Cómo se evaluarán las respuestas (criterios)</strong></p>
 
-<!-- ===================== SLIDE 55 ===================== -->
-<div class="slide">
-  <h1>Desafíos para Bolivia en la Adhesión</h1>
-  <p>
-    La adhesión no está exenta de desafíos importantes:
-  </p>
-  <ul>
-    <li>
-      Incorporar alrededor de <strong>3.974 normas MERCOSUR</strong> y
-      <strong>84 acuerdos internacionales</strong> a la legislación interna.
-    </li>
-    <li>
-      Compatibilizar su doble pertenencia CAN–MERCOSUR en materia arancelaria y de origen.
-    </li>
-    <li>
-      Definir listas de productos sensibles y ritmos de convergencia al AEC sin afectar
-      radicalmente sectores productivos vulnerables.
-    </li>
-    <li>
-      Coordinar a todo el aparato estatal (ministerios, parlamento, sector privado) para
-      cumplir los plazos fijados hacia <strong>2028</strong>.
-    </li>
-  </ul>
-</div>
+    <p>Cada estudiante recibirá una <strong>nota del 1 al 10</strong>, basada en estos elementos:</p>
 
-<!-- ===================== SLIDE 56 ===================== -->
-<div class="slide">
-  <h1>Implicancias para la Política Económica Boliviana</h1>
-  <p>
-    La adhesión de Bolivia al MERCOSUR obliga a repensar varias dimensiones de la política económica:
-  </p>
-  <ul>
-    <li>
-      Política <strong>arancelaria</strong> y de <strong>defensa comercial</strong>, alineadas
-      con las disciplinas del bloque.
-    </li>
-    <li>
-      Política <strong>industrial y de diversificación productiva</strong>, aprovechando
-      el mercado ampliado y las cadenas regionales.
-    </li>
-    <li>
-      Política de <strong>comercio exterior</strong>, participando en las negociaciones conjuntas
-      del bloque, pero también resguardando compromisos andinos.
-    </li>
-    <li>
-      Política de <strong>infraestructura y logística</strong> (corredores bioceánicos, puertos
-      secos, integración energética).
-    </li>
-  </ul>
-</div>
+    <p><strong>1. Comprensión conceptual (30%)</strong></p>
+    <ul>
+      <li>¿Entiende qué implica “flexibilizar” el MERCOSUR?</li>
+      <li>¿Entiende qué significa negociar en bloque?</li>
+      <li>¿Entiende la lógica de la unión aduanera y el rol del AEC?</li>
+      <li>¿Identifica implicaciones para Bolivia (tamaño, doble pertenencia CAN–MERCOSUR, estructura productiva, etc.)?</li>
+    </ul>
 
-<!-- ===================== SLIDE 57 ===================== -->
-<div class="slide">
-  <h1>Lecturas y Recursos Oficiales</h1>
-  <p>
-    Para profundizar el análisis de esta parte se recomienda revisar:
-  </p>
-  <ul>
-    <li>
-      <a href="https://www.mercosur.int" target="_blank" rel="noopener">
-        Sitio oficial del MERCOSUR (textos fundacionales, protocolos, normativa)
+    <p><strong>2. Calidad del razonamiento (30%)</strong></p>
+    <ul>
+      <li>¿Argumenta con coherencia?</li>
+      <li>¿Distingue ventajas y riesgos reales?</li>
+      <li>¿Evita generalidades y frases vacías?</li>
+      <li>¿Toma posición fundamentada?</li>
+    </ul>
+
+    <p><strong>3. Capacidad analítica aplicada a Bolivia (25%)</strong></p>
+    <ul>
+      <li>¿Conecta la teoría con la situación boliviana?</li>
+      <li>¿Usa argumentos que entiendan las asimetrías regionales?</li>
+      <li>¿Reconoce oportunidades y amenazas para un país mediano–pequeño?</li>
+    </ul>
+
+    <p><strong>4. Claridad, estructura y rigor (15%)</strong></p>
+    <ul>
+      <li>¿Las ideas están bien ordenadas?</li>
+      <li>¿Responde las cuatro preguntas explícitamente?</li>
+      <li>¿Evita redundancias y relleno?</li>
+    </ul>
+
+    <p><strong>Penalizaciones</strong></p>
+    <ul>
+      <li>Respuestas notoriamente generadas por IA sin elaboración personal.</li>
+      <li>Respuestas que no contestan lo que se pregunta.</li>
+      <li>Respuestas copiadas de compañeros.</li>
+      <li>Respuestas con errores conceptuales graves.</li>
+    </ul>
+
+    <hr style="margin:18px 0; border:0; border-top:1px solid #ccc;">
+
+    <p><strong>Cuestionario (obligatorio):</strong></p>
+    <p>
+      <a href="https://forms.gle/GzNjxZQ6oED5Q1Kg6" target="_blank" rel="noopener noreferrer">
+        https://forms.gle/GzNjxZQ6oED5Q1Kg6
       </a>
-    </li>
-    <li>
-      <a href="https://www.mercosur.int/documentos-y-normativa/" target="_blank" rel="noopener">
-        Normativa MERCOSUR – Decisiones CMC, Resoluciones GMC, Directivas CCM
-      </a>
-    </li>
-    <li>
-      <a href="https://www.aladi.org" target="_blank" rel="noopener">
-        Sitio oficial de ALADI – Acuerdos (ACE-18, ACE-36 y otros)
-      </a>
-    </li>
-    <li>
-      <a href="https://www.mercosur.int/wp-content/uploads/2024/04/Folleto-FOCEM_ES.pdf"
-         target="_blank" rel="noopener">
-        Folleto FOCEM – MERCOSUR (PDF)
-      </a>
-    </li>
-    <li>
-      <a href="https://ibce.org.bo/publicaciones-ibcecifras-pdf.php?id=1189"
-         target="_blank" rel="noopener">
-        IBCE – Bolivia y MERCOSUR (PDF con gráficas comerciales)
-      </a>
-    </li>
-    <li>
-      <a href="https://ibce.org.bo/images/publicaciones/CE-318-Cifras-Comercio-Exterior-Boliviano-2023.pdf"
-         target="_blank" rel="noopener">
-        Cifras del Comercio Exterior Boliviano 2023 – IBCE (PDF)
-      </a>
-    </li>
-    <li>
-      <a href="https://library.fes.de/pdf-files/bueros/bolivien/21453.pdf"
-         target="_blank" rel="noopener">
-        “Bolivia y el MERCOSUR” – FES
-      </a>
-    </li>
-    <li>
-      <a href="https://library.fes.de/pdf-files/bueros/bolivien/21818.pdf"
-         target="_blank" rel="noopener">
-        “Bolivia en el MERCOSUR: más allá de un mercado común” – FES (2025)
-      </a>
-    </li>
-  </ul>
-</div>
+    </p>
+  </div>
+</section>
 
-<!-- ===================== SLIDE 58 ===================== -->
-<div class="slide">
-  <h1>Preguntas de Discusión para el Aula</h1>
-  <p>
-    Algunas preguntas para trabajar con espíritu crítico:
-  </p>
-  <ul>
-    <li>
-      Si Bolivia no diversifica su oferta hacia el MERCOSUR, ¿la adhesión puede reforzar
-      la primarización o ayudar a superarla?
-    </li>
-    <li>
-      ¿El FOCEM debería ampliarse en monto o cambiar de enfoque para apoyar más a Bolivia
-      como nuevo miembro?
-    </li>
-    <li>
-      ¿Qué sectores concretos ves con mayor potencial de aprovechar el arancel cero intrarregional?
-    </li>
-    <li>
-      ¿Cómo gestionarías, desde una política pública, la doble pertenencia CAN–MERCOSUR
-      sin generar conflictos normativos?
-    </li>
-    <li>
-      ¿Cuáles son los riesgos si la convergencia al AEC se realiza demasiado rápido
-      en sectores sensibles bolivianos?
-    </li>
-  </ul>
-</div>
 
-<!-- ===================== SLIDE 59 ===================== -->
-<div class="slide">
-  <h1>Ideas para Trabajos y Ensayos</h1>
-  <p>
-    A partir de los contenidos de esta parte, los estudiantes podrían desarrollar:
-  </p>
-  <ul>
-    <li>
-      Un ensayo sobre el <strong>impacto del MERCOSUR en la balanza comercial boliviana</strong>:
-      ¿qué cambiaría si no existiera el arancel cero?
-    </li>
-    <li>
-      Un análisis de caso sobre <strong>FOCEM y Paraguay</strong> como referencia para pensar
-      qué tipo de proyectos podría proponer Bolivia.
-    </li>
-    <li>
-      Un trabajo comparativo <strong>MERCOSUR vs CAN</strong> desde la óptica de la política industrial
-      boliviana.
-    </li>
-    <li>
-      Una propuesta de <strong>estrategia de diversificación exportadora</strong> hacia el MERCOSUR
-      en rubros no tradicionales.
-    </li>
-  </ul>
-</div>
+  </main>
 
-<!-- ===================== SLIDE 60 ===================== -->
-<div class="slide">
-  <h1>Cierre de la Parte 2</h1>
-  <p>
-    En esta segunda parte vimos:
-  </p>
-  <ul>
-    <li>
-      La estructura del comercio Bolivia–MERCOSUR y su dependencia del gas natural.
-    </li>
-    <li>
-      El rol de ALADI y los acuerdos ACE (especialmente ACE-18 y ACE-36).
-    </li>
-    <li>
-      El funcionamiento del FOCEM y el trato especial a economías pequeñas, con Paraguay como ejemplo.
-    </li>
-    <li>
-      Las relaciones de MERCOSUR con otros bloques y el papel potencial de Bolivia como puente
-      CAN–MERCOSUR.
-    </li>
-  </ul>
-  <p>
-    El desafío, para la política económica y para las empresas, es transformar este entramado institucional
-    en <strong>oportunidades concretas de producción, empleo y diversificación</strong>.
-  </p>
-</div>
+  <footer class="footer-controls">
+    <div class="buttons">
+      <button id="prevBtn" onclick="prevSlide()">&larr; Anterior</button>
+      <button id="nextBtn" class="primary" onclick="nextSlide()">Siguiente &rarr;</button>
+    </div>
+    <div class="pager" id="pagerInfo">Diapositiva 31 de 23 (Parte 2)</div>
+    <div class="help">Parte 2 – Navegación secuencial con botones o teclas ← →</div>
+  </footer>
 
-<!-- Navegación -->
-<div class="nav">
-  <button class="btn" onclick="showSlide(currentSlide + 1)">Siguiente</button>
-</div>
+  <script>
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const pagerInfo = document.getElementById('pagerInfo');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let current = 0;
 
+    function updateSlides() {
+      slides.forEach((s, i) => s.classList.toggle('active', i === current));
+      pagerInfo.textContent = `Diapositiva ${31 + current} de ${31 + slides.length - 1} (Parte 2)`;
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === slides.length - 1;
+    }
+
+    function nextSlide() {
+      if (current < slides.length - 1) {
+        current++;
+        updateSlides();
+      }
+    }
+
+    function prevSlide() {
+      if (current > 0) {
+        current--;
+        updateSlides();
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+
+    updateSlides();
+  </script>
 </body>
 </html>
