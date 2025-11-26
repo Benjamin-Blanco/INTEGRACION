@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>ALADI – Antecedentes e Institucionalidad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #060b19;
+      --bg-alt: #0d1226;
+      --accent: #f5c400;
+      --accent-soft: rgba(245, 196, 0, 0.12);
+      --text: #f5f5f8;
+      --muted: #b7bad1;
+      --card: #151b36;
+      --border: #252b4f;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #101633 0, #050816 55%, #02030a 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(
+        to right,
+        rgba(6, 11, 25, 0.96),
+        rgba(6, 11, 25, 0.9)
+      );
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .title-block h1 {
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .title-block p {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    nav ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      list-style: none;
+      font-size: 0.8rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(245, 196, 0, 0.35);
+      color: var(--accent);
+      background: rgba(7, 10, 28, 0.85);
+      white-space: nowrap;
+    }
+
+    nav a:hover {
+      background: var(--accent);
+      color: #13131a;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 3rem;
+      min-height: calc(100vh - 80px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    section {
+      display: none; /* controlado por JS con .active-slide */
+    }
+
+    section.active-slide {
+      display: block;
+    }
+
+    .slide {
+      margin: 0 auto 1.5rem;
+      padding: 1.7rem 1.5rem;
+      background: radial-gradient(circle at top left, #1e2546 0, #0c1024 42%, #060918 100%);
+      border-radius: 1.25rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .slide h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.75rem;
+      color: var(--accent);
+    }
+
+    .slide h3 {
+      font-size: 1.05rem;
+      margin-top: 1rem;
+      margin-bottom: 0.4rem;
+      color: #fdfdfd;
+    }
+
+    p {
+      font-size: 0.95rem;
+      margin-bottom: 0.7rem;
+      color: var(--text);
+    }
+
+    .tagline {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 1rem;
+      padding: 1rem 1rem 1rem;
+      border: 1px solid var(--border);
+    }
+
+    .card h3 {
+      margin-top: 0;
+    }
+
+    .pill {
+      display: inline-block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(245, 196, 0, 0.5);
+      color: var(--accent);
+      margin-bottom: 0.35rem;
+    }
+
+    ul, ol {
+      padding-left: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    li {
+      font-size: 0.92rem;
+      margin-bottom: 0.25rem;
+    }
+
+    a {
+      color: var(--accent);
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .links-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .links-list li {
+      margin-bottom: 0.4rem;
+    }
+
+    .links-list a {
+      text-decoration: none;
+      display: inline-block;
+      border-bottom: 1px dashed rgba(245, 196, 0, 0.6);
+      padding-bottom: 0.04rem;
+    }
+
+    .links-list a:hover {
+      border-bottom-style: solid;
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 1rem;
+    }
+
+    @media (max-width: 800px) {
+      .two-column {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .small-title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 0.2rem;
+    }
+
+    .footnote {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 1rem;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 0 auto;
+      max-width: 1100px;
+    }
+
+    .controls button {
+      padding: 0.55rem 1.1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(245, 196, 0, 0.75);
+      background: rgba(7, 10, 28, 0.9);
+      color: var(--accent);
+      font-size: 0.85rem;
+      cursor: pointer;
+      min-width: 110px;
+    }
+
+    .controls button[disabled] {
+      opacity: 0.35;
+      cursor: default;
+    }
+
+    .controls button:hover:not([disabled]) {
+      background: var(--accent);
+      color: #111;
+    }
+
+    .slide-indicator {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: center;
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="title-block">
+        <h1>ALADI – Institución y Proceso de Integración</h1>
+        <p>Antecedentes, órganos, mecanismos y libre tránsito en el marco del ATIT</p>
+      </div>
+      <nav aria-label="Navegación rápida">
+        <ul>
+          <li><a href="#slide-1" data-goto="0">Inicio</a></li>
+          <li><a href="#slide-2" data-goto="1">ALALC → ALADI</a></li>
+          <li><a href="#slide-3" data-goto="2">Objetivos y principios</a></li>
+          <li><a href="#slide-4" data-goto="3">Miembros</a></li>
+          <li><a href="#slide-5" data-goto="4">Órganos políticos</a></li>
+          <li><a href="#slide-6" data-goto="5">Comité y Secretaría</a></li>
+          <li><a href="#slide-7" data-goto="6">Mecanismos</a></li>
+          <li><a href="#slide-8" data-goto="7">Normativa y temas</a></li>
+          <li><a href="#slide-9" data-goto="8">ATIT y libre tránsito</a></li>
+          <li><a href="#slide-10" data-goto="9">Continuación</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- SLIDE 1: INTRO -->
+    <section class="slide active-slide" id="slide-1">
+      <h2>Objetivo de la sesión</h2>
+      <p class="tagline">
+        Comprender a la ALADI como una <strong>institución de integración regional</strong>:
+        de dónde surge, cómo está organizada, qué mecanismos utiliza y cómo se
+        articula con el Acuerdo sobre Transporte Internacional Terrestre (ATIT) y el
+        principio de libre tránsito.
+      </p>
+      <div class="grid">
+        <div class="card">
+          <div class="pill">Punto de partida</div>
+          <h3>¿Qué es la ALADI?</h3>
+          <p>
+            La Asociación Latinoamericana de Integración (ALADI) es un organismo
+            internacional de ámbito regional creado por el
+            <strong>Tratado de Montevideo de 1980</strong>, que sustituyó a la
+            Asociación Latinoamericana de Libre Comercio (ALALC) de 1960.
+          </p>
+          <ul class="links-list">
+            <li>
+              <a href="https://www2.aladi.org/biblioteca/Publicaciones/ALADI/Secretaria_General/Documentos_Sin_Codigos/Caja_006_009_es.pdf" target="_blank">
+                Tratado de Montevideo de 1980 (texto oficial – ALADI)
+              </a>
+            </li>
+            <li>
+              <a href="https://www.subrei.gob.cl/organismos-multilaterales/aladi-asociacion-latinoamericana-de-integracion/que-es-la-aladi" target="_blank">
+                Resumen “Qué es la ALADI” – Subrei Chile
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="pill">Contexto general</div>
+          <h3>La ALADI en el mapa de la integración</h3>
+          <p>
+            La ALADI funciona como un <strong>marco jurídico e institucional común</strong> para
+            América Latina, dentro del cual conviven distintos esquemas subregionales
+            (MERCOSUR, CAN, SICA, etc.) y acuerdos bilaterales y plurilaterales.
+          </p>
+          <p>
+            El TM80 apuesta por un enfoque <strong>flexible y gradual</strong> de la integración,
+            apoyado en acuerdos parciales, convergencia y tratamiento diferenciado.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: ANTECEDENTES -->
+    <section class="slide" id="slide-2">
+      <h2>De la ALALC a la ALADI</h2>
+      <div class="two-column">
+        <div>
+          <h3>Proceso histórico</h3>
+          <p>
+            La ALADI nace como respuesta a las limitaciones de la
+            Asociación Latinoamericana de Libre Comercio (ALALC), creada por el
+            <strong>primer Tratado de Montevideo (1960)</strong>, que proponía una
+            liberalización comercial más rígida y homogénea.
+          </p>
+          <p>
+            El <strong>Tratado de Montevideo de 1980</strong> redefine el proceso de
+            integración y establece la ALADI, incorporando pluralismo,
+            flexibilidad y convergencia como principios centrales.
+          </p>
+          <ul class="links-list">
+            <li>
+              <a href="https://www2.aladi.org/biblioteca/Publicaciones/ALADI/Secretaria_General/Libros_ALADI/Libro_Magarinos_Proceso_ALALC_ALADI_Tomo_1.pdf" target="_blank">
+                “Integración Económica Latinoamericana. Proceso ALALC–ALADI”, Tomo 1
+              </a>
+            </li>
+            <li>
+              <a href="https://www2.aladi.org/nsfaladi/sitioaladi.nsf/prensaDatosv2.xsp?OpenDocument=&databaseName=NSFALADI%2Fprensanueva.nsf&documentId=DFFDC3A222A80E85032585C20073C73F" target="_blank">
+                ALADI: 40 años de integración latinoamericana
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3>Motivaciones del cambio</h3>
+          <p>
+            El TM80 recoge la necesidad de:
+          </p>
+          <ul>
+            <li>Aumentar el comercio intrarregional en un contexto mundial adverso.</li>
+            <li>Reconocer la heterogeneidad de los países de la región.</li>
+            <li>Otorgar tratamientos especiales a países de menor desarrollo relativo.</li>
+          </ul>
+          <p>
+            La ALADI pretende ser un <strong>andamiaje jurídico flexible</strong> capaz de
+            incorporar nuevos países y nuevos acuerdos en el tiempo.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: OBJETIVOS Y PRINCIPIOS -->
+    <section class="slide" id="slide-3">
+      <h2>Objetivos y principios de la ALADI</h2>
+      <div class="grid">
+        <div class="card">
+          <div class="pill">Objetivos</div>
+          <h3>Lo que persigue el TM80</h3>
+          <ul>
+            <li>La creación de un <strong>mercado latinoamericano ampliado</strong>.</li>
+            <li>La <strong>expansión y diversificación</strong> del comercio recíproco.</li>
+            <li>El desarrollo económico-social <strong>armónico y equilibrado</strong>.</li>
+            <li>El fortalecimiento de vínculos de <strong>solidaridad y cooperación</strong>.</li>
+          </ul>
+          <ul class="links-list">
+            <li>
+              <a href="https://www2.aladi.org/biblioteca/Publicaciones/ALADI/Secretaria_General/Documentos_Sin_Codigos/Caja_006_009_es.pdf#page=3" target="_blank">
+                Artículos iniciales del TM80 – Objetivos y principios
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="pill">Principios</div>
+          <h3>Rasgos del modelo ALADI</h3>
+          <ul>
+            <li><strong>Pluralismo</strong> económico y político.</li>
+            <li><strong>Convergencia</strong> progresiva de acuerdos parciales.</li>
+            <li><strong>Flexibilidad</strong> en modalidades y ritmos de integración.</li>
+            <li><strong>Tratamiento diferenciado</strong> según nivel de desarrollo.</li>
+            <li><strong>Múltiple bilateralidad</strong> dentro de un marco común.</li>
+          </ul>
+          <p class="footnote">
+            Estos principios se traducen en la estructura de acuerdos y en las
+            disposiciones que favorecen a los países de menor desarrollo económico
+            relativo (PMDER).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: MIEMBROS -->
+    <section class="slide" id="slide-4">
+      <h2>Estados miembros y participación</h2>
+      <p>
+        La ALADI está abierta a todos los países de América Latina. El Tratado de Montevideo
+        prevé mecanismos para la <strong>adhesión</strong> de nuevos países y para la
+        <strong>asociación</strong> de Estados extra-regionales.
+      </p>
+      <div class="grid">
+        <div class="card">
+          <div class="pill">Estados miembros</div>
+          <h3>Composición actual</h3>
+          <p>
+            La Asociación está integrada por trece Estados de América Latina. La
+            membresía refleja distintas dimensiones geográficas, económicas y
+            políticas, lo que refuerza la necesidad de instrumentos flexibles y
+            tratamiento diferenciado.
+          </p>
+          <p>
+            El TM80 establece que cualquier país latinoamericano puede adherirse,
+            y que otros Estados pueden vincularse como países asociados a través
+            de acuerdos parciales específicos.
+          </p>
+        </div>
+        <div class="card">
+          <div class="pill">Participación</div>
+          <h3>Representación en los órganos</h3>
+          <ul>
+            <li>
+              Cada país designa un <strong>Representante Permanente</strong> ante el Comité de Representantes.
+            </li>
+            <li>
+              Los Ministros de Relaciones Exteriores participan en el <strong>Consejo de Ministros</strong>.
+            </li>
+            <li>
+              Las delegaciones asisten a conferencias, grupos de trabajo y foros especializados.
+            </li>
+          </ul>
+          <p class="footnote">
+            La participación activa de las delegaciones nacionales es clave para la
+            dinámica del proceso de integración y para el uso efectivo del marco ALADI.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: ÓRGANOS POLÍTICOS -->
+    <section class="slide" id="slide-5">
+      <h2>Órganos políticos de la ALADI</h2>
+      <p>
+        El funcionamiento institucional se organiza en torno a <strong>órganos políticos</strong>
+        que definen las grandes orientaciones del proceso de integración.
+      </p>
+      <div class="grid">
+        <div class="card">
+          <div class="pill">Máxima instancia</div>
+          <h3>Consejo de Ministros de Relaciones Exteriores</h3>
+          <p>
+            Es la máxima autoridad de la ALADI. Entre sus funciones:
+          </p>
+          <ul>
+            <li>Definir las grandes orientaciones del proceso de integración.</li>
+            <li>Adoptar reformas al Tratado de Montevideo de 1980.</li>
+            <li>Establecer lineamientos estratégicos para la Asociación.</li>
+          </ul>
+          <ul class="links-list">
+            <li>
+              <a href="https://www.cancilleria.gov.co/international/consensus/aladi" target="_blank">
+                Descripción de órganos ALADI – Cancillería de Colombia
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="pill">Seguimiento global</div>
+          <h3>Conferencia de Evaluación y Convergencia</h3>
+          <p>
+            Examina el funcionamiento del proceso de integración, evalúa el grado
+            de convergencia entre acuerdos y formula recomendaciones para el
+            desarrollo y perfeccionamiento de la ALADI.
+          </p>
+          <p>
+            Es un espacio clave para revisar la articulación entre esquemas
+            subregionales (CAN, MERCOSUR, SICA, etc.) y los acuerdos parciales.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: COMITÉ Y SECRETARÍA -->
+    <section class="slide" id="slide-6">
+      <h2>Comité de Representantes y Secretaría General</h2>
+      <div class="grid">
+        <div class="card">
+          <div class="pill">Órgano político permanente</div>
+          <h3>Comité de Representantes</h3>
+          <p>
+            Es el <strong>foro político permanente</strong> de la ALADI donde se negocian y
+            aprueban las resoluciones que implementan el Tratado, se crean grupos de
+            trabajo y se aprueban programas y presupuestos.
+          </p>
+          <ul>
+            <li>Integrado por un Representante Permanente de cada país.</li>
+            <li>Puede crear <strong>Grupos de Trabajo</strong> para temas específicos.</li>
+            <li>Adopta resoluciones que reglamentan y operativizan el TM80.</li>
+          </ul>
+          <ul class="links-list">
+            <li>
+              <a href="https://www2.aladi.org/biblioteca/Publicaciones/ALADI/Comite_de_Representantes/CR_Resoluciones/ES/001_Texto_Consolidado.pdf" target="_blank">
+                Reglamento del Comité de Representantes – Res. 1 (texto consolidado)
+              </a>
+            </li>
+            <li>
+              <a href="https://www2.aladi.org/biblioteca/Publicaciones/ALADI/Comite_de_Representantes/CR_Resoluciones/ES/368_Texto_Consolidado.pdf" target="_blank">
+                Res. 368 – Grupos de Trabajo del Comité de Representantes
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="pill">Órgano técnico</div>
+          <h3>Secretaría General</h3>
+          <p>
+            Es el <strong>órgano técnico</strong> responsable de la ejecución cotidiana:
+          </p>
+          <ul>
+            <li>Realiza estudios y estadísticas de comercio e integración.</li>
+            <li>Apoya las negociaciones y administra los acuerdos.</li>
+            <li>Canaliza proyectos de cooperación y asistencia técnica.</li>
+            <li>
+              Gestiona el <strong>sistema jurídico</strong> y la documentación oficial de la ALADI.
+            </li>
+          </ul>
+          <ul class="links-list">
+            <li>
+              <a href="https://www2.aladi.org/nsfaladi/Juridica.nsf/PJurResComite" target="_blank">
+                Sistema jurídico de la ALADI (resoluciones y acuerdos)
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: MECANISMOS -->
+    <section class="slide" id="slide-7">
+      <h2>Mecanismos de integración en la ALADI</h2>
+      <div class="grid">
+        <div class="card">
+          <div class="pill">Área de Preferencias Económicas</div>
+          <h3>Mecanismos básicos</h3>
+          <p>
+            El TM80 define un <strong>Área de Preferencias Económicas</strong> (APE) con tres
+            instrumentos principales:
+          </p>
+          <ul>
+            <li><strong>Preferencia Arancelaria Regional (PAR)</strong>.</li>
+            <li>
+              <strong>Acuerdos de Alcance Regional (AR)</strong>, suscritos por todos los miembros.
+            </li>
+            <li>
+              <strong>Acuerdos de Alcance Parcial (AAP)</strong>, entre dos o más países.
+            </li>
+          </ul>
+          <ul class="links-list">
+            <li>
+              <a href="https://www2.aladi.org/biblioteca/Publicaciones/ALADI/Secretaria_General/Documentos_Sin_Codigos/Caja_006_009_es.pdf#page=5" target="_blank">
+                Capítulos del TM80 sobre el Área de Preferencias Económicas
+              </a>
+            </li>
+            <li>
+              <a href="https://www2.aladi.org/nsfaladi/histtextacdos.nsf/" target="_blank">
+                Textos históricos de acuerdos (AR y AAP)
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="pill">Aplicación práctica</div>
+          <h3>Tipos de acuerdos parciales</h3>
+          <ul>
+            <li>Desgravaciones arancelarias recíprocas en productos específicos.</li>
+            <li>Acuerdos de complementación económica (por ejemplo, en el MERCOSUR).</li>
+            <li>Acuerdos de transporte, tránsito aduanero y otros temas sectoriales.</li>
+          </ul>
+          <p class="footnote">
+            El ATIT es precisamente un Acuerdo de Alcance Parcial de transporte
+            internacional terrestre, administrado dentro de este marco.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: NORMATIVA Y TEMAS -->
+    <section class="slide" id="slide-8">
+      <h2>Normativa y temas de trabajo de la ALADI</h2>
+      <p>
+        La ALADI no solo negocia preferencias arancelarias. También aborda
+        <strong>facilitación del comercio, integración productiva, transporte y tránsito aduanero</strong>,
+        entre otros temas.
+      </p>
+      <div class="grid">
+        <div class="card">
+          <div class="pill">Marco jurídico</div>
+          <h3>Normativa y controversias</h3>
+          <p>
+            La ALADI administra un cuerpo normativo que incluye:
+          </p>
+          <ul>
+            <li>Acuerdos comerciales (AR y AAP) en distintas materias.</li>
+            <li>Resoluciones del Comité de Representantes (reglamentos, programas, etc.).</li>
+            <li>Protocolos adicionales en transporte, tránsito aduanero, normas de origen, etc.</li>
+          </ul>
+          <p>
+            El sistema prevé <strong>mecanismos de solución de controversias</strong> vinculados
+            a la interpretación y aplicación de estos instrumentos.
+          </p>
+          <ul class="links-list">
+            <li>
+              <a href="https://revistaderecho.um.edu.uy/wp-content/uploads/2012/12/Pereira-Vecino-Solucion-de-controversias-en-la-Asociacion-Latinoamericana-de-Integracion.pdf" target="_blank">
+                Análisis sobre solución de controversias en la ALADI
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="pill">Temas prioritarios</div>
+          <h3>Facilitación, convergencia y PMDER</h3>
+          <ul>
+            <li>Facilitación del comercio y simplificación aduanera.</li>
+            <li>Convergencia entre acuerdos parciales y esquemas subregionales.</li>
+            <li>Apoyo a <strong>países de menor desarrollo relativo</strong> y países sin litoral.</li>
+            <li>Tránsito aduanero internacional y logística regional.</li>
+          </ul>
+          <ul class="links-list">
+            <li>
+              <a href="https://www2.aladi.org/biblioteca/Publicaciones/ALADI/Secretaria_General/SEC_Estudios/241.pdf" target="_blank">
+                Estudio ALADI sobre tránsito aduanero (incluye referencias al ATIT)
+              </a>
+            </li>
+            <li>
+              <a href="https://www2.aladi.org/biblioteca/Publicaciones/ALADI/Secretaria_General/Documentos_Sin_Codigos/Caja_059_001.pdf" target="_blank">
+                “50 años del proceso de integración latinoamericana” – ALADI
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: ATIT Y CONTROVERSIA BOLIVIA-CHILE -->
+    <section class="slide" id="slide-9">
+      <h2>ATIT, libre tránsito y controversia Bolivia–Chile en la ALADI</h2>
+      <p>
+        El <strong>Acuerdo sobre Transporte Internacional Terrestre (ATIT)</strong> es el
+        <strong>Acuerdo de Alcance Parcial AAP.A14TM N.º 3</strong>, suscrito bajo la
+        ALADI por Argentina, Bolivia, Brasil, Chile, Paraguay, Perú y Uruguay. Regula
+        el transporte internacional por carretera y ferrocarril entre estos países y
+        establece reglas comunes sobre permisos, vehículos, operadores y tránsito.
+      </p>
+      <h3>Artículo 15 del ATIT y el principio de libre tránsito</h3>
+      <p>
+        El <strong>artículo 15 del ATIT</strong> dispone que el Acuerdo
+        <em>“no significa en ningún caso restricción a las facilidades que, sobre
+        transporte y libre tránsito, se hubiesen concedido los países signatarios”</em>,
+        por ejemplo, las derivadas del <strong>Tratado de Paz y Amistad de 1904</strong> entre
+        Bolivia y Chile.
+      </p>
+      <h3>Reclamo de Bolivia ante la ALADI</h3>
+      <p>
+        En 2014, Bolivia presentó un <strong>reclamo formal ante la ALADI</strong> alegando que
+        medidas adoptadas por Chile (controles, exigencias y demoras) vulneraban el
+        derecho de libre tránsito de la carga boliviana hacia y desde los puertos
+        chilenos, en contradicción con el artículo 15 del ATIT y con las obligaciones
+        del Tratado de 1904.
+      </p>
+      <p>
+        La Secretaría General de la ALADI elaboró un informe en el que destacó el
+        carácter <strong>preceptivo y obligatorio</strong> del artículo 15, subrayando que el
+        ATIT no puede ser utilizado para reducir las facilidades de transporte y libre
+        tránsito ya concedidas a Bolivia. El Comité de Representantes recomendó la
+        apertura de un <strong>diálogo bilateral</strong> entre Bolivia y Chile en la sede de la
+        ALADI, otorgando un plazo de hasta cuatro meses para buscar soluciones.
+      </p>
+      <h3>Relevancia institucional</h3>
+      <ul>
+        <li>
+          Muestra cómo un <strong>acuerdo sectorial (ATIT)</strong> es administrado dentro del
+          marco institucional de la ALADI.
+        </li>
+        <li>
+          Ilustra el rol de la ALADI en la defensa de principios clave del TM80, como
+          el <strong>libre tránsito</strong> y el trato especial a países sin litoral.
+        </li>
+        <li>
+          Ejemplifica un caso de <strong>controversia intrarregional</strong> donde la ALADI
+          actúa como plataforma para canalizar reclamos, promover el diálogo y
+          formular recomendaciones, aun cuando la solución final sea bilateral.
+        </li>
+      </ul>
+      <ul class="links-list">
+        <li>
+          <a href="https://cancilleria.gob.bo/mre/2014/12/12/9571/" target="_blank">
+            Comunicado de la Cancillería de Bolivia sobre el reclamo ante la ALADI
+          </a>
+        </li>
+        <li>
+          <a href="https://www2.aladi.org/sitioaladi/documentos/Atit/ActaXVIII.pdf" target="_blank">
+            Acta de la Comisión de Seguimiento del ATIT (incluye posición de Bolivia)
+          </a>
+        </li>
+        <li>
+          <a href="https://www.aduanas.gub.uy/innovaportal/file/9741/1/acuerdo_sobre_transporte_internacional_terrestre_-atit-.pdf" target="_blank">
+            Texto completo del ATIT
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <!-- SLIDE 10: CONTINUACIÓN Y MATERIAL -->
+    <section class="slide" id="slide-10">
+      <h2>Continuación de la clase y actividades</h2>
+      <div class="grid">
+        <div class="card">
+          <div class="small-title">Siguiente parte de la clase</div>
+          <h3>Presentación en PDF</h3>
+          <p>
+            A partir de este punto, la clase <strong>continúa con la presentación en PDF</strong>
+            disponible en el siguiente enlace:
+          </p>
+          <ul class="links-list">
+            <li>
+              <a href="https://benjamin-blanco.github.io/INTEGRACION/Bolivia%202025.pdf" target="_blank">
+                Continuar la clase con la presentación en PDF
+              </a>
+            </li>
+          </ul>
+          <p class="footnote">
+            En esa presentación se profundiza en la situación de Bolivia en la
+            integración regional, incluyendo su relación con la ALADI y otros
+            esquemas de integración.
+          </p>
+        </div>
+        <div class="card">
+          <div class="small-title">Evaluación rápida</div>
+          <h3>Cuestionario en línea</h3>
+          <p>
+            Después de revisar esta presentación HTML y la presentación en PDF,
+            responde el siguiente cuestionario para verificar la comprensión de los
+            <strong>antecedentes de la ALADI</strong>, su estructura institucional, los
+            mecanismos de integración y el caso de la controversia Bolivia–Chile
+            en el marco del ATIT:
+          </p>
+          <ul class="links-list">
+            <li>
+              <a href="https://forms.gle/g9hvTqh64ZuJycif9" target="_blank">
+                Abrir el cuestionario en Google Forms
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="small-title">Referencia jurídica central</div>
+          <h3>Acuerdo sobre Transporte Internacional Terrestre (ATIT)</h3>
+          <p>
+            Para el análisis del libre tránsito y la controversia Bolivia–Chile, es
+            fundamental revisar directamente el texto del ATIT, especialmente su
+            <strong>artículo 15</strong> sobre tránsito y facilidades previamente otorgadas.
+          </p>
+          <ul class="links-list">
+            <li>
+              <a href="https://www.aduanas.gub.uy/innovaportal/file/9741/1/acuerdo_sobre_transporte_internacional_terrestre_-atit-.pdf" target="_blank">
+                Descargar texto del ATIT
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="controls">
+    <button id="prevBtn">← Anterior</button>
+    <div class="slide-indicator" id="indicator">Diapositiva 1 de 10</div>
+    <button id="nextBtn">Siguiente →</button>
+  </div>
+
+  <script>
+    (function() {
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const indicator = document.getElementById('indicator');
+      const navLinks = Array.from(document.querySelectorAll('nav a[data-goto]'));
+      let current = 0;
+
+      function showSlide(index) {
+        if (index < 0 || index >= slides.length) return;
+        slides.forEach((s, i) => {
+          s.classList.toggle('active-slide', i === index);
+        });
+        current = index;
+        prevBtn.disabled = current === 0;
+        nextBtn.disabled = current === slides.length - 1;
+        if (indicator) {
+          indicator.textContent = 'Diapositiva ' + (current + 1) + ' de ' + slides.length;
+        }
+      }
+
+      prevBtn.addEventListener('click', () => {
+        showSlide(current - 1);
+      });
+
+      nextBtn.addEventListener('click', () => {
+        showSlide(current + 1);
+      });
+
+      // Navegación por el menú superior
+      navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const idx = parseInt(link.getAttribute('data-goto'), 10);
+          if (!isNaN(idx)) {
+            showSlide(idx);
+          }
+        });
+      });
+
+      // Navegación con teclado (flechas izquierda/derecha)
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') {
+          showSlide(current + 1);
+        } else if (e.key === 'ArrowLeft') {
+          showSlide(current - 1);
+        }
+      });
+
+      // Inicializar
+      showSlide(0);
+    })();
+  </script>
+</body>
+</html>
