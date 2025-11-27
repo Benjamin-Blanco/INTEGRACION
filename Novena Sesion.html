@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bolivia – Preferencias arancelarias en ALADI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-alt: #0b1021;
+      --card: #111827;
+      --accent: #facc15;
+      --accent-soft: rgba(250, 204, 21, 0.12);
+      --text: #f9fafb;
+      --muted: #d1d5db;
+      --border: #1f2937;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #111827 0, #020617 55%, #000 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .deck {
+      width: 100%;
+      max-width: 1100px;
+      background: linear-gradient(145deg, var(--bg-alt), #020617);
+      border-radius: 18px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border);
+      padding: 20px 24px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .deck-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .deck-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .deck-subtitle {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .slide-counter {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .slide {
+      display: none;
+      padding: 12px 4px 4px;
+      min-height: 380px;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    .slide h1,
+    .slide h2,
+    .slide h3 {
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .slide h1 {
+      font-size: 1.9rem;
+      margin-bottom: 10px;
+      color: #fefce8;
+    }
+
+    .slide h2 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      color: #fef3c7;
+    }
+
+    .slide h3 {
+      font-size: 1.1rem;
+      margin: 12px 0 6px;
+      color: #fde68a;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+
+    p {
+      margin-bottom: 8px;
+      line-height: 1.4;
+      font-size: 0.98rem;
+      color: var(--muted);
+    }
+
+    ul {
+      margin-left: 1.1rem;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    li {
+      margin-bottom: 4px;
+    }
+
+    ol {
+      margin-left: 1.1rem;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .layout-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 16px;
+      align-items: flex-start;
+      margin-top: 6px;
+    }
+
+    .card {
+      background: rgba(15, 23, 42, 0.92);
+      border-radius: 14px;
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      padding: 10px 12px;
+    }
+
+    .card h3 {
+      margin-top: 0;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.8);
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .table-wrapper {
+      margin-top: 4px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      padding: 6px 8px;
+      text-align: left;
+    }
+
+    th {
+      background: rgba(15, 23, 42, 0.98);
+      color: #e5e7eb;
+      font-weight: 500;
+      border-bottom: 1px solid rgba(55, 65, 81, 0.8);
+    }
+
+    tr:nth-child(even) td {
+      background: rgba(15, 23, 42, 0.65);
+    }
+
+    tr:nth-child(odd) td {
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .links {
+      margin-top: 6px;
+      font-size: 0.86rem;
+    }
+
+    .links a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .links a:hover {
+      text-decoration: underline;
+    }
+
+    .highlight {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .note {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-top: 4px;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+    }
+
+    .nav-left {
+      display: flex;
+      gap: 8px;
+    }
+
+    button.nav-btn {
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 7px 14px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s ease, transform 0.1s ease, border-color 0.15s ease;
+    }
+
+    button.nav-btn span.icon {
+      font-size: 0.9rem;
+    }
+
+    button.nav-btn:hover {
+      background: rgba(31, 41, 55, 0.96);
+      border-color: rgba(75, 85, 99, 0.9);
+      transform: translateY(-1px);
+    }
+
+    button.nav-btn:disabled {
+      opacity: 0.35;
+      cursor: default;
+      transform: none;
+    }
+
+    .nav-hint {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 820px) {
+      .layout-split {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .slide {
+        min-height: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .deck {
+        padding: 14px 14px 10px;
+      }
+      .deck-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .deck-title {
+        font-size: 0.95rem;
+      }
+      .slide h1 {
+        font-size: 1.5rem;
+      }
+      .slide h2 {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck">
+    <header class="deck-header">
+      <div>
+        <div class="deck-title">Bolivia y las preferencias arancelarias en ALADI</div>
+        <div class="deck-subtitle">PAR 4, AR.AM N° 1 y Acuerdos de Complementación Económica</div>
+      </div>
+      <div class="slide-counter" id="slideCounter">Diapositiva 1 de 23</div>
+    </header>
+
+    <!-- SLIDE 1 -->
+    <section class="slide active">
+      <span class="pill">Sesión – Preferencias arancelarias ALADI</span>
+      <h1>Mapa general de preferencias de Bolivia en ALADI</h1>
+      <p>
+        En el marco del Tratado de Montevideo de 1980, Bolivia cuenta con una red de
+        preferencias arancelarias y disciplinas comerciales que combinan instrumentos
+        regionales y acuerdos específicos:
+      </p>
+      <ul>
+        <li><strong>AR.PAR N° 4</strong>: Acuerdo de Preferencia Arancelaria Regional (PAR 4).</li>
+        <li><strong>AR.AM N° 1</strong>: Nómina de Apertura de Mercados a favor de Bolivia.</li>
+        <li>
+          <strong>Acuerdos de Complementación Económica (ACE)</strong>:
+          ACE 22 (Chile), ACE 36 (Argentina, Brasil, Paraguay y Uruguay),
+          ACE 47 (Cuba) y ACE 66 (México).
+        </li>
+        <li>
+          Un <strong>régimen de origen preferencial</strong> y disciplinas sobre salvaguardias,
+          prácticas desleales, medidas sanitarias y fitosanitarias, obstáculos técnicos y
+          solución de controversias.
+        </li>
+      </ul>
+      <div class="card">
+        <h3>Objetivo de la clase</h3>
+        <p>
+          Entender qué preferencias arancelarias tiene Bolivia en ALADI, qué bienes
+          están liberalizados, qué reglas de origen aplican y cómo se reflejan en el
+          comercio real (2024) con cada contraparte.
+        </p>
+      </div>
+    </section>
+
+    <!-- SLIDE 2 -->
+    <section class="slide">
+      <span class="pill">AR.PAR N° 4 – Preferencia Arancelaria Regional</span>
+      <h2>¿Qué es la Preferencia Arancelaria Regional (PAR 4)?</h2>
+      <div class="layout-split">
+        <div class="card">
+          <h3>Concepto básico</h3>
+          <ul>
+            <li>
+              Acuerdo de alcance regional por el cual <strong>todos los países de la ALADI se
+              otorgan una rebaja porcentual de sus aranceles</strong> a los productos originarios
+              de los demás miembros.
+            </li>
+            <li>
+              Es la “capa base” de integración: se aplica a un amplio universo de productos,
+              salvo los incluidos en listas de excepciones de cada país.
+            </li>
+            <li>
+              Los porcentajes de preferencia son <strong>diferenciados</strong> según el nivel de
+              desarrollo y la condición de mediterraneidad.
+            </li>
+          </ul>
+          <div class="links">
+            <a href="https://www2.aladi.org/SitioALADI/documentos/FichasDescriptivasAcuerdos/FD_AR.PAR_4_Regional_Preferencia_Arancelaria.pdf" target="_blank">
+              Ficha Descriptiva AR.PAR N° 4 Regional Preferencia Arancelaria
+            </a>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Beneficio específico para Bolivia</h3>
+          <ul>
+            <li>Bolivia es reconocida como <strong>País de Menor Desarrollo Económico Relativo (PMDER)</strong> y además <strong>mediterráneo</strong>.</li>
+            <li>
+              Esto le otorga <strong>porcentajes de preferencia más altos</strong> cuando exporta a
+              países de desarrollo intermedio y a los restantes países de la Asociación.
+            </li>
+            <li>
+              La PAR 4 abarata tanto:
+              <ul>
+                <li>Las <strong>exportaciones bolivianas</strong> al resto de ALADI.</li>
+                <li>La importación de <strong>insumos y bienes de capital</strong> desde la región.</li>
+              </ul>
+            </li>
+          </ul>
+          <p class="note">
+            Sobre esta base se “montan” las preferencias más profundas de los ACE bilaterales
+            y subregionales.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3 -->
+    <section class="slide">
+      <span class="pill">AR.PAR N° 4 – Magnitud de la preferencia</span>
+      <h2>Matriz de porcentajes y listas de excepciones</h2>
+      <div class="card">
+        <h3>Magnitud de la preferencia (%)</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th rowspan="2">País otorgante</th>
+                <th colspan="4">País receptor</th>
+              </tr>
+              <tr>
+                <th>PMDER</th>
+                <th>PMDER M</th>
+                <th>PDI</th>
+                <th>RP</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>PMDER</td>
+                <td>20%</td>
+                <td>24%</td>
+                <td>12%</td>
+                <td>8%</td>
+              </tr>
+              <tr>
+                <td>PDI</td>
+                <td>28%</td>
+                <td>34%</td>
+                <td>20%</td>
+                <td>12%</td>
+              </tr>
+              <tr>
+                <td>RP</td>
+                <td>40%</td>
+                <td>48%</td>
+                <td>28%</td>
+                <td>20%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">
+          PMDER: Países de menor desarrollo económico relativo (Bolivia, Ecuador y Paraguay).<br />
+          PMDER M: Países de menor desarrollo económico relativo mediterráneos (Bolivia y Paraguay).<br />
+          PDI: Países de desarrollo intermedio (Chile, Colombia, Cuba, Panamá, Perú, Uruguay y Venezuela).<br />
+          RP: Restantes países (Argentina, Brasil y México).
+        </p>
+      </div>
+      <div class="card" style="margin-top:10px;">
+        <h3>Extensión de las Listas de Excepciones (NALADI – NCCA)</h3>
+        <p>Límite máximo de ítems que cada grupo de países puede excluir de la PAR:</p>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>PMDER</th>
+                <th>PDI</th>
+                <th>RP</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1.920 ítems</td>
+                <td>960 ítems</td>
+                <td>480 ítems</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">
+          Fuente: Segundo Protocolo Adicional al AR.PAR N° 4.
+        </p>
+      </div>
+    </section>
+
+    <!-- SLIDE 4 -->
+    <section class="slide">
+      <span class="pill">AR.AM N° 1 – Apertura de mercados</span>
+      <h2>Acuerdo de Apertura de Mercados a favor de Bolivia</h2>
+      <div class="layout-split">
+        <div class="card">
+          <h3>Datos básicos</h3>
+          <ul>
+            <li><strong>Acuerdo de Alcance Regional N° 1 (AR.AM N° 1)</strong>.</li>
+            <li>Países partes: todos los países de la ALADI.</li>
+            <li>Fecha de suscripción: 30/04/1983.</li>
+            <li>Entrada en vigor: 01/05/1983.</li>
+          </ul>
+          <h3>Alcance</h3>
+          <ul>
+            <li>Comercio de bienes.</li>
+            <li>
+              <strong>Acceso de bienes al mercado</strong>: eliminación de gravámenes y
+              restricciones a la importación para ciertos productos originarios de Bolivia.
+            </li>
+            <li>
+              <strong>Salvaguardias</strong>: posibilidad de suspender temporalmente la
+              eliminación de gravámenes cuando las importaciones causen o amenacen
+              causar daño a la industria nacional.
+            </li>
+          </ul>
+          <div class="links">
+            <a href="https://www2.aladi.org/SitioALADI/documentos/FichasDescriptivasAcuerdos/FD_AR.AM_1_Regional_Apertura_de_Mercados_a_Bolivia.pdf" target="_blank">
+              Ficha Descriptiva AR.AM N° 1 Regional Apertura de Mercados a Bolivia
+            </a>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Preferencias arancelarias</h3>
+          <ul>
+            <li>
+              Cada país de ALADI otorga a Bolivia una <strong>Nómina de productos</strong>
+              con eliminación de gravámenes a la importación.
+            </li>
+            <li>
+              Las nóminas se negocian <strong>bilateralmente</strong> (Bolivia–país otorgante)
+              y varían en composición y número de ítems.
+            </li>
+            <li>
+              El trato preferencial se expresa en una <strong>reducción del 100% del
+              gravamen</strong> a la importación para los productos listados.
+            </li>
+          </ul>
+          <p class="note">
+            AR.AM N° 1 es un “paquete adicional” de ventajas arancelarias exclusivo para
+            Bolivia, que se suma a la PAR y a los ACE.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5 -->
+    <section class="slide">
+      <span class="pill">AR.AM N° 1 – Detalle de nóminas y origen</span>
+      <h2>Nóminas por país y régimen de origen</h2>
+      <div class="layout-split">
+        <div class="card">
+          <h3>Número de ítems otorgados a Bolivia</h3>
+          <p>
+            Ejemplos de la nómina de apertura de mercados (NALADISA / NABALALC según país):
+          </p>
+          <ul>
+            <li>Argentina: 91 ítems (hoy superpuestos por el ACE 36).</li>
+            <li>Brasil: 932 ítems (hoy superpuestos por el ACE 36).</li>
+            <li>Chile: 16 ítems.</li>
+            <li>Colombia: 334 ítems.</li>
+            <li>Cuba: 8 ítems.</li>
+            <li>Ecuador: 336 ítems.</li>
+            <li>México: 61 ítems (hoy superpuestos por el ACE 66).</li>
+            <li>Panamá: 200 ítems.</li>
+            <li>Paraguay: 63 ítems (hoy superpuestos por el ACE 36).</li>
+            <li>Perú: 322 ítems.</li>
+            <li>Uruguay: 17 ítems (hoy superpuestos por el ACE 36).</li>
+            <li>Venezuela: 99 ítems (NABALALC).</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Régimen de origen y certificación</h3>
+          <ul>
+            <li>
+              Reglas de origen:
+              <ul>
+                <li>Reglas generales (Anexo II).</li>
+                <li>Reglas generales y específicas (Apéndices 1 y 2).</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Acumulación de origen</strong> con los demás países de la ALADI
+              para materiales e insumos.
+            </li>
+            <li>
+              Tipo de certificación: por <strong>Autoridad Competente</strong> (SENAVEX
+              en el caso boliviano).
+            </li>
+            <li>
+              Certificado de Origen en formato papel, con firmas autógrafas, cuyo
+              formato está definido en el Apéndice 4 del Anexo II.
+            </li>
+            <li>
+              La nomenclatura a consignar en el certificado depende del país
+              importador (NALADISA 1993, 1996 o 2007; NABALALC en el caso de Venezuela).
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6 -->
+    <section class="slide">
+      <span class="pill">Comercio 2024 – contexto</span>
+      <h2>Comercio boliviano con socios ALADI (2024)</h2>
+      <div class="layout-split">
+        <div class="card">
+          <h3>Exportaciones de Bolivia en 2024</h3>
+          <ul>
+            <li>Exportaciones totales de bienes: alrededor de <strong>USD 9–11 mil millones</strong>.</li>
+            <li>
+              Estructura dominada por:
+              <ul>
+                <li><strong>Gas natural</strong>.</li>
+                <li><strong>Productos agroindustriales</strong> (soya y derivados, azúcar, alimentos procesados).</li>
+                <li><strong>Productos de la industria extractiva y metálica</strong> en el agregado global.</li>
+              </ul>
+            </li>
+          </ul>
+          <p class="note">
+            Los acuerdos ALADI organizan la inserción de esa oferta en la región,
+            con énfasis en energía, alimentos y manufacturas.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Exportaciones 2024 hacia socios con acuerdos ALADI</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Socio</th>
+                  <th>Tipo de acuerdo</th>
+                  <th>Exportaciones 2024 (USD millones)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Brasil</td>
+                  <td>ACE 36 + PAR 4</td>
+                  <td>≈ 1.530</td>
+                </tr>
+                <tr>
+                  <td>Argentina</td>
+                  <td>ACE 36 + PAR 4</td>
+                  <td>≈ 512</td>
+                </tr>
+                <tr>
+                  <td>Paraguay</td>
+                  <td>ACE 36 + PAR 4</td>
+                  <td>≈ 62</td>
+                </tr>
+                <tr>
+                  <td>Uruguay</td>
+                  <td>ACE 36 + PAR 4</td>
+                  <td>≈ 11</td>
+                </tr>
+                <tr>
+                  <td>Chile</td>
+                  <td>ACE 22 + PAR 4</td>
+                  <td>≈ 136</td>
+                </tr>
+                <tr>
+                  <td>México</td>
+                  <td>ACE 66 + PAR 4</td>
+                  <td>≈ 43</td>
+                </tr>
+                <tr>
+                  <td>Cuba</td>
+                  <td>ACE 47 + PAR 4</td>
+                  <td>≈ 0,2</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="note">
+            Sólo con MERCOSUR + Chile + México + Cuba, Bolivia exporta del orden de
+            2.300 millones de dólares, cerca de una cuarta parte de sus exportaciones totales.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 7 -->
+    <section class="slide">
+      <span class="pill">ACE 36 – Bolivia–MERCOSUR</span>
+      <h2>ACE 36: marco general y zona de libre comercio</h2>
+      <div class="layout-split">
+        <div class="card">
+          <h3>Elementos centrales</h3>
+          <ul>
+            <li>
+              Vincula a Bolivia con Argentina, Brasil, Paraguay y Uruguay.
+            </li>
+            <li>
+              Establece un marco de <strong>integración económica y física</strong> y la
+              formación de un <strong>área de libre comercio</strong>.
+            </li>
+            <li>
+              El programa de liberación alcanzó el <strong>100% del universo arancelario</strong>:
+              hoy no hay excepciones arancelarias, configurando una zona de libre comercio
+              plena entre Bolivia y los Estados Parte del MERCOSUR.
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Importancia para Bolivia</h3>
+          <ul>
+            <li>
+              Es clave para el comercio de <strong>gas natural</strong> y para la inserción de
+              bienes agroindustriales y manufacturas en el bloque.
+            </li>
+            <li>
+              Articula compromisos en materia de <strong>integración física y libre tránsito</strong>,
+              corredores bioceánicos y energía.
+            </li>
+          </ul>
+          <div class="links">
+            <a href="https://www2.aladi.org/SitioALADI/documentos/FichasDescriptivasAcuerdos/FD_AAP.CE_36_Argentina_Bolivia_Brasil_Paraguay_Uruguay.pdf" target="_blank">
+              Ficha Descriptiva AAP.CE N° 36 Argentina Bolivia Brasil Paraguay Uruguay
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 8 (CORREGIDA) -->
+    <section class="slide">
+      <span class="pill">ACE 36 – Origen y Protocolo 33</span>
+      <h2>Régimen de origen y acumulación con la CAN</h2>
+      <div class="layout-split">
+        <div class="card">
+          <h3>Régimen de origen del ACE 36</h3>
+          <ul>
+            <li>
+              Basado en criterios de bienes totalmente obtenidos y transformación
+              sustancial (cambio de partida y/o contenido regional).
+            </li>
+            <li>
+              Certificación de origen a través de entidades autorizadas
+              (SENAVEX, cámaras, etc.).
+            </li>
+            <li>
+              Procedimientos de verificación, controles a posteriori y cooperación
+              aduanera entre las Partes.
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Trigésimo Tercer Protocolo Adicional (ACE 36.33)</h3>
+          <ul>
+            <li>
+              Modifica el artículo sobre <strong>acumulación de origen</strong> del Anexo 9.
+            </li>
+            <li>
+              <strong>Incorpora expresamente la posibilidad de acumular origen con Colombia,
+              Ecuador y Perú</strong>, siempre que:
+              <ul>
+                <li>
+                  Los materiales cumplan el régimen de origen del acuerdo que vincula
+                  a cada país CAN con Bolivia/MERCOSUR.
+                </li>
+                <li>
+                  Hayan alcanzado un nivel de preferencia del 100% sin límites
+                  cuantitativos en esos acuerdos.
+                </li>
+                <li>
+                  Tengan requisito de origen definitivo y no estén sometidos a cupos
+                  con requisitos diferenciados.
+                </li>
+              </ul>
+            </li>
+            <li>
+              Resultado: Bolivia puede usar insumos originarios de <strong>Colombia,
+              Ecuador y Perú</strong>, transformarlos en su territorio y exportar al MERCOSUR
+              bajo el ACE 36, computando esos insumos como originarios.
+            </li>
+          </ul>
+          <div class="links">
+            <a href="https://www2.aladi.org/biblioteca/publicaciones/aladi/acuerdos/ace/es/ace36/ACE_036_033.pdf" target="_blank">
+              Texto del Trigésimo Tercer Protocolo Adicional al ACE 36
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 9 -->
+    <section class="slide">
+      <span class="pill">Comercio 2024 – MERCOSUR</span>
+      <h2>Bolivia y el MERCOSUR: comercio bajo ACE 36</h2>
+      <div class="layout-split">
+        <div class="card">
+          <h3>Exportaciones hacia MERCOSUR (2024)</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Socio MERCOSUR</th>
+                  <th>Exportaciones 2024 (USD millones)</th>
+                  <th>Principales rubros hacia ALADI</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Brasil</td>
+                  <td>≈ 1.530</td>
+                  <td>Gas natural, fertilizantes, productos agroindustriales.</td>
+                </tr>
+                <tr>
+                  <td>Argentina</td>
+                  <td>≈ 512</td>
+                  <td>Gas natural, energía eléctrica, derivados de hidrocarburos.</td>
+                </tr>
+                <tr>
+                  <td>Paraguay</td>
+                  <td>≈ 62</td>
+                  <td>Combustibles, agroindustria, otros bienes industrializados.</td>
+                </tr>
+                <tr>
+                  <td>Uruguay</td>
+                  <td>≈ 11</td>
+                  <td>Productos agroindustriales y otros bienes manufacturados.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Lecturas rápidas</h3>
+          <ul>
+            <li>MERCOSUR es uno de los principales destinos de exportación de Bolivia.</li>
+            <li>
+              El ACE 36 combina <strong>arancel cero pleno</strong> con reglas de origen
+              modernizadas (Protocolo 33) y con un marco de integración física.
+            </li>
+            <li>
+              Gas natural y agroindustria son los pilares del vínculo comercial, con
+              espacio para ampliar la canasta de manufacturas.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 10 (CORREGIDA) -->
+    <section class="slide">
+      <span class="pill">ACE 22 – Bolivia–Chile</span>
+      <h2>ACE 22: de alcance parcial a apertura casi total para Bolivia</h2>
+      <div class="layout-split">
+        <div class="card">
+          <h3>Características jurídicas</h3>
+          <ul>
+            <li>Suscrito en 1993 como <strong>Acuerdo de Alcance Parcial</strong> (AAP.CE N° 22).</li>
+            <li>
+              Estructura basada en <strong>listas de productos</strong> con preferencias
+              arancelarias negociadas.
+            </li>
+            <li>
+              A lo largo de varios Protocolos Adicionales se fue profundizando la
+              desgravación.
+            </li>
+          </ul>
+          <h3>Giro clave: XV Protocolo Adicional (2006)</h3>
+          <ul>
+            <li>
+              Chile otorga <strong>preferencia arancelaria del 100% a todo el universo
+              arancelario de productos de origen boliviano</strong>.
+            </li>
+            <li>
+              Sólo se excluyen los productos afectos a banda de precios en Chile:
+              <strong>trigo, harina de trigo y azúcar</strong>.
+            </li>
+            <li>
+              Para el azúcar, se concede además un contingente de 6.000 toneladas
+              anuales con 100% de preferencia.
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Lectura para Bolivia</h3>
+          <ul>
+            <li>
+              Desde la perspectiva de las <strong>exportaciones bolivianas a Chile</strong>,
+              el ACE 22 configura prácticamente una <strong>apertura total</strong> del mercado
+              chileno, con muy pocas excepciones puntuales.
+            </li>
+            <li>
+              Formalmente sigue siendo un <strong>Acuerdo de Alcance Parcial</strong>, pero
+              en términos arancelarios el trato a Bolivia es equivalente a una
+              zona de libre comercio casi completa.
+            </li>
+            <li>
+              El acuerdo incluye además capítulos sobre inversiones, energía,
+              cooperación económica y otros temas estructurales del vínculo bilateral.
+            </li>
+          </ul>
+          <div class="links">
+            <a href="https://www2.aladi.org/SitioALADI/documentos/FichasDescriptivasAcuerdos/FD_AAP.CE_22_Bolivia_Chile.pdf" target="_blank">
+              Ficha Descriptiva AAP.CE N° 22 Bolivia Chile
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 11 (CORREGIDA) -->
+    <section class="slide">
+      <span class="pill">ACE 22 – Bienes y comercio</span>
+      <h2>Excepciones y comercio Bolivia–Chile (2024)</h2>
+      <div class="layout-split">
+        <div class="card">
+          <h3>Excepciones chilenas a la preferencia 100%</h3>
+          <ul>
+            <li>
+              La regla general es <strong>arancel 0%</strong> para los productos bolivianos.
+            </li>
+            <li>
+              Se excluyen de esta liberalización total los productos sometidos a
+              <strong>banda de precios</strong> en Chile:
+              <ul>
+                <li>Trigo.</li>
+                <li>Harina de trigo.</li>
+                <li>Azúcar (con contingente de 6.000 t/año al 0%).</li>
+              </ul>
+            </li>
+            <li>
+              Para el resto del universo arancelario, las exportaciones bolivianas
+              pueden ingresar sin pago de gravamen aduanero, siempre que cumplan
+              las reglas de origen del ACE 22.
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Comercio 2024 Bolivia–Chile</h3>
+          <ul>
+            <li>Exportaciones de Bolivia a Chile: ≈ <strong>USD 136 millones</strong>.</li>
+            <li>
+              Exportaciones típicas: combustibles, fertilizantes, productos
+              agroindustriales y ciertas manufacturas.
+            </li>
+            <li>
+              La balanza comercial es negativa para Bolivia, pese a la apertura
+              arancelaria casi total, lo que muestra un <strong>aprovechamiento todavía
+              limitado</strong> de las oportunidades del ACE 22.
+            </li>
+          </ul>
+          <div class="links">
+            <a href="https://www2.aladi.org/SitioALADI/documentos/FichasDescriptivasAcuerdos/FD_AAP.CE_22_Bolivia_Chile.pdf" target="_blank">
+              Ficha Descriptiva AAP.CE N° 22 Bolivia Chile
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 12 -->
+    <section class="slide">
+      <span class="pill">ACE 47 – Bolivia–Cuba</span>
+      <h2>ACE 47: un acuerdo de alta preferencia</h2>
+      <div class="layout-split">
+        <div class="card">
+          <h3>Contenido principal</h3>
+          <ul>
+            <li>
+              Define una relación de <strong>comercio de bienes</strong> con preferencias
+              arancelarias muy altas entre Bolivia y Cuba.
+            </li>
+            <li>
+              La mayoría de las listas de productos contemplan <strong>preferencia del 100%</strong>.
+            </li>
+            <li>
+              Incluye reglas de origen específicas para bienes agroindustriales,
+              industriales y farmacéuticos.
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Comercio actual Bolivia–Cuba</h3>
+          <ul>
+            <li>
+              El comercio bilateral es reducido (exportaciones bolivianas del orden de
+              <strong>centenas de miles de dólares</strong> anuales).
+            </li>
+            <li>
+              El acuerdo representa un <strong>potencial subutilizado</strong> para
+              agroindustria y productos alimenticios bolivianos.
+            </li>
+          </ul>
+          <div class="links">
+            <a href="https://www2.aladi.org/SitioALADI/documentos/FichasDescriptivasAcuerdos/FD_AAP.CE_47_Bolivia_Cuba.pdf" target="_blank">
+              Ficha Descriptiva AAP.CE N° 47 Bolivia Cuba
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 13 -->
+    <section class="slide">
+      <span class="pill">ACE 66 – Bolivia–México</span>
+      <h2>ACE 66: alcance y objetivos</h2>
+      <div class="layout-split">
+        <div class="card">
+          <h3>Aspectos clave</h3>
+          <ul>
+            <li>
+              Sustituye y profundiza el antiguo ACE 31, consolidando una
+              <strong>zona de libre comercio</strong> de alto alcance entre Bolivia y México.
+            </li>
+            <li>
+              Cubre comercio de bienes, medidas sanitarias y fitosanitarias,
+              normalización, salvaguardias y prácticas desleales.
+            </li>
+            <li>
+              Se centra en la <strong>eliminación de aranceles</strong> y en asegurar un
+              entorno de competencia leal.
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Disciplinas incluidas</h3>
+          <ul>
+            <li>Trato nacional y acceso a mercados.</li>
+            <li>Importación temporal y devolución de derechos.</li>
+            <li>Medidas sanitarias y fitosanitarias.</li>
+            <li>Obstáculos técnicos al comercio.</li>
+            <li>Salvaguardias globales y prácticas desleales.</li>
+            <li>Solución de controversias y administración del acuerdo.</li>
+          </ul>
+          <div class="links">
+            <a href="https://www2.aladi.org/SitioALADI/documentos/FichasDescriptivasAcuerdos/FD_AAP.CE_66_Bolivia_M%C3%A9xico.pdf" target="_blank">
+              Ficha Descriptiva AAP.CE N° 66 Bolivia México
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 14 -->
+    <section class="slide">
+      <span class="pill">ACE 66 – Preferencias y origen</span>
+      <h2>Bienes liberalizados y reglas de origen</h2>
+      <div class="layout-split">
+        <div class="card">
+          <h3>Cobertura arancelaria</h3>
+          <ul>
+            <li>
+              El ACE 66 mantiene y amplía la zona de libre comercio lograda con el
+              ACE 31.
+            </li>
+            <li>
+              Más del <strong>97% de los ítems NALADISA</strong> en ambas direcciones cuentan
+              con <strong>preferencia del 100%</strong> (arancel cero).
+            </li>
+            <li>
+              Las listas de excepción incluyen productos agrícolas y alimenticios
+              particularmente sensibles.
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Régimen de origen en ACE 66</h3>
+          <ul>
+            <li>
+              Reglas generales y específicas por producto, basadas en cambio de partida
+              y contenido regional mínimo.
+            </li>
+            <li>
+              Certificado de Origen con plazo de validez amplio (alrededor de un año),
+              lo que facilita la logística.
+            </li>
+            <li>
+              Procedimientos de verificación y cooperación aduanera bien definidos.
+            </li>
+          </ul>
+          <div class="links">
+            <a href="https://www2.aladi.org/SitioALADI/documentos/FichasDescriptivasAcuerdos/FD_AAP.CE_66_Bolivia_M%C3%A9xico.pdf" target="_blank">
+              Ficha Descriptiva AAP.CE N° 66 Bolivia México
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 15 -->
+    <section class="slide">
+      <span class="pill">Comercio 2024 – México</span>
+      <h2>Bolivia–México: uso del ACE 66</h2>
+      <div class="layout-split">
+        <div class="card">
+          <h3>Flujos comerciales recientes</h3>
+          <ul>
+            <li>Exportaciones de Bolivia a México en 2024: ≈ <strong>USD 43 millones</strong>.</li>
+            <li>
+              En diciembre de 2024, Bolivia exportó unos <strong>USD 3 millones</strong> e
+              importó alrededor de <strong>USD 17 millones</strong>.
+            </li>
+            <li>
+              La balanza comercial es claramente deficitaria para Bolivia, pese a las
+              condiciones arancelarias favorables.
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Oportunidades para Bolivia</h3>
+          <ul>
+            <li>
+              Consolidar exportaciones de agroindustria, alimentos y manufacturas
+              con arancel 0%.
+            </li>
+            <li>
+              Explorar encadenamientos en textiles, partes y componentes industriales
+              y servicios asociados a cadenas manufactureras mexicanas.
+            </li>
+            <li>
+              Clave: mayor conocimiento de las reglas de origen y de la demanda
+              sectorial mexicana por parte de las PYMES bolivianas.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 16 -->
+    <section class="slide">
+      <span class="pill">Síntesis comparativa</span>
+      <h2>Comparando los acuerdos ALADI de Bolivia</h2>
+      <div class="card">
+        <h3>Visión de conjunto</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Instrumento</th>
+                <th>Contraparte/s</th>
+                <th>Cobertura arancelaria (aprox.)</th>
+                <th>Comentario</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>AR.PAR N° 4</td>
+                <td>Todos ALADI</td>
+                <td>Preferencias generales diferenciadas por nivel de desarrollo</td>
+                <td>
+                  Base regional: Bolivia, como PMDER mediterráneo, recibe las
+                  preferencias más altas.
+                </td>
+              </tr>
+              <tr>
+                <td>AR.AM N° 1</td>
+                <td>Todos ALADI</td>
+                <td>Nóminas específicas, con reducción de 100% del gravamen</td>
+                <td>
+                  Apertura de mercados a favor de Bolivia, negociada país por país.
+                </td>
+              </tr>
+              <tr>
+                <td>ACE 36</td>
+                <td>MERCOSUR</td>
+                <td>100% del universo arancelario</td>
+                <td>
+                  Zona de libre comercio plena; Protocolo 33 habilita acumulación con la CAN.
+                </td>
+              </tr>
+              <tr>
+                <td>ACE 22</td>
+                <td>Chile</td>
+                <td>Casi 100% del universo arancelario boliviano</td>
+                <td>
+                  AAP con liberalización casi total de importaciones desde Bolivia,
+                  salvo trigo, harina de trigo y azúcar.
+                </td>
+              </tr>
+              <tr>
+                <td>ACE 47</td>
+                <td>Cuba</td>
+                <td>Casi 100% de ítems con 100% de preferencia</td>
+                <td>
+                  Potencial subutilizado para agroindustria y alimentos.
+                </td>
+              </tr>
+              <tr>
+                <td>ACE 66</td>
+                <td>México</td>
+                <td>≈ 97% de ítems con 100% de preferencia</td>
+                <td>
+                  Zona de libre comercio consolidada; balanza deficitaria para Bolivia.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 17 -->
+    <section class="slide">
+      <span class="pill">Régimen de origen</span>
+      <h2>Régimen de origen ALADI y reglas específicas</h2>
+      <div class="layout-split">
+        <div class="card">
+          <h3>Régimen general ALADI</h3>
+          <ul>
+            <li>
+              Normas para determinar cuándo un bien es considerado
+              <strong>originario de la región</strong>.
+            </li>
+            <li>
+              Criterios:
+              <ul>
+                <li>Bienes totalmente obtenidos en el territorio de un país miembro.</li>
+                <li>
+                  Transformación sustancial (cambio de clasificación arancelaria y/o
+                  contenido regional mínimo).
+                </li>
+              </ul>
+            </li>
+            <li>
+              Permite <strong>acumulación de origen</strong> entre países ALADI en varios
+              acuerdos (como AR.AM N° 1 y ACE 36 con su Protocolo 33).
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Reglas en los ACE</h3>
+          <ul>
+            <li>
+              ACE 36: reglas específicas y acumulación ampliada con la CAN.
+            </li>
+            <li>
+              ACE 22: certificado de origen con plazos definidos para su utilización
+              en Chile.
+            </li>
+            <li>
+              ACE 66: reglas de origen detalladas por producto y certificado con
+              validez de hasta un año.
+            </li>
+            <li>
+              ACE 47: reglas adaptadas a la estructura productiva de Bolivia y Cuba.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 18 -->
+    <section class="slide">
+      <span class="pill">Disciplinas horizontales</span>
+      <h2>Más allá del arancel: reglas del juego</h2>
+      <div class="card">
+        <h3>Elementos comunes en los acuerdos</h3>
+        <ul>
+          <li>
+            <strong>Medidas sanitarias y fitosanitarias (MSF)</strong>: protegen salud
+            humana, animal y vegetal sin convertirse en obstáculos injustificados.
+          </li>
+          <li>
+            <strong>Medidas de normalización y OTC</strong>: reglamentos técnicos y
+            normas transparentes y no discriminatorios.
+          </li>
+          <li>
+            <strong>Salvaguardias</strong>: permiten suspender temporalmente
+            preferencias cuando la industria nacional sufre daño grave.
+          </li>
+          <li>
+            <strong>Prácticas desleales</strong>: disciplinas para investigar dumping
+            y subsidios.
+          </li>
+          <li>
+            <strong>Transparencia</strong> y <strong>solución de controversias</strong>:
+            notificación de medidas, consultas y paneles.
+          </li>
+        </ul>
+        <p class="note">
+          Para las empresas, estas reglas determinan el entorno en el que operan sus
+          exportaciones: arancel cero + normas técnicas + procedimientos de defensa
+          comercial.
+        </p>
+      </div>
+    </section>
+
+    <!-- SLIDE 19 -->
+    <section class="slide">
+      <span class="pill">Guía práctica</span>
+      <h2>Cómo usar las preferencias ALADI (pasos para la empresa)</h2>
+      <div class="card">
+        <h3>Ruta básica para un exportador boliviano</h3>
+        <ol>
+          <li>
+            <strong>Elegir el mercado de destino</strong> (Brasil, Chile, México, etc.) y
+            determinar qué instrumentos aplican: PAR 4, AR.AM N° 1, ACE correspondiente.
+          </li>
+          <li>
+            <strong>Clasificar el producto</strong> en la posición arancelaria correcta (NALADISA / SA).
+          </li>
+          <li>
+            <strong>Verificar el arancel y la preferencia</strong> en la lista del acuerdo
+            y en el país de destino.
+          </li>
+          <li>
+            <strong>Revisar las reglas de origen</strong> para confirmar que la estructura
+            de insumos permite calificar como originario.
+          </li>
+          <li>
+            <strong>Obtener el Certificado de Origen</strong> ante SENAVEX u organismo
+            autorizado, respetando plazos de validez y requisitos de llenado.
+          </li>
+          <li>
+            <strong>Coordinar la logística y documentación</strong> con agente de carga,
+            importador y aduanas, asegurando que el importador solicite el trato preferencial.
+          </li>
+        </ol>
+        <p class="note">
+          El acuerdo abre la puerta; el desafío está en que la empresa sepa cruzarla
+          con estrategia, información y gestión de origen.
+        </p>
+      </div>
+    </section>
+
+    <!-- SLIDE 20 -->
+    <section class="slide">
+      <span class="pill">Cierre de la unidad</span>
+      <h2>Ideas fuerza y enlaces clave</h2>
+      <div class="card">
+        <h3>Lo que debería quedar claro</h3>
+        <ul>
+          <li>
+            Bolivia tiene una <strong>red densa de preferencias</strong>:
+            PAR 4, AR.AM N° 1, ACE 22, 36, 47 y 66.
+          </li>
+          <li>
+            ACE 36 y ACE 66 conforman <strong>zonas de libre comercio plenas</strong>,
+            mientras que ACE 22 y ACE 47 son acuerdos de alcance parcial, con
+            liberalización casi total en el caso boliviano hacia Chile.
+          </li>
+          <li>
+            Una parte significativa de las exportaciones bolivianas ya va a socios
+            con estos acuerdos, pero hay espacio para diversificar productos y mercados.
+          </li>
+        </ul>
+        <h3>Fichas oficiales ALADI (enlaces)</h3>
+        <ul>
+          <li><a href="https://www2.aladi.org/SitioALADI/documentos/FichasDescriptivasAcuerdos/FD_AAP.CE_22_Bolivia_Chile.pdf" target="_blank">Ficha Descriptiva AAP.CE N° 22 Bolivia Chile</a></li><br />
+          <li><a href="https://www2.aladi.org/SitioALADI/documentos/FichasDescriptivasAcuerdos/FD_AAP.CE_36_Argentina_Bolivia_Brasil_Paraguay_Uruguay.pdf" target="_blank">Ficha Descriptiva AAP.CE N° 36 Argentina Bolivia Brasil Paraguay Uruguay</a></li><br />
+          <li><a href="https://www2.aladi.org/SitioALADI/documentos/FichasDescriptivasAcuerdos/FD_AAP.CE_47_Bolivia_Cuba.pdf" target="_blank">Ficha Descriptiva AAP.CE N° 47 Bolivia Cuba</a></li><br />
+          <li><a href="https://www2.aladi.org/SitioALADI/documentos/FichasDescriptivasAcuerdos/FD_AAP.CE_66_Bolivia_M%C3%A9xico.pdf" target="_blank">Ficha Descriptiva AAP.CE N° 66 Bolivia México</a></li><br />
+          <li><a href="https://www2.aladi.org/SitioALADI/documentos/FichasDescriptivasAcuerdos/FD_AR.AM_1_Regional_Apertura_de_Mercados_a_Bolivia.pdf" target="_blank">Ficha Descriptiva AR.AM N° 1 Regional Apertura de Mercados a Bolivia</a></li><br />
+          <li><a href="https://www2.aladi.org/SitioALADI/documentos/FichasDescriptivasAcuerdos/FD_AR.AM_2_Regional_Apertura_de_Mercados_a_Ecuador.pdf" target="_blank">Ficha Descriptiva AR.AM N° 2 Regional Apertura de Mercados a Ecuador</a></li><br />
+          <li><a href="https://www2.aladi.org/SitioALADI/documentos/FichasDescriptivasAcuerdos/FD_AR.AM_3_Regional_Apertura_de_Mercados_a_Paraguay.pdf" target="_blank">Ficha Descriptiva AR.AM N° 3 Regional Apertura de Mercados a Paraguay</a></li><br />
+          <li><a href="https://www2.aladi.org/SitioALADI/documentos/FichasDescriptivasAcuerdos/FD_AR.PAR_4_Regional_Preferencia_Arancelaria.pdf" target="_blank">Ficha Descriptiva AR.PAR N° 4 Regional Preferencia Arancelaria</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SLIDE 21 (ACP – SIN EJERCICIO) -->
+    <section class="slide">
+      <span class="pill">Herramientas ALADI – ACP</span>
+      <h2>ACP – Asistente para la Clasificación de Productos</h2>
+      <div class="layout-split">
+        <div class="card">
+          <h3>¿Qué es el ACP?</h3>
+          <ul>
+            <li>
+              Herramienta en línea de la ALADI que apoya la
+              <strong>clasificación de mercancías</strong> en la nomenclatura del
+              Sistema Armonizado / NALADISA.
+            </li>
+            <li>
+              Permite buscar productos por <strong>palabra clave</strong>, navegar por
+              capítulos y partidas y visualizar descripciones oficiales.
+            </li>
+            <li>
+              Incluye notas legales y estructura jerárquica de capítulos, partidas
+              y subpartidas, facilitando decisiones de clasificación.
+            </li>
+          </ul>
+          <div class="links">
+            <a href="https://acp.aladi.org/" target="_blank">
+              ACP – Asistente para la Clasificación de Productos
+            </a>
+          </div>
+        </div>
+        <div class="card">
+          <h3>¿Por qué es clave para las preferencias?</h3>
+          <ul>
+            <li>
+              Las <strong>preferencias arancelarias y las reglas de origen</strong>
+              se aplican por código arancelario.
+            </li>
+            <li>
+              Si el código es incorrecto:
+              <ul>
+                <li>Se puede perder el acceso a la preferencia.</li>
+                <li>Se generan contingencias aduaneras y ajustes.</li>
+              </ul>
+            </li>
+            <li>
+              El ACP reduce la discrecionalidad y ayuda a converger en una
+              clasificación técnica consistente entre exportador, agente de aduanas
+              y autoridad.
+            </li>
+            <li>
+              Es el <strong>primer paso</strong> antes de consultar aranceles, reglas de origen
+              o medidas no arancelarias en otros sistemas.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 22 (AAM – SIN EJERCICIO) -->
+    <section class="slide">
+      <span class="pill">Herramientas ALADI – AAM</span>
+      <h2>Portal de Acceso a Mercados (AAM)</h2>
+      <div class="layout-split">
+        <div class="card">
+          <h3>¿Qué ofrece el AAM?</h3>
+          <ul>
+            <li>
+              Portal de la ALADI para consultar, por código arancelario, el
+              <strong>trato arancelario y las condiciones de acceso</strong> en cada país miembro.
+            </li>
+            <li>
+              Permite ver:
+              <ul>
+                <li>Arancel Nación Más Favorecida (NMF).</li>
+                <li>Arancel preferencial por cada acuerdo aplicable (PAR 4, AR.AM, ACE, etc.).</li>
+                <li>Medidas no arancelarias registradas.</li>
+              </ul>
+            </li>
+            <li>
+              Integra información de varios países en un formato comparable y
+              actualizable.
+            </li>
+          </ul>
+          <div class="links">
+            <a href="https://aam.aladi.org/accesoamercados/" target="_blank">
+              Portal de Acceso a Mercados – ALADI
+            </a>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Usos prácticos</h3>
+          <ul>
+            <li>
+              <strong>Empresas exportadoras</strong>: comparar en qué mercados se obtiene
+              arancel 0%, identificar dónde sólo se cuenta con PAR 4, AR.AM o ACE
+              y priorizar destinos.
+            </li>
+            <li>
+              <strong>Instituciones de promoción comercial</strong>: preparar fichas de
+              oportunidades por producto/mercado basadas en datos oficiales.
+            </li>
+            <li>
+              <strong>Negociadores y analistas</strong>: evaluar el nivel de apertura y
+              la superposición de acuerdos para cada código arancelario.
+            </li>
+            <li>
+              Complementa al ACP: una vez identificado el código correcto, el AAM
+              muestra el “precio de entrada” (arancel) y las condiciones asociadas.
+            </li>
+          </ul>
+          <p class="note">
+            ACP responde a <strong>“¿cómo clasifico mi producto?”</strong> y el AAM responde a
+            <strong>“¿qué trato recibe ese producto en cada país de ALADI?”</strong>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 23 (ACP + AAM – EXPLICATIVA) -->
+    <section class="slide">
+      <span class="pill">ACP + AAM</span>
+      <h2>Del código arancelario a la estrategia de mercado</h2>
+      <div class="card">
+        <h3>Cómo se articulan en la práctica</h3>
+        <ul>
+          <li>
+            Primero se utiliza el <strong>ACP</strong> para identificar el código arancelario
+            correcto del producto (NALADISA / SA), con sustento en las descripciones
+            oficiales y notas legales.
+          </li>
+          <li>
+            Con ese código, se consulta el <strong>AAM</strong> para un país específico y se
+            observa:
+            <ul>
+              <li>Arancel NMF.</li>
+              <li>Arancel preferencial aplicable a Bolivia bajo PAR 4, AR.AM N° 1,
+                  ACE 22, 36, 47, 66, etc.</li>
+              <li>Medidas no arancelarias relevantes.</li>
+            </ul>
+          </li>
+          <li>
+            La combinación ACP + AAM permite:
+            <ul>
+              <li>
+                Identificar en qué mercados un producto boliviano entra con
+                <strong>arancel 0%</strong>.
+              </li>
+              <li>
+                Comparar si la preferencia proviene de la PAR 4, de AR.AM N° 1
+                o de un ACE específico.
+              </li>
+              <li>
+                Priorizar mercados y acuerdos a aprovechar según el margen de
+                preferencia frente a competidores extrarregionales.
+              </li>
+            </ul>
+          </li>
+          <li>
+            Para la política pública, estos dos instrumentos permiten mapear qué tan
+            bien se están utilizando las preferencias ALADI y dónde hay nichos por
+            desarrollar.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+<!-- SLIDE 24 – CUESTIONARIO FINAL -->
+<section class="slide">
+  <span class="pill">Evaluación</span>
+  <h2>Cuestionario final de comprensión</h2>
+
+  <div class="card">
+    <h3>Accede al cuestionario</h3>
+    <p>
+      Para cerrar la unidad, completa el cuestionario de evaluación sobre
+      preferencias arancelarias, acuerdos ALADI, reglas de origen y herramientas
+      ACP/AAM. Las preguntas están diseñadas para verificar comprensión profunda,
+      no memorización superficial.
+    </p>
+
+    <p style="margin-top:10px;">
+      👉 <a href="https://forms.gle/t3bHUdCDQAs9cehE7" target="_blank" style="color:#facc15; font-weight:600;">
+        Abrir cuestionario en Google Forms
+      </a>
+    </p>
+
+    <p class="note">
+      Recuerda: no es un examen, es un termómetro para ver cuánto pudiste integrar
+      de la sesión y en qué puntos conviene reforzar.
+    </p>
+  </div>
+</section>
+
+    <!-- NAVIGATION -->
+    <footer class="nav">
+      <div class="nav-left">
+        <button class="nav-btn" id="prevBtn">
+          <span class="icon">←</span>
+          Anterior
+        </button>
+        <button class="nav-btn" id="nextBtn">
+          Siguiente
+          <span class="icon">→</span>
+        </button>
+      </div>
+      <div class="nav-hint">
+        Usa los botones o las teclas <strong>←</strong> y <strong>→</strong> para navegar.
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+      const counter = document.getElementById("slideCounter");
+      let current = 0;
+
+      function showSlide(index) {
+        if (index < 0 || index >= slides.length) return;
+        slides[current].classList.remove("active");
+        current = index;
+        slides[current].classList.add("active");
+        counter.textContent = "Diapositiva " + (current + 1) + " de " + slides.length;
+        prevBtn.disabled = current === 0;
+        nextBtn.disabled = current === slides.length - 1;
+      }
+
+      prevBtn.addEventListener("click", () => showSlide(current - 1));
+      nextBtn.addEventListener("click", () => showSlide(current + 1));
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowLeft") showSlide(current - 1);
+        if (e.key === "ArrowRight") showSlide(current + 1);
+      });
+
+      showSlide(0);
+    })();
+  </script>
+</body>
+</html>
