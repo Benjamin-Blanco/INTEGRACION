@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ejercicio: Sal del Salar de Uyuni y acceso a mercados</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #050814;
+      --bg-alt: #0b1021;
+      --accent: #f5c400;
+      --accent-soft: rgba(245, 196, 0, 0.16);
+      --text: #f5f5f7;
+      --muted: #b7bfdc;
+      --card: #131933;
+      --border: #262f55;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #111938 0, #050814 55%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .deck {
+      width: 100%;
+      max-width: 1100px;
+      height: 95vh;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    header.deck-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    header .title-main {
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    header .module {
+      font-style: italic;
+    }
+
+    .slide {
+      flex: 1;
+      background: radial-gradient(circle at top left, #1e2545 0, #090f24 55%);
+      border-radius: 18px;
+      padding: 28px 32px 24px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border);
+      display: none;
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    .slide h1 {
+      font-size: 1.7rem;
+      margin-bottom: 12px;
+      color: #ffffff;
+    }
+
+    .slide h2 {
+      font-size: 1.3rem;
+      margin-top: 18px;
+      margin-bottom: 8px;
+      color: var(--accent);
+    }
+
+    .slide p {
+      margin-bottom: 8px;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+
+    .slide ul,
+    .slide ol {
+      margin-left: 1.2rem;
+      margin-bottom: 10px;
+      color: var(--muted);
+    }
+
+    .slide li {
+      margin-bottom: 4px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 10px;
+    }
+
+    .tag span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    a {
+      color: #8fb3ff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0 14px;
+      font-size: 0.9rem;
+    }
+
+    th,
+    td {
+      border: 1px solid var(--border);
+      padding: 6px 8px;
+      text-align: left;
+    }
+
+    th {
+      background: rgba(255, 255, 255, 0.03);
+      color: #e8ebff;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .nav-left {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .nav button {
+      border: none;
+      border-radius: 999px;
+      padding: 8px 16px;
+      background: linear-gradient(135deg, #1f2748, #161c35);
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+      transition: transform 0.12s ease, box-shadow 0.12s ease,
+        background 0.12s ease;
+    }
+
+    .nav button[disabled] {
+      opacity: 0.35;
+      cursor: default;
+      box-shadow: none;
+    }
+
+    .nav button:not([disabled]):hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5);
+      background: linear-gradient(135deg, #28325b, #191f3b);
+    }
+
+    .nav-status {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .kbd {
+      font-size: 0.75rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--muted);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .pill strong {
+      color: #e8ebff;
+    }
+
+    @media (max-width: 768px) {
+      .slide {
+        padding: 20px 18px 18px;
+      }
+
+      .slide h1 {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck">
+    <header class="deck-header">
+      <div class="title-main">Ejercicio aplicado: Acceso a mercados</div>
+      <div class="module">Módulo: Inteligencia comercial y acceso a mercados</div>
+    </header>
+
+    <!-- SLIDE 1 -->
+    <section class="slide active" data-slide="1">
+      <div class="tag"><span class="dot"></span>Diapositiva 1</div>
+      <h1>Producto ejemplo: Sal del Salar de Uyuni en molinillo</h1>
+
+      <h2>Descripción de la idea de producto</h2>
+      <p>
+        El ejercicio se basa en un producto concreto:
+        <strong>sal del Salar de Uyuni en un envase premium con molinillo
+        plástico</strong>, pensada para el segmento gourmet.
+      </p>
+
+      <ul>
+        <li>Origen de la materia prima: <strong>Salar de Uyuni</strong>.</li>
+        <li>Presentación: envase individual con <strong>molinillo plástico</strong>, que probablemente se importaría (por ejemplo, desde China) por costos y disponibilidad.</li>
+        <li>Posicionamiento: competir con productos tipo <em>“sal rosada del Himalaya”</em>, pero destacando el origen altiplánico.</li>
+      </ul>
+
+      <h2>Productos comparables en el mercado</h2>
+      <p>Ejemplos reales de productos similares ya presentes en supermercados:</p>
+      <ul>
+        <li>
+          <strong>Uruguay:</strong>
+          <a href="https://www.lamolienda.uy/catalogo/molinillo-sal-marina-con-finas-hierbas-dani-90g_000000000102330_000000000102330" target="_blank" rel="noopener">
+            Molinillo de sal marina con finas hierbas – La Molienda
+          </a>
+        </li>
+        <li>
+          <strong>Chile:</strong>
+          <a href="https://www.jumbo.cl/sal-de-himalaya-ka-grano-fino-300-g/p?srsltid=AfmBOoo93DTU80zPkomnF9BPGKnhWxw0Auqvo8epq8arrCNEThF6vJfn" target="_blank" rel="noopener">
+            Sal del Himalaya grano fino – Jumbo
+          </a>
+        </li>
+      </ul>
+
+      <p>
+        <strong>Idea central del ejercicio:</strong> usar este producto para recorrer paso a paso las herramientas de análisis de acceso a mercados: clasificación arancelaria, aranceles, preferencias, medidas regulatorias, reglas de origen y posibles mercados objetivo.
+      </p>
+    </section>
+
+    <!-- SLIDE 2 -->
+    <section class="slide" data-slide="2">
+      <div class="tag"><span class="dot"></span>Diapositiva 2</div>
+      <h1>Cómo encontrar el código arancelario: ACP de la ALADI</h1>
+
+      <h2>Asistente de Clasificación de Productos (ACP – ALADI)</h2>
+      <p>
+        El primer paso para cualquier análisis de acceso a mercados es
+        identificar el <strong>código del Sistema Armonizado (SA)</strong>.
+        Para ello se utiliza el <strong>ACP de la ALADI</strong>
+        (Asistente de Clasificación de Productos).
+      </p>
+
+      <p>
+        En el ACP se puede buscar escribiendo descripciones como
+        <em>“sal”</em>, <em>“sal gourmet”</em> o <em>“sal en molinillo”</em>.
+        El sistema sugiere los códigos más probables.
+      </p>
+
+      <h2>Resultado para “sal gourmet en molinillo”</h2>
+      <p>
+        El ACP indica como código más probable:
+      </p>
+
+      <ul>
+        <li><strong>Código SA:</strong> <code>250100</code></li>
+        <li>
+          <strong>Capítulo 25:</strong> Sal
+        </li>
+        <li>
+          <strong>Partida 2501:</strong> Sal (incluidas la de mesa y la desnaturalizada) y cloruro de sodio puro, incluso en disolución acuosa o con adición de antiaglomerantes o de agentes que garanticen una buena fluidez.
+        </li>
+        <li>
+          <strong>Subpartida 250100:</strong> Sal (incluidas la de mesa y la desnaturalizada) y cloruro de sodio puro, incluso en disolución acuosa o con adición de antiaglomerantes o de agentes que garanticen una buena fluidez.
+        </li>
+      </ul>
+
+      <p>
+        <strong>Mensaje clave:</strong> toda la información sobre
+        aranceles, preferencias y comercio internacional está organizada
+        a partir de este código. Si la clasificación es incorrecta, todo el
+        análisis posterior también lo será.
+      </p>
+    </section>
+
+    <!-- SLIDE 3 -->
+    <section class="slide" data-slide="3">
+      <div class="tag"><span class="dot"></span>Diapositiva 3</div>
+      <h1>Primer vistazo al mercado mundial con TradeMap</h1>
+
+      <h2>TradeMap: visión global de la demanda</h2>
+      <p>
+        Antes de elegir mercados específicos, conviene mirar
+        <strong>quién importa el producto en el mundo</strong>. Para ello se
+        utiliza <strong>TradeMap</strong>:
+      </p>
+      <p>
+        <a href="https://www.trademap.org" target="_blank" rel="noopener">
+          https://www.trademap.org
+        </a>
+      </p>
+
+      <h2>Pasos en TradeMap</h2>
+      <ol>
+        <li>Elegir la pestaña <strong>Product</strong>.</li>
+        <li>Ingresar el código <strong>250100 – Sal</strong>.</li>
+        <li>No seleccionar país (visión global de importadores).</li>
+        <li>Revisar los gráficos y tablas que muestran principales importadores y su evolución.</li>
+      </ol>
+
+      <h2>Lo que se observa para 250100</h2>
+      <ul>
+        <li>Los mayores importadores incluyen economías como China, Estados Unidos, Alemania, Japón, Corea y otros países industrializados.</li>
+        <li>Se identifican tendencias de crecimiento de la demanda en varios mercados.</li>
+      </ul>
+
+      <p>
+        <strong>Objetivo pedagógico:</strong> usar TradeMap para
+        <em>orientar</em> la selección de mercados, en lugar de escoger países
+        al azar.
+      </p>
+    </section>
+
+    <!-- SLIDE 4 -->
+    <section class="slide" data-slide="4">
+      <div class="tag"><span class="dot"></span>Diapositiva 4</div>
+      <h1>Selección de dos mercados ALADI</h1>
+
+      <h2>De la visión global a la región ALADI</h2>
+      <p>
+        A partir de la información de TradeMap, el ejercicio pide a cada
+        grupo que seleccione <strong>dos países de la ALADI</strong> como
+        mercados objetivo para el análisis detallado.
+      </p>
+
+      <h2>Criterios sugeridos para elegir los países</h2>
+      <ul>
+        <li>Presencia actual de <strong>sales gourmet o en molinillo</strong> en el mercado.</li>
+        <li>Existencia de <strong>acuerdos ALADI</strong> con preferencias arancelarias para Bolivia.</li>
+        <li>Tamaño y poder adquisitivo del mercado (población urbana, canales retail desarrollados).</li>
+      </ul>
+
+      <p>
+        Ejemplos de mercados ALADI que suelen ser relevantes para este tipo de
+        producto: <strong>Chile, Uruguay, Brasil, Argentina, Perú</strong>.
+      </p>
+
+      <p>
+        En el ejemplo guiado de la clase, se trabaja con
+        <strong>Uruguay</strong> como mercado ALADI para la sal en molinillo.
+      </p>
+    </section>
+
+    <!-- SLIDE 5 -->
+    <section class="slide" data-slide="5">
+      <div class="tag"><span class="dot"></span>Diapositiva 5</div>
+      <h1>Portal de Acceso a Mercados de la ALADI (AAM)</h1>
+
+      <h2>Sitio web de referencia</h2>
+      <p>
+        La información oficial sobre aranceles, preferencias y medidas
+        regulatorias en la ALADI se encuentra en el
+        <strong>Portal de Acceso a Mercados (AAM)</strong>:
+      </p>
+      <p>
+        <a href="https://aam.aladi.org/accesoamercados/" target="_blank" rel="noopener">
+          https://aam.aladi.org/accesoamercados/
+        </a>
+      </p>
+
+      <h2>¿Qué se puede hacer en el AAM?</h2>
+      <ul>
+        <li>Consultar aranceles vigentes (NMF y preferenciales).</li>
+        <li>Identificar los acuerdos comerciales ALADI aplicables.</li>
+        <li>Revisar preferencias arancelarias por acuerdo.</li>
+        <li>Consultar medidas no arancelarias y regulatorias.</li>
+        <li>Acceder a estadísticas de comercio bilateral entre países ALADI.</li>
+      </ul>
+
+      <p>
+        El portal integra la información relevante para analizar el acceso
+        de un producto a un mercado ALADI específico.
+      </p>
+    </section>
+
+    <!-- SLIDE 6 -->
+    <section class="slide" data-slide="6">
+      <div class="tag"><span class="dot"></span>Diapositiva 6</div>
+      <h1>Herramienta clave: Consulta Integrada</h1>
+
+      <h2>Consulta Integrada dentro del AAM</h2>
+      <p>
+        La herramienta <strong>Consulta Integrada</strong> permite reunir en una
+        sola pantalla la información principal para un producto y un país
+        destino de la ALADI.
+      </p>
+
+      <h2>Qué permite ver la Consulta Integrada</h2>
+      <ul>
+        <li>Arancel NMF y otros gravámenes aplicables.</li>
+        <li>Preferencias arancelarias vigentes por acuerdo ALADI.</li>
+        <li>Nomenclatura arancelaria nacional del país importador.</li>
+        <li>Medidas no arancelarias y regulatorias asociadas al producto.</li>
+        <li>Información de comercio bilateral (importaciones desde el país de origen).</li>
+      </ul>
+
+      <h2>Uso en el ejercicio</h2>
+      <ol>
+        <li>Seleccionar país destino (Uruguay) y país de origen (Bolivia).</li>
+        <li>Ingresar el código <strong>250100</strong>.</li>
+        <li>Elegir la subpartida nacional relevante para la sal de mesa.</li>
+      </ol>
+    </section>
+
+    <!-- SLIDE 7 -->
+    <section class="slide" data-slide="7">
+      <div class="tag"><span class="dot"></span>Diapositiva 7</div>
+      <h1>Consulta Integrada: selección de subpartida en Uruguay</h1>
+
+      <h2>Configuración de la consulta</h2>
+      <ul>
+        <li><strong>País destino:</strong> Uruguay</li>
+        <li><strong>País de origen:</strong> Bolivia</li>
+        <li><strong>Código:</strong> 250100</li>
+      </ul>
+
+      <p>
+        La Consulta Integrada muestra las subpartidas de la
+        <strong>nomenclatura nacional de Uruguay</strong> correspondientes al
+        código 2501.
+      </p>
+
+      <h2>Subpartidas relevantes</h2>
+      <ul>
+        <li><strong>2501001001:</strong> Sal a granel, sin agregados.</li>
+        <li><strong>2501002000:</strong> Sal de mesa.</li>
+        <li><strong>2501009000:</strong> Los demás.</li>
+      </ul>
+
+      <p>
+        Para el ejercicio, se selecciona
+        <strong>2501002000 – Sal de mesa</strong>, que es la categoría más
+        cercana a la sal de consumo humano en molinillo.
+      </p>
+    </section>
+
+    <!-- SLIDE 8 -->
+    <section class="slide" data-slide="8">
+      <div class="tag"><span class="dot"></span>Diapositiva 8</div>
+      <h1>Gravámenes de importación en Uruguay (MFN)</h1>
+
+      <h2>Gravámenes para la subpartida 2501002000 – Sal de mesa</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Tipo de gravamen</th>
+            <th>Tasa</th>
+            <th>Comentario</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Tasa Consular</td>
+            <td>5,00&nbsp;%</td>
+            <td>Gravamen ad-valorem aplicado a las importaciones.</td>
+          </tr>
+          <tr>
+            <td>Tasa Global Arancelaria (TGA)</td>
+            <td>3,60&nbsp;%</td>
+            <td>Equivale al arancel NMF básico para este producto.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p><strong>Última actualización en el sistema:</strong> 01/01/2025.</p>
+
+      <p>
+        Si Bolivia no contara con preferencias ALADI, el costo arancelario
+        total sería de <strong>8,6&nbsp;%</strong> sobre el valor imponible,
+        sumando Tasa Consular y TGA.
+      </p>
+    </section>
+
+    <!-- SLIDE 9 -->
+    <section class="slide" data-slide="9">
+      <div class="tag"><span class="dot"></span>Diapositiva 9</div>
+      <h1>Preferencias arancelarias Uruguay &rarr; Bolivia</h1>
+
+      <h2>Preferencias vigentes para la sal</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Acuerdo</th>
+            <th>Tipo de preferencia</th>
+            <th>Valor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>AAP.CE N° 36 (MERCOSUR–Bolivia)</td>
+            <td>Preferencia Ad-valorem</td>
+            <td>100&nbsp;%</td>
+          </tr>
+          <tr>
+            <td>AR.AM N° 1</td>
+            <td>Gravamen preferencial acordado</td>
+            <td>0&nbsp;%</td>
+          </tr>
+          <tr>
+            <td>Otros acuerdos (NALADI 1983 – referencias a 2501001 y 2501099)</td>
+            <td>Preferencias parciales</td>
+            <td>34&nbsp;%</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        Para la línea relevante de <strong>sal de mesa</strong>,
+        la preferencia es del <strong>100&nbsp;%</strong> sobre el arancel
+        ad-valorem, resultando en un <strong>arancel preferencial de 0&nbsp;%</strong>.
+      </p>
+
+      <p>
+        <strong>Conclusión:</strong> la sal de mesa originaria de Bolivia ingresa
+        a Uruguay con <strong>arancel cero</strong> bajo los acuerdos ALADI
+        aplicables.
+      </p>
+    </section>
+
+    <!-- SLIDE 10 -->
+    <section class="slide" data-slide="10">
+      <div class="tag"><span class="dot"></span>Diapositiva 10</div>
+      <h1>Medidas no arancelarias para sal en Uruguay</h1>
+
+      <h2>Medidas sanitarias y técnicas seleccionadas</h2>
+      <p>
+        La Consulta Integrada también muestra las
+        <strong>medidas regulatorias</strong> aplicables a la importación de
+        sal para consumo humano. Entre ellas:
+      </p>
+
+      <ul>
+        <li>
+          <strong>A21 – Límites máximos de contaminantes inorgánicos en alimentos</strong><br />
+          Reglamento Técnico MERCOSUR sobre contaminantes inorgánicos.
+        </li>
+        <li>
+          <strong>A22 y A31 – Aditivos aromatizantes y requisitos de rotulado</strong><br />
+          Reglamentos técnicos MERCOSUR sobre aditivos y etiquetado específico.
+        </li>
+        <li>
+          <strong>A83 – Requisito de certificación</strong><br />
+          Certificado del Ministerio de Salud Pública para sal de consumo humano.
+        </li>
+        <li>
+          <strong>A15 – Registro del importador</strong><br />
+          Obligación de registrar al importador de sal para consumo humano en el MSP.
+        </li>
+        <li>
+          <strong>A84 – Requisito de inspección (LATU)</strong><br />
+          Inspección de los productos en el ingreso al país por el Laboratorio Tecnológico del Uruguay.
+        </li>
+        <li>
+          <strong>B31 – Requisitos generales de rotulado de alimentos envasados</strong><br />
+          Rotulado en idioma español con información nutricional y de composición.
+        </li>
+      </ul>
+
+      <p>
+        Estas medidas no eliminan la preferencia arancelaria, pero sí
+        agregan <strong>costos y requisitos operativos</strong> que deben ser
+        considerados al planificar la exportación.
+      </p>
+    </section>
+
+    <!-- SLIDE 11 -->
+    <section class="slide" data-slide="11">
+      <div class="tag"><span class="dot"></span>Diapositiva 11</div>
+      <h1>Comercio bilateral de sal: Uruguay &ndash; Bolivia</h1>
+
+      <h2>Importaciones de Uruguay desde Bolivia (sal – código 2501)</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Año</th>
+            <th>Valor (miles de USD)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2020</td>
+            <td>50,98</td>
+          </tr>
+          <tr>
+            <td>2021</td>
+            <td>39,30</td>
+          </tr>
+          <tr>
+            <td>2022</td>
+            <td>96,71</td>
+          </tr>
+          <tr>
+            <td>2023</td>
+            <td>64,44</td>
+          </tr>
+          <tr>
+            <td>2024</td>
+            <td>64,42</td>
+          </tr>
+          <tr>
+            <th>Total 2020–2024</th>
+            <th>315,85</th>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        Uruguay ya es un importador habitual de sal boliviana, lo que indica
+        la existencia de <strong>canales comerciales activos</strong> y cierta
+        experiencia previa en este flujo.
+      </p>
+    </section>
+
+    <!-- SLIDE 12 -->
+    <section class="slide" data-slide="12">
+      <div class="tag"><span class="dot"></span>Diapositiva 12</div>
+      <h1>Conclusiones preliminares sobre el mercado de Uruguay</h1>
+
+      <h2>Puntos clave del análisis</h2>
+      <ul>
+        <li>
+          <strong>Arancel preferencial 0&nbsp;%:</strong> gracias a los acuerdos ALADI vigentes, la sal de mesa boliviana ingresa sin pagar arancel ad-valorem.
+        </li>
+        <li>
+          <strong>Requisitos regulatorios exigentes:</strong> el producto está cubierto por varias normas sanitarias, bromatológicas y de etiquetado, que implican certificaciones, inspecciones y registro del importador.
+        </li>
+        <li>
+          <strong>Comercio existente:</strong> las cifras de importación muestran un flujo constante de sal desde Bolivia.
+        </li>
+        <li>
+          <strong>Segmento gourmet:</strong> el mercado uruguayo ya ofrece sales en molinillo y productos premium, lo que indica un nicho dispuesto a pagar por valor agregado.
+        </li>
+      </ul>
+
+      <p>
+        <strong>Conclusión:</strong> Uruguay aparece como un
+        <strong>mercado atractivo</strong> para la sal del Salar en formato
+        gourmet, siempre que se gestione adecuadamente la dimensión sanitaria
+        y regulatoria.
+      </p>
+    </section>
+
+    <!-- SLIDE 13 -->
+    <section class="slide" data-slide="13">
+      <div class="tag"><span class="dot"></span>Diapositiva 13</div>
+      <h1>Implicancias para la “Sal del Salar en molinillo”</h1>
+
+      <h2>Ventajas competitivas</h2>
+      <ul>
+        <li>
+          <strong>Ventaja arancelaria:</strong> el contenido (sal de mesa boliviana) entra con arancel cero, lo que permite trabajar márgenes interesantes frente a competidores de fuera de la ALADI.
+        </li>
+        <li>
+          <strong>Diferenciación:</strong> origen en el Salar de Uyuni, un territorio altamente reconocible y asociado a pureza y paisaje único.
+        </li>
+        <li>
+          <strong>Segmento premium existente:</strong> el mercado ya conoce las sales especiales (marina, rosada, saborizadas), lo que reduce la necesidad de “educar al consumidor”.
+        </li>
+      </ul>
+
+      <h2>Condicionantes</h2>
+      <ul>
+        <li>Necesidad de un importador uruguayo registrado ante el MSP.</li>
+        <li>Cumplimiento estricto de normas de rotulado y composición.</li>
+        <li>Costos de certificación e inspección (MSP, LATU).</li>
+      </ul>
+
+      <p>
+        En síntesis, el producto es <strong>comercialmente viable</strong> y
+        competitivo arancelariamente; la clave está en construir una alianza
+        sólida con un importador/distribuidor que gestione la parte sanitaria
+        y logística.
+      </p>
+    </section>
+
+    <!-- SLIDE 14 -->
+    <section class="slide" data-slide="14">
+      <div class="tag"><span class="dot"></span>Diapositiva 14</div>
+      <h1>Regla de origen aplicable (AAP.CE 36 – MERCOSUR–Bolivia)</h1>
+
+      <h2>Uso de Find Rules of Origin</h2>
+      <p>
+        Para conocer la <strong>regla de origen</strong> que permite acceder
+        al arancel 0&nbsp;% en Uruguay, se utiliza:
+      </p>
+      <p>
+        <a href="https://findrulesoforigin.org/es/" target="_blank" rel="noopener">
+          https://findrulesoforigin.org/es/
+        </a>
+      </p>
+      <p>
+        Se ingresan los datos:
+      </p>
+      <ul>
+        <li><strong>Exportador:</strong> Bolivia</li>
+        <li><strong>Destino:</strong> Uruguay</li>
+        <li><strong>Producto:</strong> 2501002000 – Sal de mesa</li>
+      </ul>
+
+      <h2>Texto esencial del AAP.CE 36</h2>
+      <p>El acuerdo establece, entre otros, los siguientes criterios:</p>
+      <ul>
+        <li>
+          <strong>Salto de partida (CTH):</strong>
+          la mercancía resultante debe clasificarse en una partida diferente a la de los materiales no originarios utilizados, según NALADISA.
+        </li>
+        <li>
+          <strong>Regla de valor (cuando no hay salto):</strong>
+          si no se produce cambio de partida, los materiales no originarios
+          no pueden exceder el <strong>40&nbsp;% del valor FOB</strong> de la
+          mercancía final.
+        </li>
+        <li>
+          <strong>Operaciones de montaje o ensamblaje:</strong>
+          incluso cumpliendo salto de partida, los materiales no originarios
+          usados en el montaje no deben superar el 40&nbsp;% del valor FOB.
+        </li>
+      </ul>
+
+      <p>
+        La interpretación del ITC resume este criterio como:
+        <strong>CTH o RVC 60&nbsp;%</strong> (salto de partida o contenido
+        regional mínimo del 60&nbsp;%).
+      </p>
+    </section>
+
+    <!-- SLIDE 15 -->
+    <section class="slide" data-slide="15">
+      <div class="tag"><span class="dot"></span>Diapositiva 15</div>
+      <h1>¿Cumple la sal del Salar en molinillo la regla de origen?</h1>
+
+      <h2>Estructura del producto</h2>
+      <ul>
+        <li>
+          <strong>Materia prima:</strong> sal del Salar de Uyuni (HS 2501), producida y procesada en Bolivia.
+        </li>
+        <li>
+          <strong>Envase y molinillo:</strong> componente plástico probablemente importado (por ejemplo, desde China), clasificado en una partida distinta del Capítulo 39.
+        </li>
+      </ul>
+
+      <h2>Análisis de origen</h2>
+      <ul>
+        <li>
+          Existe <strong>salto de partida</strong> entre los materiales no originarios (molinillo de plástico) y el producto final (sal de mesa).
+        </li>
+        <li>
+          Aun si se analizara por valor, es razonable asumir que el molinillo no supera el 40&nbsp;% del valor FOB del producto final.
+        </li>
+      </ul>
+
+      <p>
+        <strong>Conclusión:</strong> la “sal del Salar en molinillo” puede
+        calificar como <strong>originaria de Bolivia</strong> bajo el AAP.CE 36,
+        conservando así el <strong>arancel preferencial 0&nbsp;%</strong> al
+        ingresar a Uruguay.
+      </p>
+    </section>
+
+    <!-- SLIDE 16 -->
+    <section class="slide" data-slide="16">
+      <div class="tag"><span class="dot"></span>Diapositiva 16</div>
+      <h1>Países y bloques que otorgan SGP / SGP+ a Bolivia</h1>
+
+      <h2>Esquemas de preferencias unilaterales vigentes</h2>
+      <p>
+        Además de la ALADI, Bolivia recibe preferencias arancelarias
+        <strong>unilaterales</strong> de varios países y bloques mediante
+        sistemas generalizados de preferencias (SGP / GSP / GSP+).
+      </p>
+
+      <ul>
+        <li>
+          <strong>Unión Europea – SGP+ (GSP Plus):</strong>
+          Bolivia es país beneficiario del SGP+, lo que permite acceso
+          arancelario muy favorable para un amplio conjunto de productos,
+          siempre que se cumplan las reglas de origen y los compromisos del
+          esquema.
+        </li>
+        <li>
+          <strong>Noruega – Sistema Generalizado de Preferencias:</strong>
+          otorga reducciones o exenciones arancelarias a exportaciones de
+          Bolivia según el código arancelario.
+        </li>
+        <li>
+          <strong>Suiza – SGP:</strong>
+          sistema de preferencias para países en desarrollo que también
+          beneficia a Bolivia.
+        </li>
+        <li>
+          <strong>Japón – SGP:</strong>
+          Bolivia figura como país beneficiario; la cobertura depende del
+          producto.
+        </li>
+        <li>
+          <strong>Federación Rusa y Kazajistán – SGP dentro de la Unión Económica Euroasiática (EAEU):</strong>
+          conceden preferencias arancelarias a Bolivia para determinadas
+          partidas.
+        </li>
+      </ul>
+
+      <p>
+        <strong>Punto clave:</strong> que un país tenga un SGP para Bolivia no
+        significa que <em>todas</em> las partidas estén incluidas; la
+        elegibilidad depende siempre del código arancelario.
+      </p>
+    </section>
+
+    <!-- SLIDE 17 -->
+    <section class="slide" data-slide="17">
+      <div class="tag"><span class="dot"></span>Diapositiva 17</div>
+      <h1>Verificación en la UE: sal para consumo humano (España)</h1>
+
+      <h2>Uso de Find Rules of Origin para sal en la UE</h2>
+      <p>
+        Se verifica si la sal para consumo humano originaria de Bolivia recibe
+        preferencia arancelaria en la Unión Europea (ejemplo: España) usando:
+      </p>
+      <p>
+        <a href="https://findrulesoforigin.org/es/" target="_blank" rel="noopener">
+          https://findrulesoforigin.org/es/
+        </a>
+      </p>
+
+      <ul>
+        <li><strong>Exportador:</strong> Bolivia</li>
+        <li><strong>Destino:</strong> España</li>
+        <li><strong>Producto:</strong> 2501009100 – Salt suitable for human consumption</li>
+      </ul>
+
+      <h2>Resultado</h2>
+      <p>
+        La ficha para “EU for GSP+ Countries” muestra:
+      </p>
+      <ul>
+        <li><strong>Arancel NMF:</strong> 0,38&nbsp;%</li>
+        <li><strong>Preferencia SGP+:</strong> <em>No hay preferencias</em></li>
+      </ul>
+
+      <p>
+        Es decir, <strong>para esta subpartida concreta</strong>, la sal de
+        consumo humano originaria de Bolivia <strong>no obtiene beneficio adicional del SGP+</strong>.
+        El acceso es prácticamente libre, pero por la propia estructura del
+        arancel NMF, no por el régimen preferencial.
+      </p>
+    </section>
+
+    <!-- SLIDE 18 -->
+    <section class="slide" data-slide="18">
+      <div class="tag"><span class="dot"></span>Diapositiva 18</div>
+      <h1>Comparación: quinua boliviana sí recibe preferencia SGP+ en la UE</h1>
+
+      <h2>Verificación para quinua (HS 1008500000) – España</h2>
+      <p>
+        Se repite el ejercicio en Find Rules of Origin, pero con
+        <strong>quinua</strong>:
+      </p>
+      <ul>
+        <li><strong>Exportador:</strong> Bolivia</li>
+        <li><strong>Destino:</strong> España</li>
+        <li><strong>Producto:</strong> 1008500000 – “Quinoa (Chenopodium quinoa)”</li>
+      </ul>
+
+      <h2>Resultado</h2>
+      <p>
+        La ficha “EU for GSP+ Countries” indica:
+      </p>
+      <ul>
+        <li><strong>Arancel NMF:</strong> 1,7&nbsp;%</li>
+        <li><strong>Arancel preferencial SGP+:</strong> 0&nbsp;%</li>
+      </ul>
+
+      <p>
+        En este caso, la quinua originaria de Bolivia sí recibe una
+        <strong>preferencia efectiva</strong>, eliminando el arancel.
+      </p>
+
+      <h2>Lección del contraste sal / quinua</h2>
+      <ul>
+        <li>El SGP+ se aplica <strong>producto por producto</strong>, no a toda la oferta exportable.</li>
+        <li>La sal para consumo humano (2501009100) no está cubierta, pero la quinua (1008500000) sí.</li>
+        <li>Por eso es imprescindible verificar siempre el código específico en herramientas como Find Rules of Origin y en los aranceles oficiales.</li>
+      </ul>
+    </section>
+
+    <!-- SLIDE 19 -->
+    <section class="slide" data-slide="19">
+      <div class="tag"><span class="dot"></span>Diapositiva final</div>
+      <h1>Cuestionario final del módulo</h1>
+
+      <h2>Cierre del ejercicio y del módulo</h2>
+      <p>
+        Para consolidar lo trabajado en esta clase y en todo el módulo, cada
+        estudiante debe completar el cuestionario final en línea:
+      </p>
+
+      <p style="margin-top: 12px; font-size: 1.05rem;">
+        <strong>Link al cuestionario:</strong><br />
+        <a href="https://forms.gle/CXXFKmGG6uakjQjw9" target="_blank" rel="noopener">
+          https://forms.gle/CXXFKmGG6uakjQjw9
+        </a>
+      </p>
+
+      <p style="margin-top: 16px;">
+        Este cuestionario utiliza los mismos conceptos de la presentación:
+        clasificación arancelaria, análisis de mercados con TradeMap, uso del
+        Portal de Acceso a Mercados de la ALADI, preferencias ALADI y SGP, y
+        verificación de reglas de origen con Find Rules of Origin.
+      </p>
+
+      <p style="margin-top: 18px;">
+        <strong>Esta es la última clase del módulo.</strong> El cuestionario
+        sirve como cierre aplicado del proceso de aprendizaje.
+      </p>
+    </section>
+
+    <!-- NAVIGATION -->
+    <div class="nav">
+      <div class="nav-left">
+        <button id="prevBtn">
+          &#8592; Anterior
+        </button>
+        <button id="nextBtn">
+          Siguiente &#8594;
+        </button>
+      </div>
+      <div class="nav-status">
+        Diapositiva <span id="currentSlide">1</span> de
+        <span id="totalSlides">19</span>
+        <span class="pill">
+          Atajos:
+          <span class="kbd">&larr;</span>
+          <span class="kbd">&rarr;</span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      const totalSlides = slides.length;
+      const currentSpan = document.getElementById("currentSlide");
+      const totalSpan = document.getElementById("totalSlides");
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+
+      let current = 0;
+      totalSpan.textContent = totalSlides.toString();
+
+      function showSlide(index) {
+        if (index < 0 || index >= totalSlides) return;
+        slides[current].classList.remove("active");
+        current = index;
+        slides[current].classList.add("active");
+        currentSpan.textContent = (current + 1).toString();
+        prevBtn.disabled = current === 0;
+        nextBtn.disabled = current === totalSlides - 1;
+      }
+
+      prevBtn.addEventListener("click", () => {
+        if (current > 0) showSlide(current - 1);
+      });
+
+      nextBtn.addEventListener("click", () => {
+        if (current < totalSlides - 1) showSlide(current + 1);
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight") {
+          if (current < totalSlides - 1) showSlide(current + 1);
+        } else if (e.key === "ArrowLeft") {
+          if (current > 0) showSlide(current - 1);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
