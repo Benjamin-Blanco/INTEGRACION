@@ -1,88 +1,140 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Derecho de la Integración - Material de clase</title>
+  <meta charset="UTF-8" />
+  <title>Índice de materiales</title>
   <style>
+    :root {
+      color-scheme: light dark;
+    }
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f7f9;
       margin: 0;
-      padding: 2em;
-      color: #333;
+      padding: 2rem;
+      background: #f7f9fb;
+      color: #1f2933;
     }
     header {
-      background-color: #2c3e50;
-      color: white;
-      padding: 1em 2em;
-      border-radius: 8px;
-      margin-bottom: 2em;
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      color: #f9fafb;
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      box-shadow: 0 12px 30px rgba(37, 99, 235, 0.25);
     }
-    header h1 {
-      margin: 0;
-      font-size: 1.8em;
+    h1 {
+      margin: 0 0 0.2rem;
+      font-size: 1.9rem;
     }
-    header p {
-      margin: 0.2em 0;
+    p {
+      margin: 0.1rem 0;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+    section {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+      border: 1px solid #e5e7eb;
     }
     h2 {
-      color: #2c3e50;
-      border-bottom: 2px solid #2980b9;
-      padding-bottom: 0.3em;
+      margin-top: 0;
+      color: #1d4ed8;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
     }
     ul {
       list-style: none;
+      margin: 0.6rem 0 0;
       padding: 0;
     }
     li {
-      margin: 1em 0;
+      margin-bottom: 0.55rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      line-height: 1.4;
     }
     a {
+      color: #0f172a;
       text-decoration: none;
-      color: #2980b9;
-      font-weight: bold;
-      font-size: 1.1em;
+      font-weight: 600;
     }
     a:hover {
-      color: #1abc9c;
+      color: #2563eb;
+      text-decoration: underline;
     }
-    .button {
-      display: inline-block;
-      margin-top: 1.5em;
-      padding: 0.8em 1.2em;
-      background-color: #27ae60;
-      color: white;
-      border-radius: 6px;
-      font-weight: bold;
-      text-decoration: none;
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      background: #e0e7ff;
+      color: #1e3a8a;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
     }
-    .button:hover {
-      background-color: #1e8449;
+    footer {
+      margin-top: 2rem;
+      color: #475569;
+      font-size: 0.95rem;
     }
   </style>
 </head>
 <body>
-
   <header>
-    <h1>📘 Derecho de la Integración</h1>
-    <p><strong>Fechas:</strong> Del 2 al 6 de junio de 2025</p>
-    <p><strong>Docente:</strong> Benjamín Juan Carlos Blanco Ferri</p>
-    <p><strong>Correo:</strong> <a href="mailto:bblancof@gmail.com" style="color: #ecf0f1;">bblancof@gmail.com</a></p>
+    <h1>📚 Índice de materiales</h1>
+    <p>Recopilación de todos los archivos disponibles en este repositorio para navegar y descargar fácilmente.</p>
   </header>
 
-  <section>
-    <h2>📂 Material de Clase</h2>
-    <ul>
-            <li><a href="https://github.com/Benjamin-Blanco/INTEGRACION/raw/main/Modelo%20de%20Gu%C3%ADa%20Did%C3%A1ctica%20planificaci%C3%B3n%20Penal%20XI%20(2).docx" download>📄 Guía Didáctica</a></li>
-      <li><a href="https://github.com/Benjamin-Blanco/INTEGRACION/raw/main/Primera%20Sesion%20(Temas%201%20y%202)%20(1).pptx" download>📄 Primera Sesión (PPTX)</a></li>
-      <li><a href="https://github.com/Benjamin-Blanco/INTEGRACION/raw/main/Segunda%20Sesion.pptx" download>📄 Segunda Sesión (PPTX)</a></li>
-      <li><a href="https://github.com/Benjamin-Blanco/INTEGRACION/raw/main/Tercera%20Sesion.pptx" download>📄 Tercera Sesión (PPTX)</a></li>
-<li><a href="https://github.com/Benjamin-Blanco/INTEGRACION/raw/main/Cuarta%20Sesion.pptx" download>📄 Cuarta Sesión (PPTX)</a></li>      
-<li><a href="https://github.com/Benjamin-Blanco/INTEGRACION/raw/main/Quinta%20Sesion.pptx" download>📄 Quinta Sesión (PPTX)</a></li>
-    </ul>
+  <div class="grid">
+    <section>
+      <h2>🖥️ Sesiones en HTML</h2>
+      <ul>
+        <li><span class="pill">HTML</span><a href="Primera%20Sesion.html">Primera Sesión</a></li>
+        <li><span class="pill">HTML</span><a href="Segunda%20Sesion.html">Segunda Sesión</a></li>
+        <li><span class="pill">HTML</span><a href="Tercera%20Sesion.html">Tercera Sesión</a></li>
+        <li><span class="pill">HTML</span><a href="Cuarta%20Sesion.html">Cuarta Sesión</a></li>
+        <li><span class="pill">HTML</span><a href="Quinta%20Sesion.html">Quinta Sesión</a></li>
+        <li><span class="pill">HTML</span><a href="Sexta%20Sesion.html">Sexta Sesión</a></li>
+        <li><span class="pill">HTML</span><a href="Septima%20Sesion.html">Séptima Sesión</a></li>
+        <li><span class="pill">HTML</span><a href="Octava%20Sesion.html">Octava Sesión</a></li>
+        <li><span class="pill">HTML</span><a href="Novena%20Sesion.html">Novena Sesión</a></li>
+        <li><span class="pill">HTML</span><a href="Decima%20Sesion.html">Décima Sesión</a></li>
+      </ul>
+    </section>
 
-    <a class="button" href="https://docs.google.com/spreadsheets/d/1pd8C7o5QlAdQ-YOlNEkr6DlYhEezJpi61ThvdQavBqA/edit?usp=sharing" target="_blank">📊 Seguimiento a calificaciones</a>
-  </section>
+    <section>
+      <h2>📑 Presentaciones PPTX</h2>
+      <ul>
+        <li><span class="pill">PPTX</span><a href="Primera%20Sesion%20(Temas%201%20y%202)%20(1).pptx" download>Primera Sesión (Temas 1 y 2)</a></li>
+        <li><span class="pill">PPTX</span><a href="Segunda%20Sesion.pptx" download>Segunda Sesión</a></li>
+        <li><span class="pill">PPTX</span><a href="Tercera%20Sesion.pptx" download>Tercera Sesión</a></li>
+        <li><span class="pill">PPTX</span><a href="Cuarta%20Sesion.pptx" download>Cuarta Sesión</a></li>
+        <li><span class="pill">PPTX</span><a href="Quinta%20Sesion.pptx" download>Quinta Sesión</a></li>
+      </ul>
+    </section>
 
+    <section>
+      <h2>🗂️ Otros recursos</h2>
+      <ul>
+        <li><span class="pill">PDF</span><a href="Bolivia%202025.pdf" download>Bolivia 2025</a></li>
+        <li><span class="pill">DOCX</span><a href="Modelo%20de%20Gu%C3%ADa%20Did%C3%A1ctica%20planificaci%C3%B3n%20Penal%20XI%20(2).docx" download>Guía Didáctica (Penal XI)</a></li>
+        <li><span class="pill">HTML</span><a href="categorias.html">Categorías</a></li>
+        <li><span class="pill">MD</span><a href="README.md">README del repositorio</a></li>
+      </ul>
+    </section>
+  </div>
+
+  <footer>
+    Para agregar nuevos archivos, súbelos al repositorio y enlázalos aquí para que el índice permanezca actualizado.
+  </footer>
 </body>
 </html>
