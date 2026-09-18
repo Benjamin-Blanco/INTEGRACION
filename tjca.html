@@ -1,0 +1,1745 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Sesión 5 · Tribunal de Justicia de la Comunidad Andina</title>
+<meta name="description" content="Clase proyectable sobre el Tribunal de Justicia de la Comunidad Andina: naturaleza, principios, competencias y casos." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+/* ============ tokens ============ */
+:root{
+  --bg:#070B14; --bg-2:#0B1120; --panel:#101A2D; --panel-2:#16233B;
+  --line:#22334F; --line-soft:#1A2740;
+  --text:#EEF2F8; --dim:#9EADC5; --faint:#6F7F99;
+  --accent:#E0AC3E; --accent-ink:#1A1206; --accent-soft:rgba(224,172,62,.13);
+  --ok:#45C69D; --ok-soft:rgba(69,198,157,.12);
+  --warn:#EF7B66; --warn-soft:rgba(239,123,102,.12);
+  --info:#86B4E8; --info-soft:rgba(134,180,232,.12);
+  --glow:0 0 0 1px rgba(224,172,62,.25);
+  --sans:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --serif:"Spectral",Georgia,"Times New Roman",serif;
+  --r:14px;
+}
+:root[data-theme="light"]{
+  --bg:#E9EDF4; --bg-2:#F4F7FB; --panel:#FFFFFF; --panel-2:#F1F5FA;
+  --line:#CBD5E4; --line-soft:#DEE5EF;
+  --text:#101A2C; --dim:#4E5C75; --faint:#7B8AA3;
+  --accent:#8A5C08; --accent-ink:#FFFFFF; --accent-soft:rgba(138,92,8,.10);
+  --ok:#0F7455; --ok-soft:rgba(15,116,85,.10);
+  --warn:#AC3E28; --warn-soft:rgba(172,62,40,.10);
+  --info:#28598E; --info-soft:rgba(40,89,142,.10);
+  --glow:0 0 0 1px rgba(138,92,8,.22);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:var(--sans);
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  display:flex;flex-direction:column;
+  overflow:hidden;
+  font-size:clamp(14px,.30vw + 12.6px,17px);
+  line-height:1.5;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(70% 55% at 50% -8%, rgba(224,172,62,.10), transparent 62%),
+    radial-gradient(90% 70% at 110% 110%, rgba(134,180,232,.08), transparent 60%);
+}
+:root[data-theme="light"] body::before{
+  background:radial-gradient(70% 55% at 50% -10%, rgba(138,92,8,.07), transparent 62%);
+}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);border-bottom-color:color-mix(in srgb,var(--accent) 35%,transparent)}
+a:hover{border-bottom-color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+
+/* ============ top bar ============ */
+.topbar{
+  position:relative;z-index:3;flex:0 0 auto;
+  display:flex;align-items:center;gap:1rem;
+  padding:.5rem clamp(.7rem,1.4vw,1.4rem);
+  border-bottom:1px solid var(--line-soft);
+  background:var(--bg-2);
+  background:color-mix(in srgb,var(--bg-2) 88%,transparent);
+  backdrop-filter:blur(8px);
+}
+.brand{display:flex;align-items:center;gap:.65rem;min-width:0}
+.seal{flex:0 0 auto;width:2.1rem;height:2.1rem}
+.brand-txt{min-width:0}
+.brand-txt b{
+  display:block;font-family:var(--serif);font-weight:600;
+  font-size:1.02rem;letter-spacing:.01em;line-height:1.15;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.brand-txt small{display:block;color:var(--faint);font-size:.72rem;line-height:1.3}
+.chapter{
+  margin-left:auto;display:flex;align-items:center;gap:.5rem;
+  font-size:.75rem;color:var(--dim);white-space:nowrap;
+}
+.chapter .dot{width:.4rem;height:.4rem;border-radius:50%;background:var(--accent)}
+.tools{display:flex;gap:.35rem;flex:0 0 auto}
+.tool{
+  width:2rem;height:2rem;display:grid;place-items:center;
+  border:1px solid var(--line);border-radius:9px;background:transparent;
+  color:var(--dim);cursor:pointer;transition:color .15s,border-color .15s,background .15s;
+}
+.tool:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
+.tool svg{width:1rem;height:1rem;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+
+/* ============ stage ============ */
+.stage{position:relative;z-index:1;flex:1 1 auto;min-height:0;display:flex;padding:clamp(.5rem,1.1vw,1rem)}
+.deck{position:relative;flex:1 1 auto;min-height:0;max-width:1400px;margin:0 auto;width:100%}
+.slide{
+  position:absolute;inset:0;display:none;
+  overflow-y:auto;overscroll-behavior:contain;
+  padding:clamp(.5rem,1vw,1rem) clamp(.4rem,1vw,1rem) 0;
+  scrollbar-width:thin;scrollbar-color:var(--line) transparent;
+}
+.slide::-webkit-scrollbar{width:7px}
+.slide::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
+.slide.on{display:block;animation:enter .28s ease-out}
+@keyframes enter{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}*{transition:none!important}}
+
+/* ============ slide typography ============ */
+.h{
+  font-family:var(--serif);font-weight:600;
+  font-size:clamp(1.45rem,1.9vw + .55rem,2.5rem);
+  line-height:1.12;letter-spacing:-.012em;margin-bottom:.25rem;
+  text-wrap:balance;
+}
+.h em{font-style:italic;color:var(--accent);font-weight:500}
+.sub{color:var(--dim);font-size:clamp(.88rem,.4vw + .76rem,1.05rem);max-width:68ch;margin-bottom:clamp(.7rem,1.3vw,1.3rem)}
+.h2{font-family:var(--serif);font-weight:600;font-size:1.13rem;line-height:1.25;margin-bottom:.4rem}
+.h3{font-size:.76rem;font-weight:600;color:var(--accent);letter-spacing:.02em;margin-bottom:.35rem}
+p+p{margin-top:.5rem}
+.lead{font-size:1.02rem;color:var(--text)}
+.dim{color:var(--dim)}
+.note{color:var(--faint);font-size:.82rem;line-height:1.45}
+strong,b{font-weight:600;color:var(--text)}
+.key{color:var(--accent);font-weight:600}
+
+/* ============ structure ============ */
+.cols{display:grid;gap:clamp(.6rem,1.1vw,1.1rem);align-items:start}
+.c2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.c3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.c2-wide{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}
+.c2-narrow{grid-template-columns:minmax(0,1fr) minmax(0,1.5fr)}
+.panel{
+  background:var(--panel);border:1px solid var(--line-soft);
+  border-radius:var(--r);padding:clamp(.7rem,1vw,1.05rem);
+}
+.panel.flat{background:transparent;border-color:var(--line)}
+.panel.deep{background:var(--panel-2)}
+.rule{border:0;border-top:1px solid var(--line-soft);margin:.6rem 0}
+
+ul.list{list-style:none;display:grid;gap:.4rem}
+ul.list li{position:relative;padding-left:1.05rem;color:var(--dim);line-height:1.45}
+ul.list li::before{
+  content:"";position:absolute;left:.1rem;top:.62em;
+  width:.36rem;height:.36rem;border-radius:1px;background:var(--accent);transform:rotate(45deg);
+}
+ul.list li b,ul.list li strong{color:var(--text)}
+ol.steps{list-style:none;counter-reset:s;display:grid;gap:.5rem}
+ol.steps li{counter-increment:s;position:relative;padding-left:2rem;color:var(--dim);line-height:1.45}
+ol.steps li::before{
+  content:counter(s);position:absolute;left:0;top:.05em;
+  width:1.45rem;height:1.45rem;border-radius:50%;
+  display:grid;place-items:center;font-size:.72rem;font-weight:700;
+  background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent);
+  border-color:color-mix(in srgb,var(--accent) 40%,transparent);
+}
+
+.callout{border-left:3px solid var(--accent);padding:.15rem 0 .15rem .75rem;color:var(--dim)}
+.callout.ok{border-color:var(--ok)}
+.callout.warn{border-color:var(--warn)}
+.callout b{color:var(--text)}
+
+.chips{display:flex;flex-wrap:wrap;gap:.3rem}
+.chip{
+  font-size:.7rem;font-weight:500;padding:.2rem .5rem;border-radius:99px;
+  border:1px solid var(--line);color:var(--dim);white-space:nowrap;
+}
+.chip.a{border-color:var(--accent);border-color:color-mix(in srgb,var(--accent) 45%,transparent);color:var(--accent);background:var(--accent-soft)}
+.chip.k{border-color:var(--ok);border-color:color-mix(in srgb,var(--ok) 45%,transparent);color:var(--ok);background:var(--ok-soft)}
+.chip.w{border-color:var(--warn);border-color:color-mix(in srgb,var(--warn) 45%,transparent);color:var(--warn);background:var(--warn-soft)}
+.chip.i{border-color:var(--info);border-color:color-mix(in srgb,var(--info) 45%,transparent);color:var(--info);background:var(--info-soft)}
+
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th,td{padding:.45rem .6rem;text-align:left;vertical-align:top;border-bottom:1px solid var(--line-soft)}
+thead th{
+  font-size:.7rem;font-weight:600;color:var(--accent);
+  border-bottom:1px solid var(--accent);
+  border-bottom:1px solid color-mix(in srgb,var(--accent) 35%,transparent);
+  white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:0}
+tbody td{color:var(--dim)}
+tbody td:first-child{color:var(--text);font-weight:500}
+tbody tr:hover td{background:var(--accent-soft)}
+
+.fig{width:100%;height:auto;display:block}
+.figwrap{background:var(--panel);border:1px solid var(--line-soft);border-radius:var(--r);padding:clamp(.5rem,1vw,.9rem)}
+.figwrap.bare{background:transparent;border:0;padding:0}
+figcaption{font-size:.78rem;color:var(--faint);margin-top:.4rem;line-height:1.4}
+
+.srcs{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.55rem}
+.src{
+  display:inline-flex;align-items:center;gap:.35rem;font-size:.74rem;
+  padding:.25rem .55rem;border-radius:99px;border:1px solid var(--line);
+  color:var(--dim);background:var(--panel-2);
+}
+.src:hover{border-color:var(--accent);color:var(--accent)}
+.src svg{width:.75rem;height:.75rem;fill:none;stroke:currentColor;stroke-width:2;flex:0 0 auto}
+
+/* docket header for case slides */
+.docket{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem 1rem;
+  padding:.5rem .8rem;border-radius:10px;
+  background:var(--accent-soft);border:1px solid var(--accent);
+  border-color:color-mix(in srgb,var(--accent) 30%,transparent);
+  margin-bottom:.7rem;
+}
+.docket .no{font-family:var(--serif);font-weight:700;font-size:1.05rem;color:var(--accent)}
+.docket .meta{font-size:.78rem;color:var(--dim)}
+
+/* metric */
+.metric{display:flex;flex-direction:column;gap:.1rem}
+.metric .n{font-family:var(--serif);font-weight:700;font-size:clamp(1.5rem,2.2vw,2.2rem);line-height:1;color:var(--accent)}
+.metric .l{font-size:.76rem;color:var(--dim);line-height:1.3}
+
+/* ============ cover ============ */
+.cover{min-height:100%;display:flex;flex-direction:column;justify-content:center;gap:1rem;max-width:1100px;margin:0 auto;text-align:center}
+.cover .kicker{font-size:.8rem;color:var(--accent);letter-spacing:.04em}
+.cover h1{
+  font-family:var(--serif);font-weight:700;
+  font-size:clamp(2rem,4.6vw + .4rem,4.4rem);line-height:1.02;letter-spacing:-.022em;
+  text-wrap:balance;
+}
+.cover h1 i{font-style:italic;font-weight:500;color:var(--accent)}
+.cover .tagline{color:var(--dim);font-size:clamp(.95rem,.7vw + .8rem,1.3rem);max-width:60ch;margin-inline:auto}
+.cover .meta{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem}
+
+/* agenda */
+.agenda{display:grid;gap:.5rem;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.ag-group{border:1px solid var(--line-soft);border-radius:var(--r);padding:.75rem;background:var(--panel)}
+.ag-group h4{font-family:var(--serif);font-size:1rem;font-weight:600;margin-bottom:.1rem}
+.ag-group .n{font-size:.7rem;color:var(--accent);font-weight:700;letter-spacing:.06em}
+.ag-group ol{list-style:none;margin-top:.5rem;display:grid;gap:.15rem}
+.ag-group li button{
+  width:100%;text-align:left;background:none;border:0;cursor:pointer;
+  color:var(--dim);font:inherit;font-size:.84rem;padding:.2rem .35rem;border-radius:6px;
+  display:flex;gap:.5rem;
+}
+.ag-group li button:hover{background:var(--accent-soft);color:var(--accent)}
+.ag-group li button span{color:var(--faint);font-variant-numeric:tabular-nums;flex:0 0 1.4rem}
+.ag-group li button:hover span{color:var(--accent)}
+
+/* ============ controls ============ */
+.controls{
+  position:relative;z-index:3;flex:0 0 auto;
+  display:flex;align-items:center;gap:.8rem;
+  padding:.45rem clamp(.7rem,1.4vw,1.4rem);
+  border-top:1px solid var(--line-soft);
+  background:var(--bg-2);
+  background:color-mix(in srgb,var(--bg-2) 88%,transparent);
+}
+.nav{display:flex;gap:.4rem}
+.btn{
+  font:inherit;font-size:.84rem;font-weight:500;cursor:pointer;
+  padding:.35rem .85rem;border-radius:99px;border:1px solid var(--line);
+  background:transparent;color:var(--text);
+  display:inline-flex;align-items:center;gap:.4rem;
+  transition:border-color .15s,background .15s,color .15s;
+}
+.btn:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+.btn.main{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.btn.main:hover:not(:disabled){filter:brightness(1.08);color:var(--accent-ink)}
+.btn:disabled{opacity:.3;cursor:default}
+.track{flex:1 1 auto;height:3px;border-radius:99px;background:var(--line-soft);overflow:hidden;min-width:60px}
+.bar{height:100%;width:0;background:var(--accent);transition:width .25s ease}
+.count{
+  font-size:.8rem;color:var(--dim);font-variant-numeric:tabular-nums;
+  background:none;border:0;cursor:pointer;font-family:inherit;white-space:nowrap;
+  padding:.2rem .4rem;border-radius:6px;
+}
+.count:hover{color:var(--accent);background:var(--accent-soft)}
+.count b{color:var(--accent);font-weight:600}
+.hint{font-size:.72rem;color:var(--faint);white-space:nowrap}
+kbd{
+  font-family:var(--sans);font-size:.72em;padding:.08rem .35rem;border-radius:4px;
+  border:1px solid var(--line);color:var(--dim);white-space:nowrap;
+  box-shadow:inset 0 -1px 0 var(--line-soft);
+}
+.ag-group.span2{grid-column:span 2}
+.ag-group.span2 ol{grid-template-columns:1fr 1fr;column-gap:.6rem}
+@media (max-width:880px){.ag-group.span2{grid-column:span 1}.ag-group.span2 ol{grid-template-columns:1fr}}
+
+/* ============ index overlay ============ */
+.overlay{
+  position:fixed;inset:0;z-index:20;display:none;
+  background:var(--bg);
+  background:color-mix(in srgb,var(--bg) 92%,transparent);
+  backdrop-filter:blur(6px);
+  padding:clamp(1rem,3vw,2.5rem);overflow-y:auto;
+}
+.overlay.on{display:block}
+.overlay h3{font-family:var(--serif);font-size:1.3rem;margin-bottom:.15rem}
+.overlay .note{margin-bottom:1rem}
+.grid-idx{display:grid;gap:.5rem;grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
+.idx{
+  text-align:left;font:inherit;cursor:pointer;padding:.55rem .65rem;border-radius:10px;
+  border:1px solid var(--line-soft);background:var(--panel);color:var(--dim);
+  display:grid;gap:.15rem;transition:border-color .15s,color .15s;
+}
+.idx:hover,.idx.cur{border-color:var(--accent);color:var(--text)}
+.idx.cur{background:var(--accent-soft)}
+.idx .n{font-size:.68rem;color:var(--accent);font-weight:700;font-variant-numeric:tabular-nums}
+.idx .t{font-size:.83rem;line-height:1.25;font-weight:500}
+.idx .c{font-size:.68rem;color:var(--faint)}
+
+/* ============ responsive ============ */
+@media (max-width:880px){
+  .c2,.c3,.c2-wide,.c2-narrow{grid-template-columns:1fr}
+  .chapter{display:none}
+  .hint{display:none}
+  .brand-txt small{display:none}
+  .slide{padding-inline:.2rem}
+  .tbl-scroll{overflow-x:auto}
+  .tbl-scroll table{min-width:520px}
+}
+@media (max-width:560px){
+  .count{font-size:.72rem}
+  .btn{padding:.35rem .6rem}
+}
+.tbl-scroll{overflow-x:auto}
+
+/* ============ print ============ */
+@media print{
+  body{overflow:visible;height:auto;display:block;background:#fff;color:#000}
+  body::before,.topbar,.controls,.overlay,.tools{display:none!important}
+  .stage{display:block;padding:0}
+  .deck{position:static}
+  .slide{position:static;display:block!important;page-break-after:always;overflow:visible;padding:1.5cm 0;border-bottom:1px solid #ccc}
+  .panel,.figwrap,.q{border:1px solid #bbb;background:#fff}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════ TOP BAR ══════════ -->
+<header class="topbar">
+  <div class="brand">
+    <svg class="seal" viewBox="0 0 48 48" aria-hidden="true">
+      <circle cx="24" cy="24" r="22" fill="none" stroke="var(--accent)" stroke-width="1.6" opacity=".55"/>
+      <circle cx="24" cy="24" r="17.5" fill="var(--accent-soft)"/>
+      <path d="M9 32 L18 18 L24 26 L31 14 L39 32 Z" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M9 32 H39" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/>
+      <circle cx="31" cy="14" r="2.2" fill="var(--accent)"/>
+    </svg>
+    <div class="brand-txt">
+      <b>Tribunal de Justicia de la Comunidad Andina</b>
+      <small>Sesión 5 · Introducción a la Integración · Maestría en Finanzas</small>
+    </div>
+  </div>
+  <div class="chapter"><span class="dot"></span><span id="ch">Portada</span></div>
+  <div class="tools">
+    <button class="tool" id="t-theme" title="Cambiar a modo claro u oscuro (T)" aria-label="Cambiar tema">
+      <svg viewBox="0 0 24 24"><path d="M12 3v1.5M12 19.5V21M3 12h1.5M19.5 12H21M5.6 5.6l1.1 1.1M17.3 17.3l1.1 1.1M18.4 5.6l-1.1 1.1M6.7 17.3l-1.1 1.1"/><circle cx="12" cy="12" r="4"/></svg>
+    </button>
+    <button class="tool" id="t-index" title="Índice de diapositivas (I)" aria-label="Índice">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5"/></svg>
+    </button>
+    <button class="tool" id="t-full" title="Pantalla completa (F)" aria-label="Pantalla completa">
+      <svg viewBox="0 0 24 24"><path d="M4 9V5.5A1.5 1.5 0 0 1 5.5 4H9M15 4h3.5A1.5 1.5 0 0 1 20 5.5V9M20 15v3.5a1.5 1.5 0 0 1-1.5 1.5H15M9 20H5.5A1.5 1.5 0 0 1 4 18.5V15"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="stage">
+<div class="deck" id="deck">
+
+<!-- ══════════ 1 · PORTADA ══════════ -->
+<section class="slide on" data-ch="Portada" data-t="Portada">
+  <div class="cover">
+    <div class="kicker">Sesión 5 · Órgano jurisdiccional de la Comunidad Andina</div>
+    <h1>Cuando la integración<br/>se vuelve <i>exigible</i></h1>
+    <p class="tagline">El Tribunal de Justicia de la Comunidad Andina es el órgano que convierte los acuerdos regionales en obligaciones que un juez puede hacer cumplir. Esta sesión recorre qué es, qué puede hacer y cómo se usa.</p>
+
+    <svg class="fig" viewBox="0 0 900 150" role="img" aria-label="Cordillera andina con los cuatro Países Miembros">
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="var(--accent)" stop-opacity=".16"/>
+          <stop offset="1" stop-color="var(--accent)" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <circle cx="450" cy="58" r="26" fill="url(#sky)"/>
+      <circle cx="450" cy="58" r="13" fill="none" stroke="var(--accent)" stroke-width="1.2" opacity=".6"/>
+      <path d="M0 118 L95 62 L150 92 L215 40 L285 96 L340 68 L410 108 L450 84 L500 110 L560 60 L625 98 L690 46 L755 94 L820 66 L900 118 Z"
+            fill="var(--panel)" stroke="var(--line)" stroke-width="1"/>
+      <path d="M0 118 L95 62 L150 92 L215 40 L285 96 L340 68 L410 108 L450 84 L500 110 L560 60 L625 98 L690 46 L755 94 L820 66 L900 118"
+            fill="none" stroke="var(--accent)" stroke-width="1.6" opacity=".75"/>
+      <path d="M215 40 L232 54 L222 58 L233 66 L215 70 L197 66 L208 58 L198 54 Z" fill="var(--text)" opacity=".55"/>
+      <path d="M690 46 L705 58 L696 62 L706 69 L690 73 L674 69 L684 62 L675 58 Z" fill="var(--text)" opacity=".55"/>
+      <line x1="0" y1="118" x2="900" y2="118" stroke="var(--line)" stroke-width="1"/>
+    </svg>
+
+    <div class="meta">
+      <span class="chip a">Bolivia</span><span class="chip a">Colombia</span>
+      <span class="chip a">Ecuador</span><span class="chip a">Perú</span>
+      <span class="chip">Sede: Quito</span>
+      <span class="chip">30 diapositivas</span>
+    </div>
+    <p class="note" style="text-align:center">Navega con <kbd>←</kbd> <kbd>→</kbd> · índice con <kbd>I</kbd> · pantalla completa con <kbd>F</kbd></p>
+  </div>
+</section>
+
+<!-- ══════════ 2 · AGENDA ══════════ -->
+<section class="slide" data-ch="I · Contexto" data-t="Ruta de la sesión">
+  <h2 class="h">Ruta de la sesión</h2>
+  <p class="sub">Cinco bloques. Del contexto institucional a un caso real completo, con su cronología exacta: qué pasó, cómo se resolvió y qué habría ocurrido si no se resolvía.</p>
+  <div class="agenda" id="agenda"></div>
+  <p class="note" style="margin-top:.8rem">Cada título es un enlace: haz clic para saltar a esa diapositiva.</p>
+</section>
+
+<!-- ══════════ 3 · POR QUÉ IMPORTA ══════════ -->
+<section class="slide" data-ch="I · Contexto" data-t="Por qué importa">
+  <h2 class="h">Por qué esto le importa a quien trabaja con dinero</h2>
+  <p class="sub">El Derecho Andino no vive solo en los tratados. Decide precios, registros de marca y condiciones de competencia en cuatro mercados.</p>
+  <div class="cols c3">
+    <div class="panel">
+      <div class="metric"><span class="n">Bs 6,96</span><span class="l">precio del litro de gasolina especial fijado por Bolivia en enero de 2026, en un decreto que —años después de dictada— todavía cita entre sus antecedentes la sentencia andina del caso de combustibles</span></div>
+    </div>
+    <div class="panel">
+      <div class="metric"><span class="n">90 días</span><span class="l">es el plazo típico que fija una sentencia de incumplimiento para que un Estado corrija su normativa interna</span></div>
+    </div>
+    <div class="panel">
+      <div class="metric"><span class="n">Sin exequátur</span><span class="l">las sentencias del Tribunal surten efecto en los cuatro países sin necesidad de homologación por un juez nacional</span></div>
+    </div>
+  </div>
+  <div class="cols c2" style="margin-top:.9rem">
+    <div class="panel flat">
+      <div class="h3">Tres preguntas que resuelve el Tribunal</div>
+      <ul class="list">
+        <li>¿Puede un país cobrarle más caro el combustible a un transportista extranjero de la región?</li>
+        <li>¿Puede una marca extranjera notoria bloquear un registro en Colombia o Perú?</li>
+        <li>¿Qué pasa si una ley nacional contradice una Decisión andina ya vigente?</li>
+      </ul>
+    </div>
+    <div class="panel deep">
+      <div class="h3">La idea que hay que llevarse</div>
+      <p class="lead">Un tribunal supranacional no resuelve litigios entre particulares. Resuelve quién manda cuando dos ordenamientos jurídicos se cruzan, y eso cambia el riesgo regulatorio de cualquier operación regional.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 4 · LA CAN ══════════ -->
+<section class="slide" data-ch="I · Contexto" data-t="La CAN y el SAI">
+  <h2 class="h">Dónde encaja el Tribunal</h2>
+  <p class="sub">La Comunidad Andina funciona con un reparto de papeles: unos órganos deciden la política, otro administra, y uno juzga. El Tribunal es la pieza judicial del Sistema Andino de Integración.</p>
+  <div class="cols c2-wide">
+    <div class="figwrap">
+      <svg class="fig" viewBox="0 0 640 300" role="img" aria-label="Órganos del Sistema Andino de Integración">
+        <rect x="170" y="8" width="300" height="42" rx="10" fill="var(--panel-2)" stroke="var(--line)"/>
+        <text x="320" y="28" text-anchor="middle" font-size="13" font-weight="700" fill="var(--text)" font-family="Archivo,sans-serif">Consejo Presidencial Andino</text>
+        <text x="320" y="42" text-anchor="middle" font-size="10" fill="var(--dim)" font-family="Archivo,sans-serif">orientación política</text>
+
+        <line x1="320" y1="50" x2="320" y2="72" stroke="var(--line)" stroke-width="1.5"/>
+        <line x1="120" y1="72" x2="520" y2="72" stroke="var(--line)" stroke-width="1.5"/>
+        <line x1="120" y1="72" x2="120" y2="90" stroke="var(--line)" stroke-width="1.5"/>
+        <line x1="320" y1="72" x2="320" y2="90" stroke="var(--line)" stroke-width="1.5"/>
+        <line x1="520" y1="72" x2="520" y2="90" stroke="var(--line)" stroke-width="1.5"/>
+
+        <rect x="30" y="90" width="180" height="52" rx="10" fill="var(--panel-2)" stroke="var(--line)"/>
+        <text x="120" y="110" text-anchor="middle" font-size="12" font-weight="700" fill="var(--text)" font-family="Archivo,sans-serif">Consejo de Ministros</text>
+        <text x="120" y="124" text-anchor="middle" font-size="10" fill="var(--dim)" font-family="Archivo,sans-serif">de Relaciones Exteriores</text>
+        <text x="120" y="136" text-anchor="middle" font-size="9.5" fill="var(--accent)" font-family="Archivo,sans-serif">dicta Decisiones</text>
+
+        <rect x="230" y="90" width="180" height="52" rx="10" fill="var(--panel-2)" stroke="var(--line)"/>
+        <text x="320" y="110" text-anchor="middle" font-size="12" font-weight="700" fill="var(--text)" font-family="Archivo,sans-serif">Comisión de la CAN</text>
+        <text x="320" y="124" text-anchor="middle" font-size="10" fill="var(--dim)" font-family="Archivo,sans-serif">política comercial</text>
+        <text x="320" y="136" text-anchor="middle" font-size="9.5" fill="var(--accent)" font-family="Archivo,sans-serif">dicta Decisiones</text>
+
+        <rect x="430" y="90" width="180" height="52" rx="10" fill="var(--panel-2)" stroke="var(--line)"/>
+        <text x="520" y="110" text-anchor="middle" font-size="12" font-weight="700" fill="var(--text)" font-family="Archivo,sans-serif">Secretaría General</text>
+        <text x="520" y="124" text-anchor="middle" font-size="10" fill="var(--dim)" font-family="Archivo,sans-serif">órgano ejecutivo, Lima</text>
+        <text x="520" y="136" text-anchor="middle" font-size="9.5" fill="var(--accent)" font-family="Archivo,sans-serif">dicta Resoluciones</text>
+
+        <path d="M120 142 V190 H300" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-dasharray="4 4"/>
+        <path d="M320 142 V190 H300" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-dasharray="4 4"/>
+        <path d="M520 142 V190 H340" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-dasharray="4 4"/>
+
+        <rect x="170" y="190" width="300" height="58" rx="12" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6"/>
+        <text x="320" y="212" text-anchor="middle" font-size="14" font-weight="700" fill="var(--accent)" font-family="Archivo,sans-serif">Tribunal de Justicia</text>
+        <text x="320" y="228" text-anchor="middle" font-size="10.5" fill="var(--text)" font-family="Archivo,sans-serif">controla la legalidad de esas normas</text>
+        <text x="320" y="241" text-anchor="middle" font-size="10.5" fill="var(--text)" font-family="Archivo,sans-serif">y su cumplimiento por los Estados</text>
+
+        <rect x="170" y="262" width="300" height="30" rx="8" fill="none" stroke="var(--line)" stroke-dasharray="3 3"/>
+        <text x="320" y="281" text-anchor="middle" font-size="11" fill="var(--dim)" font-family="Archivo,sans-serif">Parlamento Andino · órganos e instituciones del SAI</text>
+      </svg>
+      <figcaption>Los órganos políticos producen la norma andina. El Tribunal responde por su validez y su cumplimiento.</figcaption>
+    </div>
+    <div>
+      <div class="panel" style="margin-bottom:.7rem">
+        <div class="h3">Cuatro Países Miembros</div>
+        <div class="cols c2" style="gap:.4rem">
+          <div style="display:flex;align-items:center;gap:.5rem">
+            <svg width="28" height="19" viewBox="0 0 30 20"><rect width="30" height="6.67" fill="#D52B1E"/><rect y="6.67" width="30" height="6.67" fill="#F9E300"/><rect y="13.33" width="30" height="6.67" fill="#007934"/><rect width="30" height="20" fill="none" stroke="var(--line)"/></svg>
+            <div><b style="font-size:.85rem">Bolivia</b><br/><span class="note">Sucre / La Paz</span></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:.5rem">
+            <svg width="28" height="19" viewBox="0 0 30 20"><rect width="30" height="10" fill="#FCD116"/><rect y="10" width="30" height="5" fill="#003893"/><rect y="15" width="30" height="5" fill="#CE1126"/><rect width="30" height="20" fill="none" stroke="var(--line)"/></svg>
+            <div><b style="font-size:.85rem">Colombia</b><br/><span class="note">Bogotá</span></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:.5rem">
+            <svg width="28" height="19" viewBox="0 0 30 20"><rect width="30" height="10" fill="#FFDD00"/><rect y="10" width="30" height="5" fill="#0033A0"/><rect y="15" width="30" height="5" fill="#EF3340"/><circle cx="15" cy="10" r="3.2" fill="none" stroke="#7C4A1E" stroke-width="1"/><rect width="30" height="20" fill="none" stroke="var(--line)"/></svg>
+            <div><b style="font-size:.85rem">Ecuador</b><br/><span class="note">Quito · sede del TJCA</span></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:.5rem">
+            <svg width="28" height="19" viewBox="0 0 30 20"><rect width="10" height="20" fill="#D91023"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#D91023"/><rect width="30" height="20" fill="none" stroke="var(--line)"/></svg>
+            <div><b style="font-size:.85rem">Perú</b><br/><span class="note">Lima · sede de la Secretaría General</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel flat">
+        <div class="h3">Dos apellidos que conviene no confundir</div>
+        <ul class="list">
+          <li><b>Decisión:</b> norma dictada por el Consejo de Ministros o por la Comisión. Es el instrumento legislativo andino.</li>
+          <li><b>Resolución:</b> acto de la Secretaría General, de rango inferior a la Decisión.</li>
+          <li>Ambas pueden ser <b>impugnadas ante el Tribunal</b> por acción de nulidad, y ambas obligan a los cuatro Estados.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 5 · LÍNEA DE TIEMPO ══════════ -->
+<section class="slide" data-ch="I · Contexto" data-t="Línea de tiempo">
+  <h2 class="h">Cómo llegó a ser lo que es</h2>
+  <p class="sub">El Tribunal nació con competencias limitadas y las fue ampliando. El salto decisivo fue el Protocolo de Cochabamba, que sumó el recurso por omisión, la función arbitral y la jurisdicción laboral.</p>
+  <div class="figwrap">
+    <svg class="fig" viewBox="0 0 1000 220" role="img" aria-label="Línea de tiempo del Tribunal Andino, 1969 a 2004">
+      <line x1="40" y1="112" x2="960" y2="112" stroke="var(--line)" stroke-width="2"/>
+      <line x1="40" y1="112" x2="960" y2="112" stroke="var(--accent)" stroke-width="2" stroke-dasharray="2 9" opacity=".8"/>
+
+      <g font-family="Archivo,sans-serif">
+        <circle cx="70" cy="112" r="6" fill="var(--panel)" stroke="var(--accent)" stroke-width="2.4"/>
+        <text x="70" y="90" text-anchor="middle" font-size="15" font-weight="700" fill="var(--accent)">1969</text>
+        <text x="70" y="140" text-anchor="middle" font-size="11" fill="var(--text)">Acuerdo de</text>
+        <text x="70" y="153" text-anchor="middle" font-size="11" fill="var(--text)">Cartagena</text>
+        <text x="70" y="168" text-anchor="middle" font-size="9.5" fill="var(--dim)">nace el bloque</text>
+
+        <circle cx="218" cy="112" r="6" fill="var(--panel)" stroke="var(--accent)" stroke-width="2.4"/>
+        <text x="218" y="90" text-anchor="middle" font-size="15" font-weight="700" fill="var(--accent)">1979</text>
+        <text x="218" y="140" text-anchor="middle" font-size="11" fill="var(--text)">Tratado de Creación</text>
+        <text x="218" y="153" text-anchor="middle" font-size="11" fill="var(--text)">del Tribunal</text>
+        <text x="218" y="168" text-anchor="middle" font-size="9.5" fill="var(--dim)">se firma en Cartagena</text>
+
+        <circle cx="366" cy="112" r="6" fill="var(--panel)" stroke="var(--accent)" stroke-width="2.4"/>
+        <text x="366" y="90" text-anchor="middle" font-size="15" font-weight="700" fill="var(--accent)">1984</text>
+        <text x="366" y="140" text-anchor="middle" font-size="11" fill="var(--text)">El Tribunal se instala</text>
+        <text x="366" y="153" text-anchor="middle" font-size="11" fill="var(--text)">en Quito</text>
+        <text x="366" y="168" text-anchor="middle" font-size="9.5" fill="var(--dim)">empieza a juzgar</text>
+
+        <circle cx="514" cy="112" r="8" fill="var(--accent)"/>
+        <text x="514" y="90" text-anchor="middle" font-size="15" font-weight="700" fill="var(--accent)">1996</text>
+        <text x="514" y="140" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text)">Protocolo de</text>
+        <text x="514" y="153" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text)">Cochabamba</text>
+        <text x="514" y="168" text-anchor="middle" font-size="9.5" fill="var(--accent)">amplía las competencias</text>
+
+        <circle cx="662" cy="112" r="6" fill="var(--panel)" stroke="var(--accent)" stroke-width="2.4"/>
+        <text x="662" y="90" text-anchor="middle" font-size="15" font-weight="700" fill="var(--accent)">1999</text>
+        <text x="662" y="140" text-anchor="middle" font-size="11" fill="var(--text)">Entra en vigor y se</text>
+        <text x="662" y="153" text-anchor="middle" font-size="11" fill="var(--text)">codifica (Decisión 472)</text>
+        <text x="662" y="168" text-anchor="middle" font-size="9.5" fill="var(--dim)">texto único del Tratado</text>
+
+        <circle cx="810" cy="112" r="8" fill="var(--accent)"/>
+        <text x="810" y="90" text-anchor="middle" font-size="15" font-weight="700" fill="var(--accent)">2001</text>
+        <text x="810" y="140" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text)">Decisión 500</text>
+        <text x="810" y="153" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text)">Estatuto del Tribunal</text>
+        <text x="810" y="168" text-anchor="middle" font-size="9.5" fill="var(--accent)">el manual de procedimiento</text>
+
+        <circle cx="940" cy="112" r="6" fill="var(--panel)" stroke="var(--accent)" stroke-width="2.4"/>
+        <text x="940" y="90" text-anchor="middle" font-size="15" font-weight="700" fill="var(--accent)">2004</text>
+        <text x="940" y="140" text-anchor="middle" font-size="11" fill="var(--text)">Reglamento</text>
+        <text x="940" y="153" text-anchor="middle" font-size="11" fill="var(--text)">Interno</text>
+      </g>
+      <rect x="440" y="18" width="430" height="30" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1" opacity=".9"/>
+      <text x="655" y="38" text-anchor="middle" font-size="11.5" fill="var(--accent)" font-family="Archivo,sans-serif" font-weight="600">Aquí nacen el recurso por omisión, la función arbitral y la jurisdicción laboral</text>
+    </svg>
+  </div>
+  <div class="srcs">
+    <a class="src" href="https://www.comunidadandina.org/DocOficialesFiles/DBasicos/DBasico2.doc" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 3h7v7M21 3l-9 9M19 14v6H5V5h6"/></svg>Tratado de Creación codificado (Decisión 472)</a>
+    <a class="src" href="https://www.tribunalandino.org.ec/index.php/normatividad/normatividad_tjca/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 3h7v7M21 3l-9 9M19 14v6H5V5h6"/></svg>Normatividad del TJCA</a>
+  </div>
+</section>
+
+<!-- ══════════ 6 · NATURALEZA ══════════ -->
+<section class="slide" data-ch="II · El Tribunal" data-t="Qué es y qué no es">
+  <h2 class="h">Qué es, y sobre todo qué <em>no</em> es</h2>
+  <p class="sub">El artículo 4 de su Estatuto lo define como un órgano jurisdiccional permanente, supranacional y comunitario, instituido para declarar el Derecho Andino y asegurar su interpretación y aplicación uniforme en todos los Países Miembros.</p>
+  <div class="cols c2">
+    <div class="panel">
+      <div class="h2" style="color:var(--ok)">Sí es</div>
+      <ul class="list">
+        <li><b>Permanente.</b> No es un panel arbitral que se arma para un caso y se disuelve.</li>
+        <li><b>Supranacional.</b> Los Estados le cedieron competencias; no es un foro de negociación diplomática.</li>
+        <li><b>Comunitario.</b> Aplica un ordenamiento propio, distinto del derecho interno y del derecho internacional clásico.</li>
+        <li><b>Declarativo del Derecho Andino.</b> Fija qué significa la norma común y si se está cumpliendo.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <div class="h2" style="color:var(--warn)">No es</div>
+      <ul class="list">
+        <li><b>Una corte de apelación</b> de las sentencias nacionales. No revisa cómo falló un juez interno.</li>
+        <li><b>Un tribunal de derechos humanos.</b> Ese papel corresponde al sistema interamericano.</li>
+        <li><b>Un árbitro entre empresas.</b> Salvo en su función arbitral específica, no resuelve contratos privados.</li>
+        <li><b>Optativo.</b> Sus sentencias obligan y no requieren exequátur para surtir efectos internos.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="panel deep" style="margin-top:.8rem">
+    <div class="h3">La frase que resume todo</div>
+    <p class="lead">Una misma Decisión andina debe significar lo mismo en La Paz, Bogotá, Quito y Lima. El Tribunal existe para que eso ocurra.</p>
+  </div>
+</section>
+
+<!-- ══════════ 7 · PRINCIPIOS ══════════ -->
+<section class="slide" data-ch="II · El Tribunal" data-t="Principios del sistema">
+  <h2 class="h">Los cuatro principios que sostienen el sistema</h2>
+  <p class="sub">Sin estos principios el Tribunal sería decorativo. Con ellos, una Decisión andina desplaza a la ley nacional que la contradiga.</p>
+  <div class="cols c2-narrow">
+    <div class="figwrap">
+      <svg class="fig" viewBox="0 0 400 300" role="img" aria-label="Jerarquía del ordenamiento andino frente al derecho interno">
+        <polygon points="200,18 296,96 104,96" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6"/>
+        <text x="200" y="58" text-anchor="middle" font-size="12" font-weight="700" fill="var(--accent)" font-family="Archivo,sans-serif">Derecho originario</text>
+        <text x="200" y="74" text-anchor="middle" font-size="9.5" fill="var(--text)" font-family="Archivo,sans-serif">Acuerdo de Cartagena · Tratado</text>
+        <text x="200" y="86" text-anchor="middle" font-size="9.5" fill="var(--text)" font-family="Archivo,sans-serif">del TJCA · protocolos</text>
+
+        <polygon points="104,102 296,102 330,176 70,176" fill="var(--panel-2)" stroke="var(--accent)" stroke-width="1.4"/>
+        <text x="200" y="130" text-anchor="middle" font-size="12" font-weight="700" fill="var(--accent)" font-family="Archivo,sans-serif">Derecho derivado</text>
+        <text x="200" y="147" text-anchor="middle" font-size="9.5" fill="var(--text)" font-family="Archivo,sans-serif">Decisiones del Consejo y la Comisión</text>
+        <text x="200" y="160" text-anchor="middle" font-size="9.5" fill="var(--text)" font-family="Archivo,sans-serif">Resoluciones de la Secretaría General</text>
+
+        <line x1="40" y1="192" x2="360" y2="192" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 4"/>
+        <text x="360" y="186" text-anchor="end" font-size="9.5" fill="var(--accent)" font-family="Archivo,sans-serif">primacía</text>
+
+        <rect x="40" y="204" width="320" height="76" rx="10" fill="var(--panel)" stroke="var(--line)"/>
+        <text x="200" y="228" text-anchor="middle" font-size="12" font-weight="700" fill="var(--dim)" font-family="Archivo,sans-serif">Derecho interno de cada país</text>
+        <text x="200" y="246" text-anchor="middle" font-size="9.5" fill="var(--dim)" font-family="Archivo,sans-serif">constituciones, leyes, decretos, reglamentos</text>
+        <text x="200" y="266" text-anchor="middle" font-size="10" fill="var(--warn)" font-family="Archivo,sans-serif">si contradice al Derecho Andino, no se aplica al caso</text>
+
+        <path d="M200 182 L200 200" stroke="var(--accent)" stroke-width="2" marker-end="url(#ar1)"/>
+        <defs><marker id="ar1" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L7 4 L0 8 z" fill="var(--accent)"/></marker></defs>
+      </svg>
+      <figcaption>La norma andina no deroga la ley nacional: la desplaza en el caso concreto.</figcaption>
+    </div>
+    <div class="cols" style="gap:.55rem">
+      <div class="panel">
+        <div class="h2">1 · Primacía</div>
+        <p class="dim">Ante un conflicto, la norma andina prevalece sobre la interna, cualquiera sea su rango y su fecha.</p>
+      </div>
+      <div class="panel">
+        <div class="h2">2 · Aplicación inmediata</div>
+        <p class="dim">Las Decisiones obligan desde su publicación en la Gaceta Oficial del Acuerdo de Cartagena. No hace falta una ley nacional que las incorpore.</p>
+      </div>
+      <div class="panel">
+        <div class="h2">3 · Efecto directo</div>
+        <p class="dim">Los particulares pueden invocar la norma andina ante sus jueces y autoridades nacionales para defender derechos.</p>
+      </div>
+      <div class="panel">
+        <div class="h2">4 · Autonomía</div>
+        <p class="dim">El ordenamiento andino se interpreta con sus propias reglas, no por analogía con el derecho interno de un país.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 8 · COMPOSICIÓN ══════════ -->
+<section class="slide" data-ch="II · El Tribunal" data-t="Composición y sede">
+  <h2 class="h">Quién lo integra y cómo funciona</h2>
+  <p class="sub">Una magistratura pequeña, con representación paritaria de los cuatro países y sede fija en Quito.</p>
+  <div class="cols c2-wide">
+    <div>
+      <div class="cols c2" style="margin-bottom:.7rem">
+        <div class="panel"><div class="metric"><span class="n">4</span><span class="l">magistrados, uno por cada País Miembro, con sus respectivos suplentes</span></div></div>
+        <div class="panel"><div class="metric"><span class="n">Quito</span><span class="l">sede permanente, con convenio de sede con Ecuador</span></div></div>
+      </div>
+      <div class="panel flat">
+        <div class="h3">Garantías de independencia</div>
+        <ul class="list">
+          <li>Los magistrados actúan <b>en nombre del Tribunal</b>, no en representación del país que los designó.</li>
+          <li>Gozan de inmunidades y de un régimen estricto de incompatibilidades.</li>
+          <li>Su designación, período y causales de remoción están reguladas en el Tratado y en el Estatuto, no en el derecho interno de cada país.</li>
+          <li>El Tribunal nombra a su <b>Secretario</b> y aprueba su propio Reglamento Interno.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="panel deep">
+      <div class="h3">Lo que produce el Tribunal</div>
+      <ul class="list">
+        <li><b>Sentencias</b> en acciones de nulidad, incumplimiento, omisión y laborales.</li>
+        <li><b>Interpretaciones prejudiciales</b> dirigidas a jueces nacionales.</li>
+        <li><b>Autos</b> que ordenan medidas cautelares o abren procedimientos de desacato.</li>
+        <li><b>Laudos</b> cuando ejerce su función arbitral.</li>
+      </ul>
+      <hr class="rule"/>
+      <p class="note">Todo lo anterior se publica en la <b>Gaceta Oficial del Acuerdo de Cartagena</b>, que es la fuente para verificar fechas, partes y texto exacto de cualquier proceso.</p>
+      <div class="srcs">
+        <a class="src" href="https://www.tribunalandino.org.ec/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 3h7v7M21 3l-9 9M19 14v6H5V5h6"/></svg>tribunalandino.org.ec</a>
+        <a class="src" href="https://www.comunidadandina.org/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 3h7v7M21 3l-9 9M19 14v6H5V5h6"/></svg>comunidadandina.org</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 9 · MARCO NORMATIVO ══════════ -->
+<section class="slide" data-ch="II · El Tribunal" data-t="Marco normativo">
+  <h2 class="h">Las cuatro normas que hay que tener a mano</h2>
+  <p class="sub">Si en un examen o en un caso real hay que citar la fuente, sale de aquí.</p>
+  <div class="cols c2">
+    <div class="panel">
+      <div class="h2">Tratado de Creación del TJCA</div>
+      <p class="dim">Firmado en 1979 y reformado por el Protocolo de Cochabamba (1996). Define las competencias del Tribunal y el efecto de sus sentencias. Su texto único fue codificado por la <b>Decisión 472</b> de la Comisión, de 1999.</p>
+      <div class="chips" style="margin-top:.5rem"><span class="chip a">Qué puede hacer el Tribunal</span></div>
+      <div class="srcs">
+        <a class="src" href="https://www.comunidadandina.org/DocOficialesFiles/DBasicos/DBasico2.doc" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 3h7v7M21 3l-9 9M19 14v6H5V5h6"/></svg>Texto codificado</a>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="h2">Decisión 500 · Estatuto del Tribunal</div>
+      <p class="dim">Aprobada por el Consejo Andino de Ministros de Relaciones Exteriores el 22 de junio de 2001. Desarrolla la naturaleza del ordenamiento andino y el <b>procedimiento de cada acción</b>: plazos, requisitos de la demanda, prueba, sentencia.</p>
+      <div class="chips" style="margin-top:.5rem"><span class="chip a">Cómo se tramita cada proceso</span></div>
+      <div class="srcs">
+        <a class="src" href="https://www.tribunalandino.org.ec/index.php/normatividad/normatividad_tjca/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 3h7v7M21 3l-9 9M19 14v6H5V5h6"/></svg>Normatividad TJCA</a>
+      </div>
+    </div>
+    <div class="panel flat">
+      <div class="h2">Acuerdo de Cartagena</div>
+      <p class="dim">Tratado marco de 1969 que crea la Comunidad Andina, fija sus objetivos y reparte competencias entre los órganos. Es la norma que los Estados se comprometen a no vulnerar.</p>
+    </div>
+    <div class="panel flat">
+      <div class="h2">Reglamento Interno del TJCA</div>
+      <p class="dim">Aprobado por el propio Tribunal en 2004. Regula su organización interna: sesiones judiciales, ponencias, mayorías para aprobar una sentencia, funciones de la Secretaría.</p>
+    </div>
+  </div>
+  <div class="callout" style="margin-top:.8rem"><b>Regla práctica:</b> el Tratado dice <i>qué</i> puede hacer el Tribunal; el Estatuto dice <i>cómo</i> se hace. Casi toda pregunta procesal se responde en la Decisión 500.</div>
+</section>
+
+<!-- ══════════ 10 · MAPA DE COMPETENCIAS ══════════ -->
+<section class="slide" data-ch="III · Los procesos" data-t="Mapa de competencias">
+  <h2 class="h">Seis puertas de entrada al Tribunal</h2>
+  <p class="sub">Cada competencia responde a una pregunta distinta. Identificar cuál es la pregunta es la mitad del trabajo.</p>
+  <div class="figwrap">
+    <svg class="fig" viewBox="0 0 900 360" role="img" aria-label="Las seis competencias del Tribunal Andino">
+      <g stroke="var(--line)" stroke-width="1.4" fill="none">
+        <path d="M290 60 C 360 60, 370 150, 372 172"/>
+        <path d="M290 180 H 372"/>
+        <path d="M290 300 C 360 300, 370 210, 372 190"/>
+        <path d="M610 60 C 540 60, 530 150, 528 172"/>
+        <path d="M610 180 H 528"/>
+        <path d="M610 300 C 540 300, 530 210, 528 190"/>
+      </g>
+
+      <circle cx="450" cy="180" r="78" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
+      <text x="450" y="168" text-anchor="middle" font-size="26" font-weight="700" fill="var(--accent)" font-family="Spectral,serif">TJCA</text>
+      <text x="450" y="192" text-anchor="middle" font-size="10.5" fill="var(--text)" font-family="Archivo,sans-serif">Tribunal de Justicia</text>
+      <text x="450" y="206" text-anchor="middle" font-size="10.5" fill="var(--text)" font-family="Archivo,sans-serif">de la Comunidad Andina</text>
+
+      <g font-family="Archivo,sans-serif">
+        <rect x="20" y="28" width="270" height="64" rx="11" fill="var(--panel-2)" stroke="var(--accent)" stroke-width="1.3"/>
+        <text x="36" y="52" font-size="13" font-weight="700" fill="var(--text)">Acción de nulidad</text>
+        <text x="36" y="70" font-size="10.5" fill="var(--dim)">¿La norma andina es válida?</text>
+        <text x="36" y="84" font-size="10" fill="var(--accent)">Se ataca una Decisión o Resolución</text>
+
+        <rect x="20" y="148" width="270" height="64" rx="11" fill="var(--panel-2)" stroke="var(--accent)" stroke-width="1.3"/>
+        <text x="36" y="172" font-size="13" font-weight="700" fill="var(--text)">Acción de incumplimiento</text>
+        <text x="36" y="190" font-size="10.5" fill="var(--dim)">¿El Estado está cumpliendo?</text>
+        <text x="36" y="204" font-size="10" fill="var(--accent)">Se ataca una conducta nacional</text>
+
+        <rect x="20" y="268" width="270" height="64" rx="11" fill="var(--panel-2)" stroke="var(--accent)" stroke-width="1.3"/>
+        <text x="36" y="292" font-size="13" font-weight="700" fill="var(--text)">Interpretación prejudicial</text>
+        <text x="36" y="310" font-size="10.5" fill="var(--dim)">¿Qué significa la norma andina?</text>
+        <text x="36" y="324" font-size="10" fill="var(--accent)">La pide un juez nacional</text>
+
+        <rect x="610" y="28" width="270" height="64" rx="11" fill="var(--panel-2)" stroke="var(--line)" stroke-width="1.3"/>
+        <text x="626" y="52" font-size="13" font-weight="700" fill="var(--text)">Recurso por omisión</text>
+        <text x="626" y="70" font-size="10.5" fill="var(--dim)">¿El órgano andino actuó?</text>
+        <text x="626" y="84" font-size="10" fill="var(--dim)">Se ataca una inactividad</text>
+
+        <rect x="610" y="148" width="270" height="64" rx="11" fill="var(--panel-2)" stroke="var(--line)" stroke-width="1.3"/>
+        <text x="626" y="172" font-size="13" font-weight="700" fill="var(--text)">Función arbitral</text>
+        <text x="626" y="190" font-size="10.5" fill="var(--dim)">¿Cómo se resuelve este contrato?</text>
+        <text x="626" y="204" font-size="10" fill="var(--dim)">Requiere pacto de las partes</text>
+
+        <rect x="610" y="268" width="270" height="64" rx="11" fill="var(--panel-2)" stroke="var(--line)" stroke-width="1.3"/>
+        <text x="626" y="292" font-size="13" font-weight="700" fill="var(--text)">Jurisdicción laboral</text>
+        <text x="626" y="310" font-size="10.5" fill="var(--dim)">¿Y el personal de la CAN?</text>
+        <text x="626" y="324" font-size="10" fill="var(--dim)">Conflictos con los órganos del SAI</text>
+      </g>
+    </svg>
+    <figcaption>Las tres competencias de la izquierda concentran casi toda la actividad del Tribunal. La interpretación prejudicial es, con diferencia, la más frecuente.</figcaption>
+  </div>
+</section>
+
+<!-- ══════════ 11 · TABLA GENERAL ══════════ -->
+<section class="slide" data-ch="III · Los procesos" data-t="Los seis procesos">
+  <h2 class="h">Los seis procesos, lado a lado</h2>
+  <p class="sub">Esta tabla es la referencia de toda la sesión. Lo que cambia entre acciones es el objeto atacado y quién puede atacarlo.</p>
+  <div class="panel tbl-scroll">
+    <table>
+      <thead><tr><th>Proceso</th><th>Qué se ataca</th><th>Quién puede iniciarlo</th><th>Qué obtiene</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Acción de nulidad</td>
+          <td>Decisiones, Resoluciones y ciertos Convenios andinos</td>
+          <td>Países Miembros, Consejo, Comisión, Secretaría General y particulares afectados</td>
+          <td>Nulidad total o parcial de la norma</td>
+        </tr>
+        <tr>
+          <td>Acción de incumplimiento</td>
+          <td>Normas, conductas u omisiones de un País Miembro</td>
+          <td>Secretaría General, otro País Miembro y particulares afectados</td>
+          <td>Declaración de incumplimiento y plazo para corregir</td>
+        </tr>
+        <tr>
+          <td>Interpretación prejudicial</td>
+          <td>Nada. No hay demandado</td>
+          <td>Solo el juez nacional que conoce el proceso interno</td>
+          <td>El sentido vinculante de la norma andina</td>
+        </tr>
+        <tr>
+          <td>Recurso por omisión o inactividad</td>
+          <td>La inacción de un órgano andino</td>
+          <td>Órganos andinos, Países Miembros y particulares afectados</td>
+          <td>Orden de actuar, con forma y plazo</td>
+        </tr>
+        <tr>
+          <td>Función arbitral</td>
+          <td>Controversias contractuales en el ámbito andino</td>
+          <td>Las partes que pactaron someterse al Tribunal</td>
+          <td>Laudo obligatorio e inapelable</td>
+        </tr>
+        <tr>
+          <td>Jurisdicción laboral</td>
+          <td>Conflictos laborales con órganos del SAI</td>
+          <td>Funcionarios y empleados de esos órganos</td>
+          <td>Sentencia laboral definitiva</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout warn" style="margin-top:.7rem"><b>Error clásico en el examen:</b> confundir nulidad con incumplimiento. La nulidad ataca a la <b>norma andina</b> por inválida. El incumplimiento ataca a un <b>Estado</b> por no respetarla.</div>
+</section>
+
+<!-- ══════════ 12 · NULIDAD I ══════════ -->
+<section class="slide" data-ch="III · Los procesos" data-t="Nulidad · objeto">
+  <h2 class="h">Acción de nulidad · el control de la propia norma andina</h2>
+  <p class="sub">Es el equivalente andino de un control de constitucionalidad: se revisa si una norma comunitaria respetó las normas comunitarias superiores.</p>
+  <div class="cols c2">
+    <div class="panel">
+      <div class="h3">Qué puede anularse</div>
+      <ul class="list">
+        <li>Decisiones del <b>Consejo Andino de Ministros de Relaciones Exteriores</b>.</li>
+        <li>Decisiones de la <b>Comisión de la Comunidad Andina</b>.</li>
+        <li>Resoluciones de la <b>Secretaría General</b>.</li>
+        <li>Convenios celebrados entre Países Miembros en el marco del Acuerdo de Cartagena.</li>
+      </ul>
+      <hr class="rule"/>
+      <p class="note">No se anulan por esta vía las leyes nacionales. Contra una ley nacional contraria al Derecho Andino la vía es la acción de incumplimiento.</p>
+    </div>
+    <div class="panel">
+      <div class="h3">Por qué motivos</div>
+      <ul class="list">
+        <li><b>Violación de norma superior:</b> la Decisión contradice el Acuerdo de Cartagena, el Tratado del Tribunal o un protocolo.</li>
+        <li><b>Incompetencia:</b> el órgano dictó algo que no le correspondía dictar.</li>
+        <li><b>Vicio de procedimiento:</b> se omitieron formalidades esenciales para adoptarla.</li>
+        <li><b>Desviación de poder:</b> se usó una competencia real para un fin distinto del previsto.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cols c3" style="margin-top:.8rem">
+    <div class="panel deep"><div class="metric"><span class="n">2 años</span><span class="l">plazo general para demandar, contado desde la entrada en vigencia de la norma</span></div></div>
+    <div class="panel deep"><div class="metric"><span class="n">Después</span><span class="l">vencido el plazo, la norma puede alegarse como inaplicable ante el juez nacional, que deberá consultar al Tribunal</span></div></div>
+    <div class="panel deep"><div class="metric"><span class="n">Sin efecto suspensivo</span><span class="l">demandar no paraliza la norma; hay que pedir medida cautelar y justificarla</span></div></div>
+  </div>
+</section>
+
+<!-- ══════════ 13 · NULIDAD II ══════════ -->
+<section class="slide" data-ch="III · Los procesos" data-t="Nulidad · legitimación">
+  <h2 class="h">Quién puede demandar la nulidad</h2>
+  <p class="sub">Los órganos y los Estados no tienen que probar nada especial. Los particulares sí.</p>
+  <div class="cols c2-wide">
+    <div class="figwrap">
+      <svg class="fig" viewBox="0 0 620 250" role="img" aria-label="Legitimación activa en la acción de nulidad">
+        <g font-family="Archivo,sans-serif">
+          <rect x="20" y="20" width="250" height="100" rx="11" fill="var(--ok-soft)" stroke="var(--ok)" stroke-width="1.4"/>
+          <text x="145" y="46" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ok)">Legitimación plena</text>
+          <text x="145" y="66" text-anchor="middle" font-size="10.5" fill="var(--text)">Países Miembros</text>
+          <text x="145" y="81" text-anchor="middle" font-size="10.5" fill="var(--text)">Consejo de Ministros · Comisión</text>
+          <text x="145" y="96" text-anchor="middle" font-size="10.5" fill="var(--text)">Secretaría General</text>
+          <text x="145" y="112" text-anchor="middle" font-size="9.5" fill="var(--dim)">no deben acreditar interés particular</text>
+
+          <rect x="20" y="136" width="250" height="96" rx="11" fill="var(--info-soft)" stroke="var(--info)" stroke-width="1.4"/>
+          <text x="145" y="162" text-anchor="middle" font-size="13" font-weight="700" fill="var(--info)">Legitimación condicionada</text>
+          <text x="145" y="182" text-anchor="middle" font-size="10.5" fill="var(--text)">Personas naturales y jurídicas</text>
+          <text x="145" y="202" text-anchor="middle" font-size="9.5" fill="var(--dim)">deben demostrar que la norma afecta</text>
+          <text x="145" y="215" text-anchor="middle" font-size="9.5" fill="var(--dim)">sus derechos subjetivos o sus</text>
+          <text x="145" y="228" text-anchor="middle" font-size="9.5" fill="var(--dim)">intereses legítimos</text>
+
+          <path d="M270 70 H 330" stroke="var(--ok)" stroke-width="1.6" marker-end="url(#ar2)"/>
+          <path d="M270 184 H 330" stroke="var(--info)" stroke-width="1.6" marker-end="url(#ar3)"/>
+          <defs>
+            <marker id="ar2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L7 4 L0 8 z" fill="var(--ok)"/></marker>
+            <marker id="ar3" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L7 4 L0 8 z" fill="var(--info)"/></marker>
+          </defs>
+
+          <rect x="336" y="76" width="264" height="102" rx="11" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6"/>
+          <text x="468" y="104" text-anchor="middle" font-size="13" font-weight="700" fill="var(--accent)">Sentencia de nulidad</text>
+          <text x="468" y="126" text-anchor="middle" font-size="10.5" fill="var(--text)">anula la norma total o parcialmente</text>
+          <text x="468" y="143" text-anchor="middle" font-size="10.5" fill="var(--text)">y fija desde cuándo surte efecto</text>
+          <text x="468" y="164" text-anchor="middle" font-size="10" fill="var(--dim)">el órgano que la dictó debe adoptar</text>
+          <text x="468" y="176" text-anchor="middle" font-size="10" fill="var(--dim)">las medidas que la sentencia ordene</text>
+        </g>
+      </svg>
+    </div>
+    <div>
+      <div class="panel" style="margin-bottom:.6rem">
+        <div class="h3">Qué significa «interés legítimo» en la práctica</div>
+        <p class="dim">No basta con estar en desacuerdo con la norma. Hay que mostrar una afectación concreta: un arancel que encarece un insumo específico de la empresa, un requisito registral que impide comercializar un producto, una restricción que excluye a la compañía de un mercado.</p>
+      </div>
+      <div class="panel flat">
+        <div class="h3">Dónde consultar los fallos</div>
+        <div class="srcs">
+          <a class="src" href="https://www.tribunalandino.org.ec/index.php/jurisprudencia/proceso_judicial/accion_nulidad/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 3h7v7M21 3l-9 9M19 14v6H5V5h6"/></svg>Jurisprudencia · acción de nulidad</a>
+          <a class="src" href="https://www.comunidadandina.org/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 3h7v7M21 3l-9 9M19 14v6H5V5h6"/></svg>Gaceta Oficial del Acuerdo de Cartagena</a>
+        </div>
+        <p class="note" style="margin-top:.5rem">Los procesos se identifican con la sigla <b>AN</b>: por ejemplo, 01-AN-2022 es la primera acción de nulidad registrada en 2022.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 14 · IP I ══════════ -->
+<section class="slide" data-ch="III · Los procesos" data-t="Interpretación prejudicial">
+  <h2 class="h">Interpretación prejudicial · el mecanismo más usado</h2>
+  <p class="sub">Un juez nacional se topa con una norma andina y no tiene claro su alcance. En lugar de decidir solo, pregunta al Tribunal. Así se evita que la misma Decisión signifique cosas distintas en cada país.</p>
+  <div class="cols c2">
+    <div class="panel">
+      <div class="h2" style="color:var(--ok)">Qué hace el Tribunal</div>
+      <ul class="list">
+        <li>Interpreta la norma andina <b>en abstracto</b>, aplicada a los hechos que el juez le describe.</li>
+        <li>Fija criterios: cómo comparar dos marcas, qué es un signo descriptivo, cómo se cuenta un plazo.</li>
+        <li>Emite un pronunciamiento <b>vinculante</b> para ese juez en ese proceso.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <div class="h2" style="color:var(--warn)">Qué no hace</div>
+      <ul class="list">
+        <li>No decide quién gana el pleito interno. Eso sigue siendo del juez nacional.</li>
+        <li>No valora la prueba ni establece los hechos.</li>
+        <li>No interpreta el derecho nacional, ni siquiera para decir si contradice al andino.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="panel deep" style="margin-top:.8rem">
+    <div class="h3">Por qué importa para una empresa</div>
+    <p class="lead">Si su litigio en Bogotá depende de la Decisión 486 sobre propiedad industrial, el criterio que fije el Tribunal en la interpretación prejudicial determinará el resultado. Y ese mismo criterio se aplicará después en Lima y en Quito.</p>
+  </div>
+</section>
+
+<!-- ══════════ 15 · IP II · árbol ══════════ -->
+<section class="slide" data-ch="III · Los procesos" data-t="IP · facultativa u obligatoria">
+  <h2 class="h">¿Consultar es opcional?</h2>
+  <p class="sub">Depende de una sola cosa: si la sentencia que va a dictar el juez admite recurso en el derecho interno.</p>
+  <div class="figwrap">
+    <svg class="fig" viewBox="0 0 900 330" role="img" aria-label="Árbol de decisión sobre la consulta prejudicial">
+      <defs><marker id="ar4" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0 L8 4.5 L0 9 z" fill="var(--accent)"/></marker></defs>
+      <g font-family="Archivo,sans-serif">
+        <rect x="290" y="12" width="320" height="58" rx="11" fill="var(--panel-2)" stroke="var(--accent)" stroke-width="1.6"/>
+        <text x="450" y="36" text-anchor="middle" font-size="13" font-weight="700" fill="var(--text)">Un juez nacional debe aplicar</text>
+        <text x="450" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="var(--text)">o interpretar una norma andina</text>
+
+        <path d="M450 70 V 96" stroke="var(--accent)" stroke-width="1.6"/>
+        <rect x="330" y="96" width="240" height="44" rx="10" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.4"/>
+        <text x="450" y="123" text-anchor="middle" font-size="13" font-weight="700" fill="var(--accent)">¿Su sentencia admite recurso?</text>
+
+        <path d="M330 118 H 210 V 168" stroke="var(--accent)" stroke-width="1.6" marker-end="url(#ar4)"/>
+        <text x="258" y="110" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ok)">SÍ</text>
+        <path d="M570 118 H 690 V 168" stroke="var(--accent)" stroke-width="1.6" marker-end="url(#ar4)"/>
+        <text x="642" y="110" text-anchor="middle" font-size="12" font-weight="700" fill="var(--warn)">NO</text>
+
+        <rect x="50" y="172" width="320" height="136" rx="12" fill="var(--ok-soft)" stroke="var(--ok)" stroke-width="1.5"/>
+        <text x="210" y="200" text-anchor="middle" font-size="16" font-weight="700" fill="var(--ok)" font-family="Spectral,serif">Consulta facultativa</text>
+        <text x="210" y="226" text-anchor="middle" font-size="11" fill="var(--text)">El juez puede consultar, pero no está obligado.</text>
+        <text x="210" y="244" text-anchor="middle" font-size="11" fill="var(--text)">Si consulta, debe esperar la respuesta.</text>
+        <text x="210" y="268" text-anchor="middle" font-size="10.5" fill="var(--dim)">Si decide no consultar, resuelve con su</text>
+        <text x="210" y="282" text-anchor="middle" font-size="10.5" fill="var(--dim)">propio criterio, y el error podrá</text>
+        <text x="210" y="296" text-anchor="middle" font-size="10.5" fill="var(--dim)">corregirse en la instancia superior.</text>
+
+        <rect x="530" y="172" width="320" height="136" rx="12" fill="var(--warn-soft)" stroke="var(--warn)" stroke-width="1.5"/>
+        <text x="690" y="200" text-anchor="middle" font-size="16" font-weight="700" fill="var(--warn)" font-family="Spectral,serif">Consulta obligatoria</text>
+        <text x="690" y="226" text-anchor="middle" font-size="11" fill="var(--text)">Única o última instancia: debe consultar</text>
+        <text x="690" y="244" text-anchor="middle" font-size="11" fill="var(--text)">y suspender el proceso interno.</text>
+        <text x="690" y="268" text-anchor="middle" font-size="10.5" fill="var(--dim)">Si omite la consulta, el Estado puede ser</text>
+        <text x="690" y="282" text-anchor="middle" font-size="10.5" fill="var(--dim)">demandado por incumplimiento, porque el</text>
+        <text x="690" y="296" text-anchor="middle" font-size="10.5" fill="var(--dim)">juez también es «el Estado».</text>
+      </g>
+    </svg>
+    <figcaption>El criterio no es la jerarquía del tribunal, sino si contra su decisión cabe todavía un recurso ordinario.</figcaption>
+  </div>
+</section>
+
+<!-- ══════════ 16 · IP III · circuito ══════════ -->
+<section class="slide" data-ch="III · Los procesos" data-t="IP · el circuito">
+  <h2 class="h">El circuito completo, paso a paso</h2>
+  <p class="sub">La interpretación prejudicial abre un paréntesis dentro del juicio nacional. El expediente interno se detiene, viaja a Quito una pregunta jurídica, y vuelve con una respuesta que el juez debe aplicar.</p>
+  <div class="figwrap">
+    <svg class="fig" viewBox="0 0 960 250" role="img" aria-label="Circuito de la interpretación prejudicial">
+      <defs><marker id="ar5" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0 L8 4.5 L0 9 z" fill="var(--accent)"/></marker></defs>
+      <rect x="10" y="14" width="940" height="100" rx="12" fill="none" stroke="var(--line)" stroke-dasharray="5 4"/>
+      <text x="26" y="34" font-size="11" font-weight="700" fill="var(--dim)" font-family="Archivo,sans-serif">PAÍS MIEMBRO · proceso interno</text>
+      <rect x="10" y="132" width="940" height="104" rx="12" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.2" stroke-dasharray="5 4"/>
+      <text x="26" y="152" font-size="11" font-weight="700" fill="var(--accent)" font-family="Archivo,sans-serif">QUITO · Tribunal de Justicia</text>
+
+      <g font-family="Archivo,sans-serif">
+        <rect x="30" y="44" width="180" height="58" rx="10" fill="var(--panel-2)" stroke="var(--line)"/>
+        <text x="120" y="68" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--text)">1 · Surge la duda</text>
+        <text x="120" y="86" text-anchor="middle" font-size="10" fill="var(--dim)">hay una norma andina en juego</text>
+
+        <rect x="240" y="44" width="180" height="58" rx="10" fill="var(--panel-2)" stroke="var(--line)"/>
+        <text x="330" y="68" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--text)">2 · Solicitud</text>
+        <text x="330" y="86" text-anchor="middle" font-size="10" fill="var(--dim)">hechos, norma y preguntas</text>
+
+        <rect x="750" y="44" width="180" height="58" rx="10" fill="var(--panel-2)" stroke="var(--line)"/>
+        <text x="840" y="68" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--text)">5 · Sentencia interna</text>
+        <text x="840" y="86" text-anchor="middle" font-size="10" fill="var(--dim)">el juez aplica el criterio recibido</text>
+
+        <rect x="300" y="160" width="180" height="58" rx="10" fill="var(--panel)" stroke="var(--accent)" stroke-width="1.4"/>
+        <text x="390" y="184" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--accent)">3 · Admisión</text>
+        <text x="390" y="202" text-anchor="middle" font-size="10" fill="var(--text)">auto que admite a trámite</text>
+
+        <rect x="540" y="160" width="180" height="58" rx="10" fill="var(--panel)" stroke="var(--accent)" stroke-width="1.4"/>
+        <text x="630" y="184" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--accent)">4 · Interpretación</text>
+        <text x="630" y="202" text-anchor="middle" font-size="10" fill="var(--text)">se publica en la Gaceta Oficial</text>
+
+        <path d="M210 73 H 234" stroke="var(--accent)" stroke-width="1.6" marker-end="url(#ar5)"/>
+        <path d="M330 102 V 130 H 390 V 154" stroke="var(--accent)" stroke-width="1.6" fill="none" marker-end="url(#ar5)"/>
+        <path d="M480 189 H 534" stroke="var(--accent)" stroke-width="1.6" marker-end="url(#ar5)"/>
+        <path d="M720 189 H 840 V 108" stroke="var(--accent)" stroke-width="1.6" fill="none" marker-end="url(#ar5)"/>
+
+        <text x="205" y="128" font-size="10" fill="var(--warn)" font-weight="600">proceso interno suspendido si la consulta es obligatoria</text>
+      </g>
+    </svg>
+  </div>
+  <div class="cols c2" style="margin-top:.7rem">
+    <div class="panel flat">
+      <div class="h3">Qué debe enviar el juez</div>
+      <ul class="list">
+        <li>El <b>relato de los hechos</b> pertinentes, no el expediente completo.</li>
+        <li>Las <b>normas andinas</b> cuya interpretación necesita.</li>
+        <li>Las <b>preguntas concretas</b> que quiere que el Tribunal responda.</li>
+      </ul>
+    </div>
+    <div class="panel flat">
+      <div class="h3">Qué recibe de vuelta</div>
+      <ul class="list">
+        <li>Criterios interpretativos, no una orden sobre quién gana.</li>
+        <li>Un texto publicado y consultable por cualquiera, que se convierte en precedente para casos futuros.</li>
+      </ul>
+      <div class="srcs">
+        <a class="src" href="https://www.tribunalandino.org.ec/wp-content/uploads/2021/09/C%C3%B3mo-solicitar-y-c%C3%B3mo-aplicar-la-Interpretaci%C3%B3n-Prejudicial-5.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 3h7v7M21 3l-9 9M19 14v6H5V5h6"/></svg>Guía oficial del TJCA para jueces</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 17 · CASO IP ══════════ -->
+<section class="slide" data-ch="III · Los procesos" data-t="Caso · 64-IP-2020">
+  <h2 class="h">Cómo se ve una interpretación prejudicial real</h2>
+  <div class="docket">
+    <span class="no">Proceso 64-IP-2020</span>
+    <span class="meta">Quito, 18 de junio de 2020</span>
+    <span class="meta">Magistrado ponente: Hugo R. Gómez Apac</span>
+    <span class="meta">TOPLANDER frente a LAND ROVER y FREELANDER</span>
+  </div>
+  <div class="cols c3">
+    <div class="panel">
+      <div class="h3">Quién pregunta</div>
+      <p class="dim">La Sección Primera de la Sala de lo Contencioso Administrativo del <b>Consejo de Estado de Colombia</b>, mediante oficio de marzo de 2020, dentro de un proceso interno sobre registro de marca.</p>
+      <p class="note" style="margin-top:.4rem">Es un tribunal de última instancia en lo contencioso administrativo: para él la consulta es obligatoria.</p>
+    </div>
+    <div class="panel">
+      <div class="h3">Qué pregunta</div>
+      <p class="dim">El alcance de los artículos <b>134</b>, <b>135 literal b)</b> y <b>136 literal a)</b> de la Decisión 486, el Régimen Común sobre Propiedad Industrial.</p>
+      <div class="chips" style="margin-top:.5rem">
+        <span class="chip i">Riesgo de confusión</span><span class="chip i">Reglas de cotejo</span>
+        <span class="chip i">Signos en idioma extranjero</span><span class="chip i">Marcas de fantasía</span>
+        <span class="chip i">Conexión entre productos</span>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="h3">Qué se lleva el juez</div>
+      <p class="dim">Una metodología: cómo comparar un signo mixto con uno denominativo, cuándo una palabra extranjera se considera de fantasía y cuándo el público la entiende, y cómo se mide la conexión entre productos de distintas clases de Niza.</p>
+      <p class="note" style="margin-top:.4rem">Con esos criterios, el Consejo de Estado decide si TOPLANDER puede registrarse. Esa parte sigue siendo suya.</p>
+    </div>
+  </div>
+  <div class="cols c2" style="margin-top:.8rem">
+    <div class="panel flat">
+      <div class="h3">El otro caso citado en clase</div>
+      <p class="dim"><b>Proceso 309-IP-2015 · UP &amp; GO.</b> Solicitud de registro del signo denominativo UP &amp; GO bajo la Decisión 486, con discusión sobre signos en idioma extranjero y sobre el alcance de la protección de las <b>marcas notoriamente conocidas extracomunitarias</b>, es decir, notorias fuera de la Comunidad Andina.</p>
+    </div>
+    <div class="panel flat">
+      <div class="h3">Texto completo y buscador</div>
+      <div class="srcs">
+        <a class="src" href="https://www.wipo.int/wipolex/es/text/583200" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 3h7v7M21 3l-9 9M19 14v6H5V5h6"/></svg>64-IP-2020 en WIPO Lex</a>
+        <a class="src" href="https://www.tribunalandino.org.ec/index.php/jurisprudencia/proceso_judicial/interpretaciones_prejudiciales/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 3h7v7M21 3l-9 9M19 14v6H5V5h6"/></svg>Buscador de interpretaciones del TJCA</a>
+      </div>
+      <p class="note" style="margin-top:.5rem">La sigla <b>IP</b> identifica estos procesos. El número antes del guion es el orden de ingreso en el año.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 18 · ACTO ACLARADO ══════════ -->
+<section class="slide" data-ch="III · Los procesos" data-t="Acto aclarado">
+  <h2 class="h">Acto aclarado · cuando ya no hace falta preguntar</h2>
+  <p class="sub">Si el Tribunal ya resolvió con claridad exactamente la misma cuestión, exigir una consulta nueva solo añadiría demora. Esa es la idea del acto aclarado, tomada de la doctrina europea CILFIT y adaptada al sistema andino.</p>
+  <div class="cols c2-wide">
+    <div class="panel">
+      <div class="h3">Requisitos para invocarlo</div>
+      <ol class="steps">
+        <li>Existe una <b>interpretación previa del Tribunal</b> sobre la misma norma.</li>
+        <li>Esa interpretación es <b>clara</b> y resuelve la cuestión sin margen razonable de duda.</li>
+        <li>El caso nuevo no introduce un <b>elemento distinto</b> que exija matizar el criterio.</li>
+        <li>El juez lo <b>motiva expresamente</b>: identifica el proceso anterior y explica por qué cubre su caso.</li>
+      </ol>
+      <div class="callout warn" style="margin-top:.6rem">Invocarlo mal equivale a no consultar. Si el criterio previo no cubría realmente el caso, reaparece el riesgo de una acción de incumplimiento contra el Estado.</div>
+    </div>
+    <div>
+      <div class="panel deep" style="margin-bottom:.6rem">
+        <div class="h3">Base normativa</div>
+        <p class="dim">El propio Tribunal ha fundado este criterio en el <b>segundo párrafo del artículo 33</b> del Tratado de Creación y en el <b>artículo 123</b> del Estatuto, y lo ha aplicado de forma expresa en procesos recientes de propiedad industrial.</p>
+        <div class="chips" style="margin-top:.5rem">
+          <span class="chip a">90-IP-2022</span><span class="chip a">128-IP-2022</span><span class="chip a">184-IP-2022</span>
+        </div>
+      </div>
+      <div class="panel flat">
+        <div class="h3">Para qué sirve en la práctica</div>
+        <ul class="list">
+          <li>Descongestiona al Tribunal y acelera los procesos internos.</li>
+          <li>Refuerza el valor de precedente de las interpretaciones ya dictadas.</li>
+        </ul>
+        <div class="srcs">
+          <a class="src" href="https://www.wipo.int/wipolex/es/judgments/details/1961" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 3h7v7M21 3l-9 9M19 14v6H5V5h6"/></svg>Proceso 90-IP-2022</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 19 · OTRAS COMPETENCIAS ══════════ -->
+<section class="slide" data-ch="III · Los procesos" data-t="Las otras tres competencias">
+  <h2 class="h">Las tres competencias menos conocidas</h2>
+  <p class="sub">Antes de llegar al mecanismo más contundente del Tribunal —la acción de incumplimiento—, cerremos el cuadro con las tres competencias que aparecen menos en la práctica pero completan el mapa.</p>
+  <div class="cols c3">
+    <div class="panel">
+      <div class="h2">Recurso por omisión o inactividad</div>
+      <p class="dim">Se dirige contra un <b>órgano andino</b>, no contra un Estado, cuando incumple una obligación expresa de actuar: no dicta la norma que debía dictar, no adopta la medida que se le exige.</p>
+      <hr class="rule"/>
+      <div class="h3">Requisito previo</div>
+      <p class="dim">Hay que <b>requerir formalmente</b> al órgano inactivo. Solo si no responde o no actúa se abre la vía judicial.</p>
+      <div class="h3" style="margin-top:.5rem">Resultado</div>
+      <p class="dim">La sentencia señala <b>la forma, la modalidad y el plazo</b> en que el órgano debe cumplir.</p>
+    </div>
+    <div class="panel">
+      <div class="h2">Función arbitral</div>
+      <p class="dim">Incorporada por el Protocolo de Cochabamba. El Tribunal puede resolver, como árbitro, controversias que surjan de <b>contratos, convenios o acuerdos</b> suscritos entre órganos de la Comunidad Andina o entre estos y terceros.</p>
+      <hr class="rule"/>
+      <div class="h3">Condición</div>
+      <p class="dim">Requiere que las partes lo hayan <b>pactado</b>. No opera de oficio.</p>
+      <div class="h3" style="margin-top:.5rem">Resultado</div>
+      <p class="dim">Un <b>laudo</b> obligatorio, inapelable y que constituye título legal y suficiente para exigir su ejecución.</p>
+    </div>
+    <div class="panel">
+      <div class="h2">Jurisdicción laboral</div>
+      <p class="dim">Resuelve las controversias laborales entre los <b>órganos e instituciones del Sistema Andino de Integración</b> y sus funcionarios o empleados.</p>
+      <hr class="rule"/>
+      <div class="h3">Requisito previo</div>
+      <p class="dim">Agotar la <b>vía interna</b> del órgano empleador mediante el reclamo correspondiente.</p>
+      <div class="h3" style="margin-top:.5rem">Por qué existe</div>
+      <p class="dim">Los organismos internacionales gozan de inmunidad de jurisdicción. Sin este foro, su personal quedaría sin juez.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 20 · INCUMPLIMIENTO I ══════════ -->
+<section class="slide" data-ch="IV · Incumplimiento" data-t="Incumplimiento · objeto">
+  <h2 class="h">Acción de incumplimiento · el Estado en el banquillo</h2>
+  <p class="sub">Es la herramienta con más consecuencias económicas: obliga a un país a cambiar su normativa o su práctica cuando contradice el Derecho Andino. El resto de esta sección la dedicamos a un caso real, de principio a fin.</p>
+  <div class="cols c3">
+    <div class="panel">
+      <div class="h3">Qué se le reprocha al Estado</div>
+      <ul class="list">
+        <li><b>Hacer:</b> aprobar una ley, decreto o resolución contraria a una norma andina.</li>
+        <li><b>No hacer:</b> omitir las medidas necesarias para que la norma andina funcione.</li>
+        <li><b>Practicar:</b> aplicar de hecho un trato incompatible, aunque la norma escrita parezca correcta.</li>
+      </ul>
+      <p class="note" style="margin-top:.5rem">«Estado» incluye a cualquier autoridad: ministerios, aduanas, reguladores y también los jueces nacionales.</p>
+    </div>
+    <div class="panel">
+      <div class="h3">Quién puede accionar</div>
+      <ul class="list">
+        <li><b>Secretaría General de la CAN.</b> Es la vía principal y puede actuar de oficio.</li>
+        <li><b>Otro País Miembro</b> que se considere afectado.</li>
+        <li><b>Particulares</b> cuyos derechos resulten afectados, previo reclamo ante la Secretaría General.</li>
+      </ul>
+    </div>
+    <div class="panel deep">
+      <div class="h3">La regla que no hay que olvidar</div>
+      <p class="lead">Un particular no puede ir directo al Tribunal. Primero hay que agotar la fase ante la Secretaría General. Solo si esta no emite dictamen, o lo emite y el Estado no corrige, se abre la puerta judicial.</p>
+      <div class="srcs">
+        <a class="src" href="https://www.tribunalandino.org.ec/index.php/jurisprudencia/proceso_judicial/accion_incumplimiento/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 3h7v7M21 3l-9 9M19 14v6H5V5h6"/></svg>Jurisprudencia · incumplimiento</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 21 · INCUMPLIMIENTO II · flujo ══════════ -->
+<section class="slide" data-ch="IV · Incumplimiento" data-t="Incumplimiento · procedimiento">
+  <h2 class="h">Dos fases, dos instituciones</h2>
+  <p class="sub">Primero un filtro administrativo en Lima, después el juicio en Quito. Saltarse la primera fase hace inadmisible la demanda.</p>
+  <div class="figwrap">
+    <svg class="fig" viewBox="0 0 980 300" role="img" aria-label="Procedimiento de la acción de incumplimiento en dos fases">
+      <defs><marker id="ar6" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0 L8 4.5 L0 9 z" fill="var(--accent)"/></marker></defs>
+
+      <rect x="10" y="14" width="470" height="200" rx="12" fill="var(--info-soft)" stroke="var(--info)" stroke-width="1.2" stroke-dasharray="5 4"/>
+      <text x="28" y="36" font-size="11.5" font-weight="700" fill="var(--info)" font-family="Archivo,sans-serif">FASE PREJUDICIAL · Secretaría General, Lima</text>
+      <rect x="500" y="14" width="470" height="200" rx="12" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.2" stroke-dasharray="5 4"/>
+      <text x="518" y="36" font-size="11.5" font-weight="700" fill="var(--accent)" font-family="Archivo,sans-serif">FASE JUDICIAL · Tribunal, Quito</text>
+
+      <g font-family="Archivo,sans-serif">
+        <rect x="28" y="50" width="200" height="54" rx="10" fill="var(--panel-2)" stroke="var(--line)"/>
+        <text x="128" y="72" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--text)">1 · Reclamo o de oficio</text>
+        <text x="128" y="90" text-anchor="middle" font-size="10" fill="var(--dim)">lo activa un país o un particular</text>
+
+        <rect x="260" y="50" width="200" height="54" rx="10" fill="var(--panel-2)" stroke="var(--line)"/>
+        <text x="360" y="72" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--text)">2 · Nota de observaciones</text>
+        <text x="360" y="90" text-anchor="middle" font-size="10" fill="var(--dim)">el país responde y aporta prueba</text>
+
+        <rect x="144" y="132" width="200" height="60" rx="10" fill="var(--panel)" stroke="var(--info)" stroke-width="1.5"/>
+        <text x="244" y="155" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--info)">3 · Dictamen motivado</text>
+        <text x="244" y="173" text-anchor="middle" font-size="10" fill="var(--text)">concluye si hay o no incumplimiento</text>
+
+        <rect x="518" y="50" width="200" height="54" rx="10" fill="var(--panel)" stroke="var(--accent)" stroke-width="1.4"/>
+        <text x="618" y="72" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--accent)">4 · Demanda</text>
+        <text x="618" y="90" text-anchor="middle" font-size="10" fill="var(--text)">cabe pedir medidas cautelares</text>
+
+        <rect x="750" y="50" width="200" height="54" rx="10" fill="var(--panel)" stroke="var(--accent)" stroke-width="1.4"/>
+        <text x="850" y="72" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--accent)">5 · Sentencia</text>
+        <text x="850" y="90" text-anchor="middle" font-size="10" fill="var(--text)">declara el incumplimiento</text>
+
+        <rect x="518" y="132" width="200" height="60" rx="10" fill="var(--ok-soft)" stroke="var(--ok)" stroke-width="1.5"/>
+        <text x="618" y="155" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--ok)">6 · Plazo para corregir</text>
+        <text x="618" y="173" text-anchor="middle" font-size="10" fill="var(--text)">habitualmente 90 días</text>
+
+        <rect x="750" y="132" width="200" height="60" rx="10" fill="var(--warn-soft)" stroke="var(--warn)" stroke-width="1.5"/>
+        <text x="850" y="155" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--warn)">7 · Si no cumple</text>
+        <text x="850" y="173" text-anchor="middle" font-size="10" fill="var(--text)">sumario por desacato</text>
+
+        <path d="M228 77 H 254" stroke="var(--accent)" stroke-width="1.6" marker-end="url(#ar6)"/>
+        <path d="M360 104 V 120 H 244 V 126" stroke="var(--accent)" stroke-width="1.6" fill="none" marker-end="url(#ar6)"/>
+        <path d="M344 162 H 430 V 77 H 512" stroke="var(--accent)" stroke-width="1.6" fill="none" marker-end="url(#ar6)"/>
+        <path d="M718 77 H 744" stroke="var(--accent)" stroke-width="1.6" marker-end="url(#ar6)"/>
+        <path d="M850 104 V 120 H 618 V 126" stroke="var(--accent)" stroke-width="1.6" fill="none" marker-end="url(#ar6)"/>
+        <path d="M718 162 H 744" stroke="var(--warn)" stroke-width="1.6" marker-end="url(#ar6)"/>
+
+        <text x="490" y="248" text-anchor="middle" font-size="11" fill="var(--dim)">El dictamen de la Secretaría General no es una sentencia: es el requisito de admisibilidad que habilita a demandar.</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<!-- ══════════ 22 · DESACATO ══════════ -->
+<section class="slide" data-ch="IV · Incumplimiento" data-t="Desacato y sanciones">
+  <h2 class="h">Cuando el Estado no cumple la sentencia</h2>
+  <p class="sub">Aquí se juega la credibilidad del sistema. El Tribunal no tiene fuerza pública, pero sí puede autorizar que los demás países le retiren ventajas comerciales al Estado remiso.</p>
+  <div class="cols c2-wide">
+    <div class="panel">
+      <div class="h3">El procedimiento sumario</div>
+      <ol class="steps">
+        <li>Se abre de oficio o a solicitud del país interesado.</li>
+        <li>El Tribunal formula un <b>pliego de cargos</b> al País Miembro.</li>
+        <li>El Estado presenta <b>descargos</b> y puede aportar prueba de las medidas adoptadas.</li>
+        <li>Se solicita <b>opinión a la Secretaría General</b>.</li>
+        <li>El Tribunal determina si hay desacato y, por <b>auto</b>, fija las sanciones y sus límites.</li>
+      </ol>
+    </div>
+    <div>
+      <div class="panel deep" style="margin-bottom:.6rem">
+        <div class="h3">Qué sanciones son posibles</div>
+        <ul class="list">
+          <li>Suspensión o restricción de <b>ventajas del Acuerdo de Cartagena</b> al Estado incumplidor.</li>
+          <li>Limitación total o parcial de <b>preferencias arancelarias</b> en su comercio con los demás socios.</li>
+          <li>Otras medidas proporcionadas a la gravedad del incumplimiento.</li>
+        </ul>
+      </div>
+      <div class="callout ok"><b>Las sanciones se levantan</b> cuando el Tribunal verifica que el Estado ya adecuó su conducta. No son un castigo permanente, sino un instrumento para forzar el cumplimiento.</div>
+      <div class="callout" style="margin-top:.5rem"><b>Efecto reputacional.</b> Para un inversionista, un país con sentencias de incumplimiento sin ejecutar es un país con mayor riesgo regulatorio.</div>
+    </div>
+  </div>
+  <p class="note" style="margin-top:.7rem">Con este mecanismo ya claro, veamos un caso real donde estuvo en juego: el mismo que abrió la sesión.</p>
+</section>
+
+<!-- ══════════ 23 · CASO AI · hechos ══════════ -->
+<section class="slide" data-ch="IV · Incumplimiento" data-t="Caso · Perú c. Bolivia">
+  <h2 class="h">El caso de los combustibles</h2>
+  <div class="docket">
+    <span class="no">Proceso 02-AI-2020</span>
+    <span class="meta">República del Perú contra el Estado Plurinacional de Bolivia</span>
+    <span class="meta">Demanda: octubre de 2020</span>
+  </div>
+  <div class="cols c2-wide">
+    <div>
+      <div class="panel" style="margin-bottom:.6rem">
+        <div class="h3">Los hechos</div>
+        <p class="dim">La regulación boliviana de hidrocarburos establecía una <b>diferenciación de precios</b> en la venta de gasolina, diésel y gas licuado de petróleo. Un transportista que circulaba por Bolivia con <b>placa andina</b> —colombiana, ecuatoriana o peruana— pagaba un precio mayor que quien circulaba con placa boliviana, para el mismo servicio de transporte internacional de carga o pasajeros.</p>
+        <p class="note" style="margin-top:.4rem">Las normas cuestionadas: los artículos 1, 2, 3, 4 y 8 del Decreto Supremo 29814 (26 de noviembre de 2008) y el artículo 18 de la Ley 100 de Desarrollo y Seguridad Fronteriza (4 de abril de 2011).</p>
+      </div>
+      <div class="panel flat">
+        <div class="h3">Los principios invocados</div>
+        <div class="chips">
+          <span class="chip w">Trato nacional</span><span class="chip w">No discriminación</span><span class="chip w">Libre competencia</span>
+        </div>
+        <p class="dim" style="margin-top:.5rem">Perú fundó su demanda en la <b>Decisión 398</b> sobre transporte internacional de pasajeros por carretera, la <b>Decisión 837</b> sobre transporte internacional de mercancías, el <b>artículo 36</b> de la ley andina de libre competencia y el <b>artículo 4</b> del Tratado de Creación del Tribunal.</p>
+      </div>
+    </div>
+    <div class="figwrap">
+      <svg class="fig" viewBox="0 0 420 300" role="img" aria-label="Diferencia de precio del combustible según la placa del vehículo">
+        <g font-family="Archivo,sans-serif">
+          <text x="210" y="24" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--text)">Mismo surtidor, mismo litro</text>
+
+          <rect x="24" y="44" width="164" height="210" rx="12" fill="var(--ok-soft)" stroke="var(--ok)" stroke-width="1.4"/>
+          <rect x="52" y="70" width="108" height="42" rx="6" fill="var(--panel)" stroke="var(--ok)" stroke-width="1.2"/>
+          <text x="106" y="97" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ok)">PLACA</text>
+          <text x="106" y="134" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ok)">Boliviana</text>
+          <rect x="60" y="152" width="92" height="74" rx="6" fill="var(--panel)" stroke="var(--ok)" stroke-width="1"/>
+          <rect x="68" y="214" width="76" height="8" rx="3" fill="var(--ok)"/>
+          <rect x="68" y="196" width="60" height="8" rx="3" fill="var(--ok)" opacity=".7"/>
+          <rect x="68" y="178" width="44" height="8" rx="3" fill="var(--ok)" opacity=".45"/>
+          <text x="106" y="245" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--ok)">precio subsidiado</text>
+
+          <rect x="232" y="44" width="164" height="210" rx="12" fill="var(--warn-soft)" stroke="var(--warn)" stroke-width="1.4"/>
+          <rect x="260" y="70" width="108" height="42" rx="6" fill="var(--panel)" stroke="var(--warn)" stroke-width="1.2"/>
+          <text x="314" y="97" text-anchor="middle" font-size="14" font-weight="700" fill="var(--warn)">PLACA</text>
+          <text x="314" y="134" text-anchor="middle" font-size="13" font-weight="700" fill="var(--warn)">Andina</text>
+          <rect x="268" y="152" width="92" height="74" rx="6" fill="var(--panel)" stroke="var(--warn)" stroke-width="1"/>
+          <rect x="276" y="214" width="76" height="8" rx="3" fill="var(--warn)"/>
+          <rect x="276" y="196" width="76" height="8" rx="3" fill="var(--warn)"/>
+          <rect x="276" y="178" width="76" height="8" rx="3" fill="var(--warn)"/>
+          <rect x="276" y="160" width="60" height="8" rx="3" fill="var(--warn)" opacity=".7"/>
+          <text x="314" y="245" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--warn)">precio pleno</text>
+
+          <text x="210" y="278" text-anchor="middle" font-size="10.5" fill="var(--dim)">La diferencia no estaba en el producto,</text>
+          <text x="210" y="292" text-anchor="middle" font-size="10.5" fill="var(--dim)">sino en la nacionalidad de la placa.</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <p class="note" style="margin-top:.6rem">Bolivia no estaba sola: ese mismo año, Perú litigaba un caso casi idéntico contra Ecuador. Volvemos a eso más adelante.</p>
+</section>
+
+<!-- ══════════ 24 · CASO AI · la sentencia ══════════ -->
+<section class="slide" data-ch="IV · Incumplimiento" data-t="Caso · la sentencia">
+  <h2 class="h">Lo que decidió el Tribunal</h2>
+  <p class="sub">Del reclamo administrativo a la sentencia pasaron casi tres años. Esto fue lo que se resolvió, y lo que se esperaba que pasara después.</p>
+  <div class="cols c2-wide">
+    <div class="panel">
+      <div class="h3">Cronología hasta el fallo</div>
+      <ol class="steps">
+        <li><b>Agosto de 2020.</b> La Secretaría General emite dictamen: declara a Bolivia en situación de incumplimiento.</li>
+        <li><b>Octubre de 2020.</b> Perú presenta la demanda ante el Tribunal.</li>
+        <li><b>28 de noviembre de 2022, y 3 y 17 de julio de 2023.</b> Sesiones judiciales en que se aprueba la sentencia.</li>
+        <li><b>18 de julio de 2023.</b> Se publica en la Gaceta Oficial del Acuerdo de Cartagena N.º 5250. El Tribunal declara <b>fundada</b> la demanda.</li>
+        <li>Se ordena a Bolivia adoptar las medidas necesarias para <b>cesar la conducta</b>, en un plazo máximo de <b>90 días</b> desde la publicación —es decir, hacia mediados de octubre de 2023.</li>
+      </ol>
+    </div>
+    <div>
+      <div class="panel deep" style="margin-bottom:.6rem">
+        <div class="h3">Lo que la prensa anticipaba</div>
+        <p class="dim">La cobertura del fallo asumió que Bolivia tendría que extender su <b>precio subsidiado</b> también a los transportistas extranjeros: que un boliviano y un peruano pagaran igual, pero al precio interno más bajo.</p>
+        <p class="note" style="margin-top:.4rem">La sentencia no dice cuál de los dos precios debe igualarse, solo que debe dejar de haber diferencia. Esa ambigüedad le dio a Bolivia un margen de maniobra que resultó clave, como se ve en la próxima diapositiva.</p>
+      </div>
+      <div class="panel flat">
+        <div class="h3">Fricción política</div>
+        <p class="dim"><b>Noviembre de 2023.</b> El Parlamento Andino convoca a los magistrados del Tribunal por considerar insuficientes los argumentos del fallo. El plazo de 90 días ya había vencido sin una medida boliviana en firme.</p>
+        <div class="srcs">
+          <a class="src" href="https://www.tribunalandino.org.ec/Notas%20de%20prensa/03-2023_Proceso02-AI-2020_28_julio_2023_Peru_Bolivia_gasolina.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 3h7v7M21 3l-9 9M19 14v6H5V5h6"/></svg>Nota de prensa 03-2023/TJCA</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 25 · CASO AI · Bolivia cumple ══════════ -->
+<section class="slide" data-ch="IV · Incumplimiento" data-t="Caso · Bolivia cumple">
+  <h2 class="h">Bolivia cumple: el Decreto Supremo 5106</h2>
+  <p class="sub">Tres meses después de vencido el plazo formal, y en medio de la presión del Parlamento Andino, Bolivia encontró una salida más barata que la que todos esperaban.</p>
+  <div class="docket">
+    <span class="no">Decreto Supremo N.º 5106</span>
+    <span class="meta">18 de enero de 2024</span>
+    <span class="meta">Presidente Luis Arce Catacora</span>
+  </div>
+  <div class="cols c2-wide">
+    <div>
+      <div class="panel" style="margin-bottom:.6rem">
+        <div class="h3">La solución elegida</div>
+        <p class="dim">En vez de extender el precio subsidiado a los extranjeros, el decreto dispuso que la venta de combustibles líquidos para el <b>transporte internacional de pasajeros y de carga</b> por carretera —registrado en el marco andino— se cobre según el <b>precio internacional</b> que fija la Agencia Nacional de Hidrocarburos, sin importar si la placa es boliviana o extranjera.</p>
+        <p class="note" style="margin-top:.4rem">Es decir: no bajó el precio para los extranjeros, subió el precio para ese segmento completo, bolivianos incluidos. La igualdad de trato se logró hacia arriba, no hacia abajo.</p>
+      </div>
+      <div class="panel flat">
+        <div class="h3">Por qué fue una salida inteligente</div>
+        <p class="dim">El propio decreto aclara que su aplicación <b>no representa recursos adicionales</b> del Tesoro General de la Nación. Al no ampliar el subsidio a nadie, Bolivia cumplió con el Derecho Andino sin el costo fiscal que sí asumió Ecuador con la misma sentencia —lo vemos en la próxima diapositiva.</p>
+      </div>
+    </div>
+    <div>
+      <div class="panel deep" style="margin-bottom:.6rem">
+        <div class="h3">El aviso formal al Tribunal</div>
+        <p class="dim">El Procurador General del Estado, César Siles, remitió una nota al TJCA informando el cumplimiento de la sentencia de julio de 2023. El Estado boliviano sostuvo que la medida cumplía estrictamente lo ordenado: los transportistas con placa extranjera dejarían de pagar más que los de placa boliviana.</p>
+      </div>
+      <div class="callout"><b>Un detalle constitucional.</b> El propio decreto invoca el artículo 410.II de la Constitución boliviana: el «bloque de constitucionalidad» incorpora, junto a los tratados de derechos humanos, las normas de Derecho Comunitario ratificadas por el país. El Derecho Andino no se presenta como una imposición externa, sino como derecho propio de rango constitucional.</div>
+      <div class="srcs" style="margin-top:.6rem">
+        <a class="src" href="https://www.lexivox.org/norms/BO-DS-N5106.xhtml" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 3h7v7M21 3l-9 9M19 14v6H5V5h6"/></svg>Texto del Decreto Supremo 5106</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 26 · CASO PARALELO ECUADOR ══════════ -->
+<section class="slide" data-ch="IV · Incumplimiento" data-t="Caso paralelo · Ecuador">
+  <h2 class="h">Un patrón regional, no un caso aislado</h2>
+  <p class="sub">Perú litigó, casi en paralelo, el mismo problema contra Ecuador. La violación fue idéntica. La forma de resolverla, no.</p>
+  <div class="docket">
+    <span class="no">Proceso 05-AI-2021</span>
+    <span class="meta">República del Perú contra la República del Ecuador</span>
+    <span class="meta">Sentencia: Gaceta 5237 · 4 de julio de 2023</span>
+  </div>
+  <div class="cols c2">
+    <div class="panel">
+      <div class="h3">La misma lógica, otro país</div>
+      <p class="dim">La regulación ecuatoriana de hidrocarburos —Decreto Ejecutivo 338 de 2005 y sus modificatorias, Decreto Ejecutivo 231 de 2021 y una resolución de ARCH— hacía que los transportistas con placa extranjera (boliviana, colombiana o peruana) pagaran más que los de placa ecuatoriana. El Tribunal declaró fundada la demanda por vulnerar los mismos principios: trato nacional, no discriminación y libre competencia.</p>
+      <p class="note" style="margin-top:.5rem">Según cifras del Ministerio de Transportes de Perú, de cada 100 vehículos que hacían transporte internacional con Ecuador, 60 tenían placa ecuatoriana y 40 placa peruana; con Bolivia, la proporción era de 93 a 7. La distorsión de precios empujaba a los camioneros peruanos fuera del mercado.</p>
+      <div class="srcs" style="margin-top:.5rem">
+        <a class="src" href="https://andina.pe/agencia/noticia-comunidad-andina-emite-sentencias-benefician-a-transportistas-carga-del-peru-948343.aspx" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 3h7v7M21 3l-9 9M19 14v6H5V5h6"/></svg>Cifras del MTC · Agencia Andina</a>
+      </div>
+    </div>
+    <div class="panel deep">
+      <div class="h3">Ecuador eligió el camino contrario</div>
+      <p class="dim">El presidente Daniel Noboa firmó, el 30 de enero de 2024 —apenas doce días después del decreto boliviano—, un decreto ejecutivo que ordena vender diésel y gasolinas a los vehículos de carga con placa internacional al <b>mismo precio subsidiado</b> que pagan los vehículos ecuatorianos.</p>
+      <p class="note" style="margin-top:.4rem">Aquí sí hubo costo fiscal: el Estado ecuatoriano pasó a subsidiar también el combustible de los transportistas extranjeros.</p>
+      <div class="srcs" style="margin-top:.5rem">
+        <a class="src" href="https://primicias.ec/noticias/economia/subsidio-combustible-diesel-ecuador-peru-fallo-can" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 3h7v7M21 3l-9 9M19 14v6H5V5h6"/></svg>Decreto de Ecuador · Primicias</a>
+      </div>
+    </div>
+  </div>
+  <div class="panel tbl-scroll" style="margin-top:.7rem">
+    <table>
+      <thead><tr><th>País</th><th>Mecanismo elegido</th><th>Quién asume el ajuste</th></tr></thead>
+      <tbody>
+        <tr><td>Bolivia · DS 5106</td><td>Sube el precio a «internacional» para todos en ese segmento</td><td>Nadie recibe subsidio nuevo — costo fiscal neutro</td></tr>
+        <tr><td>Ecuador · Decreto Ejecutivo</td><td>Extiende el precio subsidiado a las placas extranjeras</td><td>El Tesoro ecuatoriano — mayor gasto en subsidios</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note" style="margin-top:.5rem">La sentencia solo exige igualdad de trato; no dice a qué nivel de precio. Cada país resolvió la misma orden judicial con una política fiscal distinta.</p>
+</section>
+
+<!-- ══════════ 27 · CONTRAFACTUAL ══════════ -->
+<section class="slide" data-ch="IV · Incumplimiento" data-t="Caso · contrafactual">
+  <h2 class="h">¿Y si Bolivia no lo resolvía?</h2>
+  <p class="sub">Bolivia cumplió, aunque tarde. Vale la pena preguntarse qué habría pasado si el Decreto Supremo 5106 nunca hubiera llegado.</p>
+  <div class="cols c2">
+    <div class="panel">
+      <div class="h3" style="color:var(--ok)">Lo que ocurrió</div>
+      <ol class="steps">
+        <li>Sentencia en julio de 2023, con 90 días de plazo.</li>
+        <li>El plazo vence en octubre sin medida boliviana.</li>
+        <li>Fricción política en noviembre —el Parlamento Andino cuestiona el fallo.</li>
+        <li>En enero de 2024, Bolivia notifica cumplimiento con el DS 5106.</li>
+        <li>El desacato nunca llega a abrirse.</li>
+      </ol>
+    </div>
+    <div class="panel">
+      <div class="h3" style="color:var(--warn)">Lo que pudo ocurrir</div>
+      <ol class="steps">
+        <li>Perú, o la Secretaría General, solicita abrir el <b>procedimiento sumario por desacato</b> descrito en la diapositiva anterior.</li>
+        <li>Bolivia recibe un pliego de cargos y presenta sus descargos.</li>
+        <li>El Tribunal, verificado el desacato, autoriza sanciones comerciales.</li>
+        <li>En concreto: Bolivia podía perder las <b>preferencias arancelarias andinas</b> para sus exportaciones a Colombia, Ecuador y Perú.</li>
+        <li>Sus propios exportadores —minería, soya, textiles— habrían pagado el costo de un litigio sobre combustibles.</li>
+      </ol>
+    </div>
+  </div>
+  <div class="panel deep" style="margin-top:.8rem">
+    <div class="h3">Una salvedad que vale la pena conocer</div>
+    <p class="dim">La literatura académica sobre el sistema andino señala una debilidad real: aunque el Tribunal autorice sanciones, aplicarlas depende de que el <b>país ganador</b> decida activarlas. Si no lo hace —por conveniencia diplomática o comercial propia— el incumplimiento queda sin consecuencia práctica, lo que un estudio describe como un «doble incumplimiento»: el del Estado que no corrige, y el del Estado que no exige que se le sancione.</p>
+    <div class="srcs" style="margin-top:.5rem">
+      <a class="src" href="https://www.redalyc.org/pdf/4027/402740627008.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 3h7v7M21 3l-9 9M19 14v6H5V5h6"/></svg>El sistema de sanciones por incumplimiento en la CAN</a>
+    </div>
+  </div>
+  <div class="callout" style="margin-top:.7rem"><b>La lección para quien piensa en riesgo regulatorio:</b> la amenaza de sanciones comerciales, más la obligación constitucional interna, bastaron para que Bolivia —y Ecuador— cumplieran sin que el mecanismo más duro del sistema tuviera que probarse.</div>
+</section>
+
+<!-- ══════════ 28 · LÍNEA DE TIEMPO DEL CASO ══════════ -->
+<section class="slide" data-ch="IV · Incumplimiento" data-t="Caso · línea de tiempo">
+  <h2 class="h">Todo el caso, en una sola línea</h2>
+  <p class="sub">De la demanda a la cita en un decreto de otro gobierno, seis años después.</p>
+  <div class="figwrap">
+    <svg class="fig" viewBox="0 0 1000 250" role="img" aria-label="Línea de tiempo del caso de los combustibles, 2020 a 2026">
+      <line x1="40" y1="130" x2="960" y2="130" stroke="var(--line)" stroke-width="2"/>
+      <line x1="40" y1="130" x2="960" y2="130" stroke="var(--accent)" stroke-width="2" stroke-dasharray="2 9" opacity=".8"/>
+
+      <g font-family="Archivo,sans-serif">
+        <circle cx="80" cy="130" r="6" fill="var(--panel)" stroke="var(--accent)" stroke-width="2.4"/>
+        <text x="80" y="106" text-anchor="middle" font-size="13.5" font-weight="700" fill="var(--accent)">Ago 2020</text>
+        <text x="80" y="156" text-anchor="middle" font-size="10.5" fill="var(--text)">La SG declara</text>
+        <text x="80" y="169" text-anchor="middle" font-size="10.5" fill="var(--text)">a Bolivia en falta</text>
+
+        <circle cx="220" cy="130" r="6" fill="var(--panel)" stroke="var(--accent)" stroke-width="2.4"/>
+        <text x="220" y="106" text-anchor="middle" font-size="13.5" font-weight="700" fill="var(--accent)">Oct 2020</text>
+        <text x="220" y="156" text-anchor="middle" font-size="10.5" fill="var(--text)">Perú demanda</text>
+        <text x="220" y="169" text-anchor="middle" font-size="10.5" fill="var(--text)">ante el Tribunal</text>
+
+        <circle cx="410" cy="130" r="8" fill="var(--accent)"/>
+        <text x="410" y="106" text-anchor="middle" font-size="13.5" font-weight="700" fill="var(--accent)">Jul 2023</text>
+        <text x="410" y="156" text-anchor="middle" font-size="10.5" font-weight="600" fill="var(--text)">Sentencia fundada</text>
+        <text x="410" y="169" text-anchor="middle" font-size="10.5" fill="var(--text)">90 días de plazo</text>
+        <text x="410" y="182" text-anchor="middle" font-size="9.5" fill="var(--dim)">(gemela contra Ecuador, mismo mes)</text>
+
+        <circle cx="570" cy="130" r="6" fill="var(--panel)" stroke="var(--warn)" stroke-width="2.4"/>
+        <text x="570" y="106" text-anchor="middle" font-size="13.5" font-weight="700" fill="var(--warn)">Nov 2023</text>
+        <text x="570" y="156" text-anchor="middle" font-size="10.5" fill="var(--text)">Fricción política</text>
+        <text x="570" y="169" text-anchor="middle" font-size="10.5" fill="var(--text)">Parlamento Andino</text>
+
+        <circle cx="740" cy="130" r="8" fill="var(--ok)"/>
+        <text x="740" y="106" text-anchor="middle" font-size="13.5" font-weight="700" fill="var(--ok)">Ene 2024</text>
+        <text x="740" y="156" text-anchor="middle" font-size="10.5" font-weight="600" fill="var(--text)">DS 5106</text>
+        <text x="740" y="169" text-anchor="middle" font-size="10.5" fill="var(--text)">Bolivia cumple</text>
+        <text x="740" y="182" text-anchor="middle" font-size="9.5" fill="var(--dim)">se notifica al TJCA</text>
+
+        <circle cx="910" cy="130" r="6" fill="var(--panel)" stroke="var(--accent)" stroke-width="2.4"/>
+        <text x="910" y="106" text-anchor="middle" font-size="13.5" font-weight="700" fill="var(--accent)">Ene 2026</text>
+        <text x="910" y="156" text-anchor="middle" font-size="10.5" fill="var(--text)">DS 5516 cita la</text>
+        <text x="910" y="169" text-anchor="middle" font-size="10.5" fill="var(--text)">sentencia como</text>
+        <text x="910" y="182" text-anchor="middle" font-size="10.5" fill="var(--text)">antecedente</text>
+      </g>
+    </svg>
+    <figcaption>El expediente se cerró en enero de 2024. Lo que sigue apareciendo en 2026 no es el mismo litigio, sino su huella: un nuevo gobierno, al rediseñar los precios de los combustibles por una crisis distinta, sigue citando esta sentencia como parte del marco legal que debe respetar.</figcaption>
+  </div>
+  <div class="panel deep" style="margin-top:.7rem">
+    <div class="h3">El cierre correcto de la historia</div>
+    <p class="dim">En enero de 2026, ya bajo la presidencia de Rodrigo Paz Pereira —quien asumió en noviembre de 2025 tras dos décadas de gobiernos del MAS—, Bolivia eliminó el subsidio general a los combustibles como parte de un paquete más amplio de estabilización económica (Decreto Supremo 5516), fijando la gasolina especial en Bs 6,96 por litro. Ese decreto vuelve a citar la sentencia del proceso 02-AI-2020 entre sus antecedentes legales, no porque Bolivia siguiera incumpliendo —ya había cumplido dos años antes— sino porque la obligación de no discriminar por placa sigue siendo parte del marco que cualquier reforma de precios debe respetar.</p>
+    <div class="srcs" style="margin-top:.5rem">
+      <a class="src" href="https://www.derechoteca.com/gacetabolivia/decreto-supremo-no-5516-del-13-de-enero-de-2026" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 3h7v7M21 3l-9 9M19 14v6H5V5h6"/></svg>Decreto Supremo 5516 de Bolivia</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 29 · GUÍA DE DECISIÓN ══════════ -->
+<section class="slide" data-ch="V · Práctica" data-t="¿Qué acción corresponde?">
+  <h2 class="h">Ante un problema real, ¿qué acción se usa?</h2>
+  <p class="sub">Esta es la diapositiva para fotografiar. Todo lo anterior se resume en una pregunta: ¿qué es lo que está fallando?</p>
+  <div class="panel tbl-scroll">
+    <table>
+      <thead><tr><th>Lo que está fallando</th><th>Ejemplo</th><th>Acción</th><th>Quién la inicia</th></tr></thead>
+      <tbody>
+        <tr><td>La norma andina misma</td><td>Una Decisión excede lo que el Acuerdo de Cartagena permite regular</td><td><span class="chip a">Nulidad</span></td><td>Países, órganos andinos y particulares afectados</td></tr>
+        <tr><td>La conducta de un Estado</td><td>Un decreto nacional discrimina a transportistas de otro País Miembro</td><td><span class="chip w">Incumplimiento</span></td><td>Secretaría General, otro país, particular afectado</td></tr>
+        <tr><td>El sentido de la norma en un juicio</td><td>Un juez no sabe cómo aplicar la Decisión 486 a dos marcas parecidas</td><td><span class="chip i">Interpretación prejudicial</span></td><td>El juez nacional del caso</td></tr>
+        <tr><td>La inacción de un órgano andino</td><td>La Comisión no dicta el reglamento que una Decisión le ordena</td><td><span class="chip">Recurso por omisión</span></td><td>Países, órganos y particulares afectados</td></tr>
+        <tr><td>Un contrato en el ámbito andino</td><td>Disputa sobre un convenio suscrito por un órgano de la CAN</td><td><span class="chip">Función arbitral</span></td><td>Las partes que lo pactaron</td></tr>
+        <tr><td>Una relación de trabajo con la CAN</td><td>Despido de un funcionario de la Secretaría General</td><td><span class="chip">Acción laboral</span></td><td>El funcionario o empleado</td></tr>
+        <tr><td>Una sentencia incumplida</td><td>Pasaron los 90 días y el Estado no corrigió nada</td><td><span class="chip w">Sumario por desacato</span></td><td>De oficio o a pedido del país interesado</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="cols c3" style="margin-top:.8rem">
+    <div class="callout"><b>Si el problema es una norma andina</b>, se ataca la norma: nulidad.</div>
+    <div class="callout warn"><b>Si el problema es un Estado</b>, se ataca la conducta: incumplimiento.</div>
+    <div class="callout ok"><b>Si el problema es una duda</b>, se pregunta: interpretación prejudicial.</div>
+  </div>
+</section>
+
+<!-- ══════════ 30 · CIERRE ══════════ -->
+<section class="slide" data-ch="V · Práctica" data-t="Cierre y cuestionario">
+  <div class="cover" style="gap:.9rem">
+    <div class="kicker">Cierre de la sesión 5</div>
+    <h1 style="font-size:clamp(1.7rem,3.4vw + .4rem,3.2rem)">El Derecho Andino<br/>no es <i>decorativo</i></h1>
+    <p class="tagline">Se invoca ante jueces nacionales, cambia decretos, mueve precios y define condiciones de competencia en cuatro países. El caso de los combustibles lo muestra completo: la amenaza de sanciones y una obligación constitucional interna bastaron para que dos gobiernos, de signo distinto, terminaran cumpliendo.</p>
+    <div class="panel" style="max-width:640px;margin:0 auto;text-align:left">
+      <div class="h3">Cuestionario de la sesión</div>
+      <p class="dim" style="margin-bottom:.6rem">Responde después de terminar toda la sesión. Evalúa tipos de acción, legitimación activa, competencias del Tribunal y aplicación práctica en casos reales.</p>
+      <a class="btn main" href="https://forms.gle/togw9zFM8arrA3FP6" target="_blank" rel="noopener" style="border-bottom:0">Abrir el formulario</a>
+      <p class="note" style="margin-top:.6rem;word-break:break-all">https://forms.gle/togw9zFM8arrA3FP6</p>
+    </div>
+    <p class="note">Puedes volver a cualquier diapositiva con la tecla <kbd>I</kbd> o desde el índice, e imprimir la sesión completa con <kbd>Ctrl</kbd>+<kbd>P</kbd>.</p>
+  </div>
+</section>
+
+</div>
+</main>
+
+<!-- ══════════ CONTROLES ══════════ -->
+<footer class="controls">
+  <div class="nav">
+    <button class="btn" id="prev" disabled>Anterior</button>
+    <button class="btn main" id="next">Siguiente</button>
+  </div>
+  <div class="track"><div class="bar" id="bar"></div></div>
+  <button class="count" id="count" title="Abrir el índice"><b>1</b> / 30</button>
+  <span class="hint"><kbd>←</kbd> <kbd>→</kbd> navegar · <kbd>I</kbd> índice · <kbd>F</kbd> pantalla · <kbd>T</kbd> tema</span>
+</footer>
+
+<!-- ══════════ ÍNDICE ══════════ -->
+<div class="overlay" id="overlay" role="dialog" aria-label="Índice de diapositivas">
+  <h3>Índice de la sesión</h3>
+  <p class="note">Haz clic en cualquier diapositiva para ir a ella. Cierra con <kbd>Esc</kbd>.</p>
+  <div class="grid-idx" id="gridIdx"></div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+  var total  = slides.length;
+  var cur    = -1;
+  var prevB  = document.getElementById("prev");
+  var nextB  = document.getElementById("next");
+  var bar    = document.getElementById("bar");
+  var count  = document.getElementById("count");
+  var chEl   = document.getElementById("ch");
+  var overlay= document.getElementById("overlay");
+  var gridIdx= document.getElementById("gridIdx");
+
+  /* ---------- índice ---------- */
+  slides.forEach(function(s,i){
+    var b = document.createElement("button");
+    b.className = "idx";
+    b.innerHTML = '<span class="n">'+String(i+1).padStart(2,"0")+'</span>'+
+                  '<span class="t"></span><span class="c"></span>';
+    b.querySelector(".t").textContent = s.dataset.t || ("Diapositiva "+(i+1));
+    b.querySelector(".c").textContent = s.dataset.ch || "";
+    b.addEventListener("click", function(){ go(i); closeIdx(); });
+    gridIdx.appendChild(b);
+  });
+  var idxBtns = Array.prototype.slice.call(gridIdx.children);
+
+  /* ---------- agenda ---------- */
+  var agenda = document.getElementById("agenda");
+  if (agenda){
+    var groups = [], map = {};
+    slides.forEach(function(s,i){
+      var ch = s.dataset.ch || "";
+      if (ch === "Portada") return;
+      if (!map[ch]){ map[ch] = {name:ch, items:[]}; groups.push(map[ch]); }
+      map[ch].items.push({i:i, t:s.dataset.t});
+    });
+    groups.forEach(function(g){
+      var parts = g.name.split(" · ");
+      var box = document.createElement("div");
+      box.className = "ag-group" + (g.items.length > 7 ? " span2" : "");
+      var ol = document.createElement("ol");
+      g.items.forEach(function(it){
+        var li = document.createElement("li");
+        var b = document.createElement("button");
+        b.innerHTML = '<span>'+String(it.i+1).padStart(2,"0")+'</span>';
+        b.appendChild(document.createTextNode(it.t));
+        b.addEventListener("click", function(){ go(it.i); });
+        li.appendChild(b); ol.appendChild(li);
+      });
+      box.innerHTML = '<div class="n">'+(parts[0]||"")+'</div><h4>'+(parts[1]||g.name)+'</h4>';
+      box.appendChild(ol);
+      agenda.appendChild(box);
+    });
+  }
+
+  /* ---------- navegación ---------- */
+  function go(n){
+    n = Math.max(0, Math.min(total-1, n));
+    if (n === cur) return;
+    cur = n;
+    slides.forEach(function(s,i){ s.classList.toggle("on", i===cur); });
+    slides[cur].scrollTop = 0;
+    prevB.disabled = cur === 0;
+    nextB.disabled = cur === total-1;
+    bar.style.width = (((cur+1)/total)*100) + "%";
+    count.innerHTML = "<b>"+(cur+1)+"</b> / "+total;
+    chEl.textContent = slides[cur].dataset.ch || "";
+    idxBtns.forEach(function(b,i){ b.classList.toggle("cur", i===cur); });
+    if (history.replaceState) history.replaceState(null,"","#"+(cur+1));
+  }
+  prevB.addEventListener("click", function(){ go(cur-1); });
+  nextB.addEventListener("click", function(){ go(cur+1); });
+
+  /* ---------- índice abrir/cerrar ---------- */
+  function openIdx(){ overlay.classList.add("on"); }
+  function closeIdx(){ overlay.classList.remove("on"); }
+  function toggleIdx(){ overlay.classList.contains("on") ? closeIdx() : openIdx(); }
+  document.getElementById("t-index").addEventListener("click", toggleIdx);
+  count.addEventListener("click", toggleIdx);
+  overlay.addEventListener("click", function(e){ if (e.target === overlay) closeIdx(); });
+
+  /* ---------- pantalla completa ---------- */
+  document.getElementById("t-full").addEventListener("click", function(){
+    if (!document.fullscreenElement){
+      if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+    } else if (document.exitFullscreen) { document.exitFullscreen(); }
+  });
+
+  /* ---------- tema ---------- */
+  var root = document.documentElement;
+  try { var saved = localStorage.getItem("tjca-theme"); if (saved) root.setAttribute("data-theme", saved); } catch(e){}
+  document.getElementById("t-theme").addEventListener("click", function(){
+    var t = root.getAttribute("data-theme") === "light" ? "dark" : "light";
+    root.setAttribute("data-theme", t);
+    try { localStorage.setItem("tjca-theme", t); } catch(e){}
+  });
+
+  /* ---------- teclado ---------- */
+  document.addEventListener("keydown", function(e){
+    if (e.target && /^(INPUT|TEXTAREA)$/.test(e.target.tagName)) return;
+    var k = e.key;
+    if (k === "Escape"){ closeIdx(); return; }
+    if (k === "ArrowRight" || k === "PageDown" || k === " "){ e.preventDefault(); go(cur+1); }
+    else if (k === "ArrowLeft" || k === "PageUp"){ e.preventDefault(); go(cur-1); }
+    else if (k === "Home"){ e.preventDefault(); go(0); }
+    else if (k === "End"){ e.preventDefault(); go(total-1); }
+    else if (k === "i" || k === "I"){ toggleIdx(); }
+    else if (k === "t" || k === "T"){ document.getElementById("t-theme").click(); }
+    else if (k === "f" || k === "F"){ document.getElementById("t-full").click(); }
+  });
+
+  /* ---------- gestos ---------- */
+  var x0 = null, y0 = null;
+  document.querySelector(".stage").addEventListener("touchstart", function(e){
+    x0 = e.touches[0].clientX; y0 = e.touches[0].clientY;
+  }, {passive:true});
+  document.querySelector(".stage").addEventListener("touchend", function(e){
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    var dy = e.changedTouches[0].clientY - y0;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)*1.6) go(dx < 0 ? cur+1 : cur-1);
+    x0 = null; y0 = null;
+  }, {passive:true});
+
+  /* ---------- arranque ---------- */
+  var h = parseInt((location.hash||"").replace("#",""), 10);
+  go(isNaN(h) ? 0 : h-1);
+})();
+</script>
+</body>
+</html>
